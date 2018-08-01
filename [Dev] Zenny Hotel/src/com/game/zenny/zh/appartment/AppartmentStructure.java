@@ -67,7 +67,6 @@ public class AppartmentStructure {
 		cx = cx * App.getSprites().ground.getWidth();
 		cx = cx - (y + x) * wd;
 		cx = cx - 2 * x;
-		cx = cx - wd;
 
 		return cx;
 	}
@@ -84,7 +83,7 @@ public class AppartmentStructure {
 		cy = cy * App.getSprites().ground.getHeight();
 		cy = cy + x * hd;
 		cy = cy - y * hd;
-		cy = cy - x - hd;
+		cy = cy - x;
 
 		return cy;
 	}

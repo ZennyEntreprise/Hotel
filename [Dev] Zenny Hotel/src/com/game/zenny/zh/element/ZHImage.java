@@ -21,14 +21,14 @@ public class ZHImage extends Image {
 	 * @return render x
 	 */
 	public float getRenderX(float x) {
-		return App.WINDOW_WIDTH / 2 - Camera.getRealX() + x;
+		return App.WINDOW_WIDTH / 2 - Camera.getRealX() + x - this.getWidth() / 2;
 	}
 
 	/**
 	 * @return render y
 	 */
 	public float getRenderY(float y) {
-		return App.WINDOW_HEIGHT / 2 - Camera.getRealY() + y;
+		return App.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - this.getHeight() / 2;
 	}
 
 	public void draw() {

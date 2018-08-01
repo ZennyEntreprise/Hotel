@@ -198,29 +198,27 @@ public class AppartmentGroundCell {
 			return;
 
 		ZHImage ground = App.getSprites().ground;
-		float wd = ground.getWidth() / 2 - 1;
-		float hd = ground.getHeight() / 2 + 1;
 
 		if (ground.drawable(cellCooridnates.getX(), cellCooridnates.getY())) {
 			ground.draw(cellCooridnates.getX(), cellCooridnates.getY(), color);
 
 			if (selected) {
 				App.getSprites().groundSelection.draw(cellCooridnates.getX() + 5, cellCooridnates.getY() + 3);
-				g.drawString("Selected cell: X: "+x+" Y: "+y, 10, 90);
+				g.drawString("Selected cell: X: " + x + " Y: " + y, 10, 90);
 			}
-			
-			if (x == 0 && y == 0) {
-				ZHImage character = App.getSprites().character;
-				character.draw(Math.round(cellCooridnates.getX() - character.getWidth() / 2 + wd), Math.round(cellCooridnates.getY() - character.getHeight() + hd + hd / 2));
-			}
+
 		}
 
+		ZHImage groundThicknessTLImage = App.getSprites().groundThicknessTL;
 		if (groundThicknessTL)
-			App.getSprites().groundThicknessTL.draw(cellCooridnates.getX(), cellCooridnates.getY() + hd, color);
+			groundThicknessTLImage.draw(
+					cellCooridnates.getX() + groundThicknessTLImage.getWidth() / 2 - ground.getWidth() / 2,
+					cellCooridnates.getY() + groundThicknessTLImage.getHeight() / 2, color);
 
+		ZHImage groundThicknessBLImage = App.getSprites().groundThicknessBL;
 		if (groundThicknessBL)
-			App.getSprites().groundThicknessBL.draw(cellCooridnates.getX() + wd + 1, cellCooridnates.getY() + hd,
-					color);
+			groundThicknessBLImage.draw(cellCooridnates.getX() + groundThicknessTLImage.getWidth() / 2,
+					cellCooridnates.getY() + groundThicknessTLImage.getHeight() / 2, color);
 	}
 
 	/**
@@ -230,19 +228,37 @@ public class AppartmentGroundCell {
 	 */
 	public void update(GameContainer gc, StateBasedGame sbg, int delta, Point cellCooridnates) {
 		float swd = App.getSprites().ground.getWidth() / 2 - 2;
-		float shd =App.getSprites().ground.getHeight() / 2;
-		
-		double d = ZennyMath.distance(cellCooridnates.getX() + swd, cellCooridnates.getY() + shd,
-				ZennyMouse.getMapX(), ZennyMouse.getMapY());
-		
-		if (d < swd 
-			&& ZennyMath.distance(ZennyMouse.getMapY(),cellCooridnates.getY() + shd) < 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd) + shd
-			&& ZennyMath.distance(ZennyMouse.getMapY(),cellCooridnates.getY() + shd) < -0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd) + shd
-			&& ZennyMath.distance(ZennyMouse.getMapY(),cellCooridnates.getY() + shd) > -0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd) - shd
-			&& ZennyMath.distance(ZennyMouse.getMapY(),cellCooridnates.getY() + shd) > 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd) - shd)
-		{
+		float shd = App.getSprites().ground.getHeight() / 2;
+
+		double d = ZennyMath.distance(cellCooridnates.getX() + swd, cellCooridnates.getY() + shd, ZennyMouse.getMapX(),
+				ZennyMouse.getMapY());
+
+		if (d < swd
+				&& ZennyMath
+						.distance(ZennyMouse.getMapY(),
+								cellCooridnates.getY()
+										+ shd) < 0.5
+												* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
+												+ shd
+				&& ZennyMath
+						.distance(ZennyMouse.getMapY(),
+								cellCooridnates.getY()
+										+ shd) < -0.5
+												* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
+												+ shd
+				&& ZennyMath
+						.distance(ZennyMouse.getMapY(),
+								cellCooridnates.getY()
+										+ shd) > -0.5
+												* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
+												- shd
+				&& ZennyMath
+						.distance(ZennyMouse.getMapY(),
+								cellCooridnates.getY() + shd) > 0.5
+										* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
+										- shd) {
 			selected = true;
-			
+
 			if (Mouse.isButtonDown(0)) {
 				color = new Color(230, 126, 34);
 			}
