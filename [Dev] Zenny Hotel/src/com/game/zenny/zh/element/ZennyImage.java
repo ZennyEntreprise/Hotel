@@ -7,13 +7,13 @@ import org.newdawn.slick.SlickException;
 import com.game.zenny.zh.App;
 import com.game.zenny.zh.Camera;
 
-public class ZHImage extends Image {
+public class ZennyImage extends Image {
 
 	/**
 	 * @param imagePath
 	 * @throws SlickException
 	 */
-	public ZHImage(String imagePath) throws SlickException {
+	public ZennyImage(String imagePath) throws SlickException {
 		super("res/sprites/" + imagePath + ".png");
 	}
 

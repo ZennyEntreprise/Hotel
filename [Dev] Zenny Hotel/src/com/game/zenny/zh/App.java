@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.element.Sprite;
+import com.game.zenny.zh.scene.Game;
 
 public class App extends StateBasedGame {
 

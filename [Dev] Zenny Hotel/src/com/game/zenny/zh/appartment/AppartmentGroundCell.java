@@ -8,7 +8,8 @@ import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.App;
-import com.game.zenny.zh.element.ZHImage;
+import com.game.zenny.zh.element.ZennyColor;
+import com.game.zenny.zh.element.ZennyImage;
 import com.game.zenny.zh.util.ZennyMath;
 import com.game.zenny.zh.util.ZennyMouse;
 
@@ -16,7 +17,7 @@ public class AppartmentGroundCell {
 
 	private int x, y;
 	private boolean activated;
-	private Color color = new Color(142, 68, 173);
+	private Color color;
 
 	private boolean groundThicknessTL;
 	private boolean groundThicknessBL;
@@ -33,6 +34,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = true;
+		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
 		this.groundThicknessTL = false;
 		this.groundThicknessBL = false;
 	}
@@ -47,6 +49,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = true;
+		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
 		this.groundThicknessTL = groundThicknessTL;
 		this.groundThicknessBL = groundThicknessBL;
 	}
@@ -60,6 +63,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = activated;
+		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
 		this.groundThicknessTL = false;
 		this.groundThicknessBL = false;
 	}
@@ -75,6 +79,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = activated;
+		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
 		this.groundThicknessTL = groundThicknessTL;
 		this.groundThicknessBL = groundThicknessBL;
 	}
@@ -137,6 +142,14 @@ public class AppartmentGroundCell {
 	 * @param color
 	 *            the color to set
 	 */
+	public void setColor(ZennyColor color) {
+		this.color = color.getColor();
+	}
+
+	/**
+	 * @param color
+	 *            the color to set
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
@@ -193,31 +206,31 @@ public class AppartmentGroundCell {
 	 * @param sbg
 	 * @param g
 	 */
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, Point cellCooridnates) {
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g, Point cellCoordinates) {
 		if (!activated)
 			return;
 
-		ZHImage ground = App.getSprites().ground;
+		float cx = cellCoordinates.getX();
+		float cy = cellCoordinates.getY();
 
-		if (ground.drawable(cellCooridnates.getX(), cellCooridnates.getY())) {
-			ground.draw(cellCooridnates.getX(), cellCooridnates.getY(), color);
+		ZennyImage ground = App.getSprites().ground;
+		if (ground.drawable(cx, cy)) {
+			ground.draw(cx, cy, color);
 
 			if (selected) {
-				App.getSprites().groundSelection.draw(cellCooridnates.getX(), cellCooridnates.getY());
+				App.getSprites().groundSelection.draw(cx, cy);
 			}
-
 		}
 
-		ZHImage groundThicknessTLImage = App.getSprites().groundThicknessTL;
+		ZennyImage groundThicknessTLImage = App.getSprites().groundThicknessTL;
 		if (groundThicknessTL)
-			groundThicknessTLImage.draw(
-					cellCooridnates.getX() + groundThicknessTLImage.getWidth() / 2 - ground.getWidth() / 2,
-					cellCooridnates.getY() + groundThicknessTLImage.getHeight() / 2, color);
+			groundThicknessTLImage.draw(cx + groundThicknessTLImage.getWidth() / 2 - ground.getWidth() / 2,
+					cy + groundThicknessTLImage.getHeight() / 2, color);
 
-		ZHImage groundThicknessBLImage = App.getSprites().groundThicknessBL;
+		ZennyImage groundThicknessBLImage = App.getSprites().groundThicknessBL;
 		if (groundThicknessBL)
-			groundThicknessBLImage.draw(cellCooridnates.getX() + groundThicknessTLImage.getWidth() / 2,
-					cellCooridnates.getY() + groundThicknessTLImage.getHeight() / 2, color);
+			groundThicknessBLImage.draw(cx + groundThicknessTLImage.getWidth() / 2,
+					cy + groundThicknessTLImage.getHeight() / 2, color);
 	}
 
 	/**
@@ -230,15 +243,25 @@ public class AppartmentGroundCell {
 				ZennyMouse.getMapY());
 
 		if (d < App.getSprites().ground.getWidth() / 2
-				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) < 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) + App.getSprites().ground.getHeight() / 2
-				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) > 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) - App.getSprites().ground.getHeight() / 2
-				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) < -0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) + App.getSprites().ground.getHeight() / 2
-				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) > -0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) - App.getSprites().ground.getHeight() / 2) {
-			
+				&& ZennyMath.distance(ZennyMouse.getMapY(),
+						cellCooridnates.getY()) < 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX())
+								+ App.getSprites().ground.getHeight() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(),
+						cellCooridnates.getY()) > 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX())
+								- App.getSprites().ground.getHeight() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(),
+						cellCooridnates.getY()) < -0.5
+								* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX())
+								+ App.getSprites().ground.getHeight() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(),
+						cellCooridnates.getY()) > -0.5
+								* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX())
+								- App.getSprites().ground.getHeight() / 2) {
+
 			selected = true;
 
 			if (Mouse.isButtonDown(0)) {
-				color = new Color(230, 126, 34);
+				color = color.darker(0.01f);
 			}
 		} else {
 			selected = false;
