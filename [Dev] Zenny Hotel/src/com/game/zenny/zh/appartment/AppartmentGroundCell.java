@@ -203,8 +203,7 @@ public class AppartmentGroundCell {
 			ground.draw(cellCooridnates.getX(), cellCooridnates.getY(), color);
 
 			if (selected) {
-				App.getSprites().groundSelection.draw(cellCooridnates.getX() + 5, cellCooridnates.getY() + 3);
-				g.drawString("Selected cell: X: " + x + " Y: " + y, 10, 90);
+				App.getSprites().groundSelection.draw(cellCooridnates.getX(), cellCooridnates.getY());
 			}
 
 		}
@@ -227,36 +226,15 @@ public class AppartmentGroundCell {
 	 * @param delta
 	 */
 	public void update(GameContainer gc, StateBasedGame sbg, int delta, Point cellCooridnates) {
-		float swd = App.getSprites().ground.getWidth() / 2 - 2;
-		float shd = App.getSprites().ground.getHeight() / 2;
-
-		double d = ZennyMath.distance(cellCooridnates.getX() + swd, cellCooridnates.getY() + shd, ZennyMouse.getMapX(),
+		double d = ZennyMath.distance(cellCooridnates.getX(), cellCooridnates.getY(), ZennyMouse.getMapX(),
 				ZennyMouse.getMapY());
 
-		if (d < swd
-				&& ZennyMath
-						.distance(ZennyMouse.getMapY(),
-								cellCooridnates.getY()
-										+ shd) < 0.5
-												* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
-												+ shd
-				&& ZennyMath
-						.distance(ZennyMouse.getMapY(),
-								cellCooridnates.getY()
-										+ shd) < -0.5
-												* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
-												+ shd
-				&& ZennyMath
-						.distance(ZennyMouse.getMapY(),
-								cellCooridnates.getY()
-										+ shd) > -0.5
-												* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
-												- shd
-				&& ZennyMath
-						.distance(ZennyMouse.getMapY(),
-								cellCooridnates.getY() + shd) > 0.5
-										* ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX() + swd)
-										- shd) {
+		if (d < App.getSprites().ground.getWidth() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) < 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) + App.getSprites().ground.getHeight() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) > 0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) - App.getSprites().ground.getHeight() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) < -0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) + App.getSprites().ground.getHeight() / 2
+				&& ZennyMath.distance(ZennyMouse.getMapY(), cellCooridnates.getY()) > -0.5 * ZennyMath.distance(ZennyMouse.getMapX(), cellCooridnates.getX()) - App.getSprites().ground.getHeight() / 2) {
+			
 			selected = true;
 
 			if (Mouse.isButtonDown(0)) {

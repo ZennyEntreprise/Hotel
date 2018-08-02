@@ -1,7 +1,6 @@
 package com.game.zenny.zh.appartment;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -54,10 +53,6 @@ public class Appartment {
 	 */
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		structure.render(gc, sbg, g);
-
-		g.setColor(Color.white);
-		g.drawString("Camera: X: " + Camera.getRealX() + " Y: " + Camera.getRealY(), 10, 50);
-		g.drawString("Mouse: X: " + ZennyMouse.getMapX() + " Y: " + ZennyMouse.getMapY(), 10, 70);
 	}
 	
 	/**
@@ -81,8 +76,8 @@ public class Appartment {
 				}
 			}
 			
-			Camera.subRelativeX(0.05f * ZennyMouse.getDX() * delta);
-			Camera.addRelativeY(0.05f * ZennyMouse.getDY() * delta);
+			Camera.subRelativeX(Math.round(0.05f * ZennyMouse.getDX() * delta));
+			Camera.addRelativeY(Math.round(0.05f * ZennyMouse.getDY() * delta));
 		} else {
 			if (hasMoved) {
 				if (rcm == null)

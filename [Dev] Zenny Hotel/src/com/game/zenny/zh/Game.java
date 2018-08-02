@@ -1,5 +1,6 @@
 package com.game.zenny.zh;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -10,6 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.game.zenny.zh.appartment.Appartment;
 import com.game.zenny.zh.appartment.AppartmentGroundCell;
 import com.game.zenny.zh.appartment.AppartmentStructure;
+import com.game.zenny.zh.util.ZennyMouse;
 
 public class Game implements GameState {
 
@@ -160,6 +162,12 @@ public class Game implements GameState {
 			g.drawLine(0, gc.getHeight() / 2, gc.getWidth(), gc.getHeight() / 2);
 			g.drawLine(gc.getWidth() / 2, 0, gc.getWidth() / 2, gc.getHeight());
 		}
+		
+		g.setColor(Color.white);
+		g.drawString("Camera: Real X: " + Camera.getRealX() + "       Real Y: " + Camera.getRealY(), 10, 50);
+		g.drawString("             X: " + Camera.getX() + "          Y: " + Camera.getY(), 10, 70);
+		g.drawString("    Relative X: " + Camera.getRelativeX() + " Relative Y: " + Camera.getRelativeY(), 10, 90);
+		g.drawString("Mouse: X: " + ZennyMouse.getMapX() + " Y: " + ZennyMouse.getMapY(), 10, 110);
 	}
 
 	@Override
