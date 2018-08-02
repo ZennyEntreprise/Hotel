@@ -7,6 +7,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.element.Sprite;
 import com.game.zenny.zh.scene.Game;
+import com.game.zenny.zh.scene.StartMenu;
 
 public class App extends StateBasedGame {
 
@@ -42,7 +43,7 @@ public class App extends StateBasedGame {
 	//// ENUM
 	// -- SCENES
 	public static enum Scene {
-		GAME(1);
+		GAME(1), START_MENU(2);
 		
 		private int sceneID;
 		
@@ -61,12 +62,14 @@ public class App extends StateBasedGame {
 		super("Zenny Hotel");
 		
 		addState(new Game());
+		addState(new StartMenu());
 	}
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		getState(App.Scene.GAME.getSceneID()).init(gc, this);
-		enterState(App.Scene.GAME.getSceneID());
+		getState(App.Scene.START_MENU.getSceneID()).init(gc, this);
+		enterState(App.Scene.START_MENU.getSceneID());
 	}
 
 }

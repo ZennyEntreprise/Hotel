@@ -7,6 +7,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.game.zenny.zh.element.ZennyColor;
+
 public abstract class Scene implements GameState {
 
 	private int sceneID;
@@ -168,8 +170,10 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		// RENDER GUI ELEMENTS
+		// TODO RENDER GUI ELEMENTS
 
+		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
+		
 		renderScene(gc, sbg, g);
 	}
 
@@ -189,7 +193,7 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		// UPDATE GUI ELEMENTS
+		// TODO UPDATE GUI ELEMENTS
 
 		updateScene(gc, sbg, delta);
 	}

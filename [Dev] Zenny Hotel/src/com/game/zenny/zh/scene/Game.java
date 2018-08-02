@@ -10,7 +10,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.game.zenny.zh.App;
 import com.game.zenny.zh.Camera;
 import com.game.zenny.zh.appartment.Appartment;
-import com.game.zenny.zh.element.ZennyColor;
 import com.game.zenny.zh.util.ZennyMouse;
 
 public class Game extends Scene {
@@ -35,8 +34,6 @@ public class Game extends Scene {
 
 	@Override
 	public void renderScene(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
-		
 		appartment.render(gc, sbg, g);
 		
 		if (debug) {
