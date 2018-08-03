@@ -1,8 +1,10 @@
-package com.game.zenny.zh.element;
+package com.game.zenny.zh.res;
 
 import org.newdawn.slick.SlickException;
 
-public class Sprite {
+import com.game.zenny.zh.util.ZennyImage;
+
+public class Sprites {
 
 	public ZennyImage ground;
 	public ZennyImage groundSelection;
@@ -10,7 +12,7 @@ public class Sprite {
 	public ZennyImage groundThicknessBL;
 	public ZennyImage character;
 	
-	public Sprite() throws SlickException {
+	public Sprites() throws SlickException {
 		ground = new ZennyImage("appartment/ground");
 		groundSelection = new ZennyImage("appartment/ground-selection");
 		groundThicknessTL = new ZennyImage("appartment/ground-thickness-tl");

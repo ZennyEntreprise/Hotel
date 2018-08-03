@@ -28,7 +28,6 @@ public class Game extends Scene {
 
 	@Override
 	public void leaveScene(GameContainer gc, StateBasedGame sbg) {
-		// TODO Auto-generated method stub
 		
 	}
 

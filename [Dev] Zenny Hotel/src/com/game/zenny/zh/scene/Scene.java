@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.element.ZennyColor;
+import com.game.zenny.zh.util.ZennyColor;
 
 public abstract class Scene implements GameState {
 
@@ -170,7 +170,7 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		// TODO RENDER GUI ELEMENTS
+		// TODO [HOTEL] RENDER GUI ELEMENTS
 
 		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
 		
@@ -193,7 +193,7 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		// TODO UPDATE GUI ELEMENTS
+		// TODO [HOTEL] UPDATE GUI ELEMENTS
 
 		updateScene(gc, sbg, delta);
 	}

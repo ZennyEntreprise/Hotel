@@ -8,8 +8,8 @@ import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.App;
-import com.game.zenny.zh.element.ZennyColor;
-import com.game.zenny.zh.element.ZennyImage;
+import com.game.zenny.zh.util.ZennyColor;
+import com.game.zenny.zh.util.ZennyImage;
 import com.game.zenny.zh.util.ZennyMath;
 import com.game.zenny.zh.util.ZennyMouse;
 

@@ -1,4 +1,4 @@
-package com.game.zenny.zh.element;
+package com.game.zenny.zh.util;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
