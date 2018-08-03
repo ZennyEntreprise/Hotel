@@ -6,16 +6,19 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.App;
+import com.game.zenny.zh.gui.Button;
 
 public class StartMenu extends Scene {
 
+	private Button connectButton;
+	
 	public StartMenu() {
 		super(App.Scene.START_MENU.getSceneID());
 	}
 
 	@Override
 	public void initScene(GameContainer gc, StateBasedGame sbg) {
-		
+		connectButton = new Button(this, 50, 50, 200, 50, "Wesh nigga");
 	}
 
 	@Override

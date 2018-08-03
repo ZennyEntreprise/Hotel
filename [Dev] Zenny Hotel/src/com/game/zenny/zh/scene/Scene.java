@@ -1,5 +1,7 @@
 package com.game.zenny.zh.scene;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -7,11 +9,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.game.zenny.zh.gui.Component;
 import com.game.zenny.zh.util.ZennyColor;
+import com.game.zenny.zh.util.ZennyMouse;
 
 public abstract class Scene implements GameState {
 
 	private int sceneID;
+	protected boolean initialized = false;
+	private ArrayList<Component> guiComponents = new ArrayList<Component>();
 
 	public Scene(int sceneID) {
 		this.sceneID = sceneID;
@@ -107,16 +113,14 @@ public abstract class Scene implements GameState {
 	}
 
 	@Override
-	public void enter(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-	}
-
-	@Override
 	public int getID() {
 		return sceneID;
 	}
 
-	protected boolean initialized = false;
-	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
+	}
+
 	/**
 	 * @param gc
 	 * @param sbg
@@ -134,7 +138,7 @@ public abstract class Scene implements GameState {
 			initialized = true;
 		else
 			return;
-		
+
 		initScene(gc, sbg);
 	}
 
@@ -158,7 +162,7 @@ public abstract class Scene implements GameState {
 	 * @param gc
 	 * @param sbg
 	 * @param g
-	 * @throws SlickException 
+	 * @throws SlickException
 	 */
 	public abstract void renderScene(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException;
 
@@ -170,10 +174,12 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		// TODO [HOTEL] RENDER GUI ELEMENTS
+		for (Component component : guiComponents)
+			component.renderComponent(gc, sbg, g);
 
+		g.setAntiAlias(true);
 		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
-		
+
 		renderScene(gc, sbg, g);
 	}
 
@@ -181,7 +187,7 @@ public abstract class Scene implements GameState {
 	 * @param gc
 	 * @param sbg
 	 * @param delta
-	 * @throws SlickException 
+	 * @throws SlickException
 	 */
 	public abstract void updateScene(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException;
 
@@ -193,9 +199,43 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		// TODO [HOTEL] UPDATE GUI ELEMENTS
+		Component focusedComponent = null;
+		
+		for (int i = guiComponents.size() - 1; i >= 0; i--) {
+			Component component = guiComponents.get(i);
+			if (ZennyMouse.getX() >= component.getX() 
+				&& ZennyMouse.getX() <= component.getX() + component.getWidth()
+				&& ZennyMouse.getY() >= component.getY() 
+				&& ZennyMouse.getY() <= component.getY() + component.getHeight()) {
+
+				if (focusedComponent == null) {
+					focusedComponent = component;
+					component.setFocused(true);
+				}
+			} else {
+				component.setFocused(false);
+			}
+		}
+
+		for (Component component : guiComponents)
+			component.updateComponent(gc, sbg, delta);
 
 		updateScene(gc, sbg, delta);
+	}
+
+	/**
+	 * @return the guiComponents
+	 */
+	public ArrayList<Component> getGuiComponents() {
+		return guiComponents;
+	}
+
+	/**
+	 * @param guiComponents
+	 *            the guiComponents to set
+	 */
+	public void setGuiComponents(ArrayList<Component> guiComponents) {
+		this.guiComponents = guiComponents;
 	}
 
 }

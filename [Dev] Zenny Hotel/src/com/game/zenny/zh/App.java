@@ -11,7 +11,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.res.Fonts;
 import com.game.zenny.zh.res.Sprites;
-import com.game.zenny.zh.scene.Game;
 import com.game.zenny.zh.scene.StartMenu;
 
 public class App extends StateBasedGame {
@@ -32,7 +31,6 @@ public class App extends StateBasedGame {
 		app.setVSync(true);
 		app.setAlwaysRender(true);
 		app.start();
-
 	}
 
 	/**
@@ -93,7 +91,6 @@ public class App extends StateBasedGame {
 	public App() {
 		super("Zenny Hotel");
 
-		addState(new Game());
 		addState(new StartMenu());
 	}
 

@@ -14,12 +14,12 @@ import com.game.zenny.zh.util.ZennyMouse;
 
 public class Game extends Scene {
 
+	private Appartment appartment;
+	private boolean debug = false;
+	
 	public Game() {
 		super(App.Scene.GAME.getSceneID());
 	}
-
-	private Appartment appartment;
-	private boolean debug = false;
 
 	@Override
 	public void initScene(GameContainer gc, StateBasedGame sbg) {

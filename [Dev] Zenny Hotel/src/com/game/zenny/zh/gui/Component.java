@@ -9,8 +9,12 @@ import com.game.zenny.zh.scene.Scene;
 public abstract class Component {
 
 	private Scene scene;
-	private float x, y, width, height;
-	private boolean focused;
+	protected float x;
+	protected float y;
+	protected float width;
+	protected float height;
+	protected boolean focused;
+	protected boolean clicked;
 
 	/**
 	 * @param scene
@@ -21,6 +25,7 @@ public abstract class Component {
 	 */
 	public Component(Scene scene, float x, float y, float width, float height) {
 		this.scene = scene;
+		this.scene.getGuiComponents().add(this);
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -38,6 +43,7 @@ public abstract class Component {
 	 */
 	public Component(Scene scene, float x, float y, float width, float height, boolean focused) {
 		this.scene = scene;
+		this.scene.getGuiComponents().add(this);
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -133,6 +139,21 @@ public abstract class Component {
 	 */
 	public void setFocused(boolean focused) {
 		this.focused = focused;
+	}
+
+	/**
+	 * @return the clicked
+	 */
+	public boolean isClicked() {
+		return clicked;
+	}
+
+	/**
+	 * @param clicked
+	 *            the clicked to set
+	 */
+	public void setClicked(boolean clicked) {
+		this.clicked = clicked;
 	}
 
 	/**
