@@ -19,35 +19,52 @@ public class Button extends Component {
 	private int cornerRadius;
 
 	private Color bColor, tColor;
-	
+
+	/**
+	 * @param scene
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param text
+	 */
 	public Button(Scene scene, float x, float y, float width, float height, String text) {
 		super(scene, x, y, width, height);
 
-		this.font = App.getFont(App.getFonts().OpenSans_BOLD, 28);
+		this.font = App.getFont(App.getFonts().OpenSans_BOLD, 23);
 		this.text = text;
 
 		this.textColor = ZennyColor.DEFAULT_TEXT_COLOR.getColor();
 		this.buttonHoverTextColor = ZennyColor.DEFAULT_TEXT_COLOR.getColor();
 		this.buttonClickTextColor = ZennyColor.DEFAULT_TEXT_COLOR.getColor();
 
-		this.buttonColor = ZennyColor.DEFAULT_BUTTON_COLOR.getColor();
-		this.buttonHoverColor = ZennyColor.DEFAULT_BUTTON_COLOR.getColor().darker(0.07f);
-		this.buttonClickColor = ZennyColor.DEFAULT_BUTTON_COLOR.getColor().darker(0.14f);
+		this.setButtonColorAutomatic(ZennyColor.DEFAULT_BUTTON_COLOR.getColor());
 
-		this.cornerRadius = 3;
-		
+		this.cornerRadius = 0;
+
 		this.bColor = buttonColor;
 		this.tColor = textColor;
 	}
 
+	/**
+	 * @param gc
+	 * @param sbg
+	 * @param g
+	 */
 	@Override
 	public void renderComponent(GameContainer gc, StateBasedGame sbg, Graphics g) {
 		g.setColor(bColor);
 		g.fillRoundRect(x, y, width, height, cornerRadius);
 
-		font.drawString(Math.round(x + (width - font.getWidth(text)) / 2), Math.round(y - 3 + (height - font.getHeight(text)) / 2), text, tColor);
+		font.drawString(Math.round(x + (width - font.getWidth(text)) / 2),
+				Math.round(y - 1 + (height - font.getHeight(text)) / 2), text, tColor);
 	}
 
+	/**
+	 * @param gc
+	 * @param sbg
+	 * @param delta
+	 */
 	@Override
 	public void updateComponent(GameContainer gc, StateBasedGame sbg, int delta) {
 		if (focused && clicked) {
@@ -150,6 +167,16 @@ public class Button extends Component {
 	 */
 	public void setButtonColor(Color buttonColor) {
 		this.buttonColor = buttonColor;
+	}
+
+	/**
+	 * @param buttonColor
+	 *            the buttonColor to set
+	 */
+	public void setButtonColorAutomatic(Color buttonColor) {
+		this.buttonColor = buttonColor;
+		this.buttonHoverColor = buttonColor.darker(0.07f);
+		this.buttonClickColor = buttonColor.darker(0.14f);
 	}
 
 	/**

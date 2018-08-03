@@ -15,6 +15,7 @@ public abstract class Component {
 	protected float height;
 	protected boolean focused;
 	protected boolean clicked;
+	private Runnable clickAction;
 
 	/**
 	 * @param scene
@@ -157,6 +158,21 @@ public abstract class Component {
 	}
 
 	/**
+	 * @return the clickAction
+	 */
+	public Runnable getClickAction() {
+		return clickAction;
+	}
+
+	/**
+	 * @param clickAction
+	 *            the clickAction to set
+	 */
+	public void setClickAction(Runnable clickAction) {
+		this.clickAction = clickAction;
+	}
+
+	/**
 	 * @param gc
 	 * @param sbg
 	 * @param g
@@ -169,4 +185,12 @@ public abstract class Component {
 	 * @param delta
 	 */
 	public abstract void updateComponent(GameContainer gc, StateBasedGame sbg, int delta);
+
+	/**
+	 * Run clickAction
+	 */
+	public void componentClickAction() {
+		if (clickAction != null)
+			clickAction.run();
+	}
 }

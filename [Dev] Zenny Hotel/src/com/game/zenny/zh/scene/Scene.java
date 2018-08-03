@@ -2,6 +2,7 @@ package com.game.zenny.zh.scene;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -9,17 +10,25 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.game.zenny.zh.App;
 import com.game.zenny.zh.gui.Component;
 import com.game.zenny.zh.util.ZennyColor;
 import com.game.zenny.zh.util.ZennyMouse;
 
 public abstract class Scene implements GameState {
 
+	private App app;
 	private int sceneID;
 	protected boolean initialized = false;
+	protected boolean leaved = false;
 	private ArrayList<Component> guiComponents = new ArrayList<Component>();
 
-	public Scene(int sceneID) {
+	/**
+	 * @param app
+	 * @param sceneID
+	 */
+	public Scene(App app, int sceneID) {
+		this.app = app;
 		this.sceneID = sceneID;
 	}
 
@@ -155,6 +164,11 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		if (!leaved) {
+			leaved = true;
+			return;
+		}
+
 		leaveScene(gc, sbg);
 	}
 
@@ -174,8 +188,9 @@ public abstract class Scene implements GameState {
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		for (Component component : guiComponents)
-			component.renderComponent(gc, sbg, g);
+		for (int i = guiComponents.size() - 1; i >= 0; i--)
+			guiComponents.get(i).renderComponent(gc, sbg, g);
+		;
 
 		g.setAntiAlias(true);
 		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
@@ -191,6 +206,8 @@ public abstract class Scene implements GameState {
 	 */
 	public abstract void updateScene(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException;
 
+	private boolean componentClicked = false;
+
 	/**
 	 * @param gc
 	 * @param sbg
@@ -200,27 +217,56 @@ public abstract class Scene implements GameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		Component focusedComponent = null;
-		
-		for (int i = guiComponents.size() - 1; i >= 0; i--) {
+
+		for (int i = 0; i < guiComponents.size(); i++) {
 			Component component = guiComponents.get(i);
-			if (ZennyMouse.getX() >= component.getX() 
-				&& ZennyMouse.getX() <= component.getX() + component.getWidth()
-				&& ZennyMouse.getY() >= component.getY() 
-				&& ZennyMouse.getY() <= component.getY() + component.getHeight()) {
+			if (ZennyMouse.getX() >= component.getX() && ZennyMouse.getX() <= component.getX() + component.getWidth()
+					&& ZennyMouse.getY() >= component.getY()
+					&& ZennyMouse.getY() <= component.getY() + component.getHeight()) {
 
 				if (focusedComponent == null) {
 					focusedComponent = component;
 					component.setFocused(true);
+				} else {
+					component.setFocused(false);
+					component.setClicked(false);
+				}
+
+				if (Mouse.isButtonDown(0)) {
+					if (!componentClicked) {
+						componentClicked = true;
+						component.setClicked(true);
+						component.componentClickAction();
+					}
+				} else {
+					if (componentClicked) {
+						componentClicked = false;
+						component.setClicked(false);
+					}
 				}
 			} else {
 				component.setFocused(false);
+				component.setClicked(false);
 			}
+
+			component.updateComponent(gc, sbg, delta);
 		}
 
-		for (Component component : guiComponents)
-			component.updateComponent(gc, sbg, delta);
-
 		updateScene(gc, sbg, delta);
+	}
+
+	/**
+	 * Hide scene with fade from transparent to black
+	 */
+	public void hide() {
+
+	}
+
+	/**
+	 * Show scene with fade from black to transparent
+	 */
+	public void show() {
+
 	}
 
 	/**
@@ -236,6 +282,21 @@ public abstract class Scene implements GameState {
 	 */
 	public void setGuiComponents(ArrayList<Component> guiComponents) {
 		this.guiComponents = guiComponents;
+	}
+
+	/**
+	 * @return the app
+	 */
+	public App getApp() {
+		return app;
+	}
+
+	/**
+	 * @param app
+	 *            the app to set
+	 */
+	public void setApp(App app) {
+		this.app = app;
 	}
 
 }

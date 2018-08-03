@@ -90,8 +90,6 @@ public class App extends StateBasedGame {
 	// -- APP
 	public App() {
 		super("Zenny Hotel");
-
-		addState(new StartMenu());
 	}
 
 	/**
@@ -99,8 +97,20 @@ public class App extends StateBasedGame {
 	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
-		getState(App.Scene.START_MENU.getSceneID()).init(gc, this);
-		enterState(App.Scene.START_MENU.getSceneID());
+		enterScene(new StartMenu(this), gc);
 	}
 
+	public void enterScene(com.game.zenny.zh.scene.Scene scene, GameContainer gc) {
+		if (getState(scene.getID()) == null)
+			addState(scene);
+		
+		try {
+			scene.init(gc, this);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		
+		enterState(scene.getID());
+	}
+	
 }
