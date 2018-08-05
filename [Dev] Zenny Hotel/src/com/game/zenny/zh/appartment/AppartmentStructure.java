@@ -1,7 +1,5 @@
 package com.game.zenny.zh.appartment;
 
-import java.util.Random;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -17,7 +15,7 @@ public class AppartmentStructure {
 	//// CONSTUCTORS
 
 	public AppartmentStructure() {
-		structure = new AppartmentGroundCell[new Random().nextInt(100)][new Random().nextInt(100)];
+		structure = new AppartmentGroundCell[10][10];
 		for (int y = 0; y < structure.length; y++) {
 			for (int x = 0; x < structure[y].length; x++) {
 				structure[y][x] = new AppartmentGroundCell(x, y);

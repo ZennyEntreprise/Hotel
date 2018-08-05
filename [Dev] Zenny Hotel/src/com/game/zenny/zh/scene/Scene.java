@@ -12,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.App;
 import com.game.zenny.zh.gui.Component;
+import com.game.zenny.zh.gui.TextField;
 import com.game.zenny.zh.util.ZennyColor;
 import com.game.zenny.zh.util.ZennyMouse;
 
@@ -22,6 +23,7 @@ public abstract class Scene implements GameState {
 	protected boolean initialized = false;
 	protected boolean leaved = false;
 	private ArrayList<Component> guiComponents = new ArrayList<Component>();
+	private Component selectedComponent = null;
 
 	/**
 	 * @param app
@@ -66,7 +68,7 @@ public abstract class Scene implements GameState {
 
 	@Override
 	public boolean isAcceptingInput() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -74,11 +76,18 @@ public abstract class Scene implements GameState {
 	}
 
 	@Override
-	public void keyPressed(int arg0, char arg1) {
+	public void keyPressed(int key, char c) {
+		if (selectedComponent instanceof TextField) {
+			if (Character.isLetter(c) || key == 57) {
+				((TextField) selectedComponent).addChar(c);
+			} else if (key == 14) {
+				((TextField) selectedComponent).removeLastChar();
+			}
+		}
 	}
 
 	@Override
-	public void keyReleased(int arg0, char arg1) {
+	public void keyReleased(int key, char c) {
 	}
 
 	@Override
@@ -220,9 +229,10 @@ public abstract class Scene implements GameState {
 
 		for (int i = 0; i < guiComponents.size(); i++) {
 			Component component = guiComponents.get(i);
-			if (ZennyMouse.getX() >= component.getX() && ZennyMouse.getX() <= component.getX() + component.getWidth()
-					&& ZennyMouse.getY() >= component.getY()
-					&& ZennyMouse.getY() <= component.getY() + component.getHeight()) {
+			if (ZennyMouse.getX() >= component.getX() - component.getWidth() / 2
+					&& ZennyMouse.getX() <= component.getX() - component.getWidth() / 2 + component.getWidth()
+					&& ZennyMouse.getY() >= component.getY() - component.getHeight() / 2
+					&& ZennyMouse.getY() <= component.getY() - component.getHeight() / 2 + component.getHeight()) {
 
 				if (focusedComponent == null) {
 					focusedComponent = component;
@@ -237,6 +247,7 @@ public abstract class Scene implements GameState {
 						componentClicked = true;
 						component.setClicked(true);
 						component.componentClickAction();
+						selectedComponent = component;
 					}
 				} else {
 					if (componentClicked) {
@@ -247,6 +258,10 @@ public abstract class Scene implements GameState {
 			} else {
 				component.setFocused(false);
 				component.setClicked(false);
+
+				if (Mouse.isButtonDown(0) && !componentClicked) {
+					selectedComponent = null;
+				}
 			}
 
 			component.updateComponent(gc, sbg, delta);
@@ -259,14 +274,14 @@ public abstract class Scene implements GameState {
 	 * Hide scene with fade from transparent to black
 	 */
 	public void hide() {
-
+		// TODO [HOTEL] HIDE fade
 	}
 
 	/**
 	 * Show scene with fade from black to transparent
 	 */
 	public void show() {
-
+		// TODO [HOTEL] SHOW fade
 	}
 
 	/**
@@ -297,6 +312,21 @@ public abstract class Scene implements GameState {
 	 */
 	public void setApp(App app) {
 		this.app = app;
+	}
+
+	/**
+	 * @return the selectedComponent
+	 */
+	public Component getSelectedComponent() {
+		return selectedComponent;
+	}
+
+	/**
+	 * @param selectedComponent
+	 *            the selectedComponent to set
+	 */
+	public void setSelectedComponent(Component selectedComponent) {
+		this.selectedComponent = selectedComponent;
 	}
 
 }

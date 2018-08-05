@@ -35,24 +35,6 @@ public abstract class Component {
 	}
 
 	/**
-	 * @param scene
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param focused
-	 */
-	public Component(Scene scene, float x, float y, float width, float height, boolean focused) {
-		this.scene = scene;
-		this.scene.getGuiComponents().add(this);
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.focused = focused;
-	}
-
-	/**
 	 * @return the scene
 	 */
 	public Scene getScene() {

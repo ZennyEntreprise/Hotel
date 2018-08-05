@@ -12,13 +12,18 @@ import com.game.zenny.zh.util.ZennyColor;
 
 public class Button extends Component {
 
-	private TrueTypeFont font;
+	private TrueTypeFont font = App.getFont(App.getFonts().OpenSans_BOLD, App.proportionalValueByWidth(23));
 	private String text;
-	private Color textColor, buttonHoverTextColor, buttonClickTextColor;
-	private Color buttonColor, buttonHoverColor, buttonClickColor;
-	private int cornerRadius;
+	private Color textColor = ZennyColor.WHITE.getColor(); 
+	private Color buttonHoverTextColor = ZennyColor.WHITE.getColor(); 
+	private Color buttonClickTextColor = ZennyColor.WHITE.getColor();
+	private Color buttonColor;
+	private Color buttonHoverColor; 
+	private Color buttonClickColor;
+	private int cornerRadius = 0;
 
-	private Color bColor, tColor;
+	private Color bColor;
+	private Color tColor = ZennyColor.WHITE.getColor();
 
 	/**
 	 * @param scene
@@ -31,19 +36,9 @@ public class Button extends Component {
 	public Button(Scene scene, float x, float y, float width, float height, String text) {
 		super(scene, x, y, width, height);
 
-		this.font = App.getFont(App.getFonts().OpenSans_BOLD, 23);
 		this.text = text;
-
-		this.textColor = ZennyColor.DEFAULT_TEXT_COLOR.getColor();
-		this.buttonHoverTextColor = ZennyColor.DEFAULT_TEXT_COLOR.getColor();
-		this.buttonClickTextColor = ZennyColor.DEFAULT_TEXT_COLOR.getColor();
-
-		this.setButtonColorAutomatic(ZennyColor.DEFAULT_BUTTON_COLOR.getColor());
-
-		this.cornerRadius = 0;
-
-		this.bColor = buttonColor;
-		this.tColor = textColor;
+		this.setButtonColorAutomatic(ZennyColor.CYAN1.getColor());
+		this.bColor = this.buttonColor;
 	}
 
 	/**
@@ -54,10 +49,10 @@ public class Button extends Component {
 	@Override
 	public void renderComponent(GameContainer gc, StateBasedGame sbg, Graphics g) {
 		g.setColor(bColor);
-		g.fillRoundRect(x, y, width, height, cornerRadius);
+		g.fillRoundRect(x - width / 2, y - height / 2, width, height, cornerRadius);
 
-		font.drawString(Math.round(x + (width - font.getWidth(text)) / 2),
-				Math.round(y - 1 + (height - font.getHeight(text)) / 2), text, tColor);
+		font.drawString(Math.round(x + (width - font.getWidth(text)) / 2 - width / 2),
+				Math.round(y - 1 + (height - font.getHeight(text)) / 2 - height / 2), text, tColor);
 	}
 
 	/**
@@ -167,6 +162,13 @@ public class Button extends Component {
 	 */
 	public void setButtonColor(Color buttonColor) {
 		this.buttonColor = buttonColor;
+	}
+
+	/**
+	 * @param buttonColor
+	 */
+	public void setButtonColorAutomatic(ZennyColor buttonColor) {
+		setButtonColorAutomatic(buttonColor.getColor());
 	}
 
 	/**

@@ -34,7 +34,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = true;
-		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
+		this.color = ZennyColor.BEIGE.getColor();
 		this.groundThicknessTL = false;
 		this.groundThicknessBL = false;
 	}
@@ -49,7 +49,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = true;
-		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
+		this.color = ZennyColor.BEIGE.getColor();
 		this.groundThicknessTL = groundThicknessTL;
 		this.groundThicknessBL = groundThicknessBL;
 	}
@@ -63,7 +63,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = activated;
-		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
+		this.color = ZennyColor.BEIGE.getColor();
 		this.groundThicknessTL = false;
 		this.groundThicknessBL = false;
 	}
@@ -79,7 +79,7 @@ public class AppartmentGroundCell {
 		this.x = x;
 		this.y = y;
 		this.activated = activated;
-		this.color = ZennyColor.DEFAULT_GROUND_CELL_COLOR.getColor();
+		this.color = ZennyColor.BEIGE.getColor();
 		this.groundThicknessTL = groundThicknessTL;
 		this.groundThicknessBL = groundThicknessBL;
 	}
@@ -261,7 +261,7 @@ public class AppartmentGroundCell {
 			selected = true;
 
 			if (Mouse.isButtonDown(0)) {
-				color = color.darker(0.01f);
+				color = ZennyColor.BEIGE.getColor().darker();
 			}
 		} else {
 			selected = false;

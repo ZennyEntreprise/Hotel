@@ -11,18 +11,29 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.res.Fonts;
 import com.game.zenny.zh.res.Sprites;
+import com.game.zenny.zh.scene.Scene;
 import com.game.zenny.zh.scene.StartMenu;
+import com.game.zenny.zh.util.ZennyMath;
 
 public class App extends StateBasedGame {
 
 	//// STATIC
-	public static int WINDOW_WIDTH = 1366;
-	public static int WINDOW_HEIGHT = 768;
+	public final static int DEV_WINDOW_WIDTH = 1280;
+	public final static int DEV_WINDOW_HEIGHT = 720;
+	public final static boolean devMode = true;
+	
+	public static int WINDOW_WIDTH = 1920;
+	public static int WINDOW_HEIGHT = 1080;
 
 	private static Fonts fonts;
 	private static Sprites sprites;
 
 	public static void main(String[] args) throws SlickException {
+		if (devMode) {
+			WINDOW_WIDTH = DEV_WINDOW_WIDTH;
+			WINDOW_HEIGHT = DEV_WINDOW_HEIGHT;
+		}
+		
 		AppGameContainer app = new AppGameContainer(new App(), WINDOW_WIDTH, WINDOW_HEIGHT, false);
 		app.setMaximumLogicUpdateInterval(60);
 		app.setUpdateOnlyWhenVisible(false);
@@ -70,14 +81,30 @@ public class App extends StateBasedGame {
 		return sprites;
 	}
 
+	// -- MATH
+
+	/**
+	 * @param defaultValue
+	 */
+	public static float proportionalValueByWidth(float defaultValue) {
+		return ZennyMath.crossProduct(DEV_WINDOW_WIDTH, defaultValue, WINDOW_WIDTH);
+	}
+
+	/**
+	 * @param defaultValue
+	 */
+	public static float proportionalValueByHeight(float defaultValue) {
+		return ZennyMath.crossProduct(DEV_WINDOW_HEIGHT, defaultValue, WINDOW_HEIGHT);
+	}
+
 	//// ENUM
 	// -- SCENES
-	public static enum Scene {
+	public static enum Scenes {
 		GAME(1), START_MENU(2);
 
 		private int sceneID;
 
-		Scene(int sceneID) {
+		Scenes(int sceneID) {
 			this.sceneID = sceneID;
 		}
 
@@ -100,17 +127,17 @@ public class App extends StateBasedGame {
 		enterScene(new StartMenu(this), gc);
 	}
 
-	public void enterScene(com.game.zenny.zh.scene.Scene scene, GameContainer gc) {
+	public void enterScene(Scene scene, GameContainer gc) {
 		if (getState(scene.getID()) == null)
 			addState(scene);
-		
+
 		try {
 			scene.init(gc, this);
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
+
 		enterState(scene.getID());
 	}
-	
+
 }

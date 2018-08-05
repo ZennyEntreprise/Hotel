@@ -18,7 +18,7 @@ public class Game extends Scene {
 	private boolean debug = false;
 	
 	public Game(App app) {
-		super(app, App.Scene.GAME.getSceneID());
+		super(app, App.Scenes.GAME.getSceneID());
 	}
 
 	@Override
