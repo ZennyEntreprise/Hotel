@@ -1,5 +1,7 @@
 package com.game.zenny.zh.scene;
 
+import java.util.UUID;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -23,13 +25,14 @@ public class StartMenu extends Scene {
 
 	private TextField connectUsernameTextField;
 	private TextField connectPasswordTextField;
-	private Label connectErrorLabel;
+	private Label connectInfoLabel;
 	private Button connectButton;
 	
 	private TextField registerUsernameTextField;
 	private TextField registerMailTextField;
 	private TextField registerPasswordTextField;
 	private TextField registerPasswordConfirmTextField;
+	private Label registerInfoLabel;
 	private Button registerButton;
 	
 	private boolean waitingWebServerResponse = false;
@@ -69,11 +72,11 @@ public class StartMenu extends Scene {
 													   connectPasswordTextField.setAcceptSpace(false);
 													   connectPasswordTextField.setMaxChars(20);
 													  
-	   connectErrorLabel = new Label(this, connectionPaneCenterX, 
+	   connectInfoLabel = new Label(this, connectionPaneCenterX, 
 			   							   Math.round(connectionPaneCenterY + App.proportionalValueByHeight(42)), 
 			   							   App.getFont(App.getFonts().OpenSans_REGULAR_ITALIC, App.proportionalValueByWidth(17)), 
 			   							   "");
-	   									   connectErrorLabel.setColor(ZennyColor.RED3);
+	   									   connectInfoLabel.setColor(ZennyColor.RED3);
 													   
 	   connectButton = new Button(this, connectionPaneCenterX,
 									    connectionPaneCenterY + App.proportionalValueByHeight(85), 
@@ -86,7 +89,7 @@ public class StartMenu extends Scene {
 									    connectButton.setClickAction(new Runnable() {
 									   	   @Override
 										   public void run() {
-									   		connectErrorLabel.setText("");
+									   		connectInfoLabel.setText("");
 									   		   
 											   String username = connectUsernameTextField.getText();
 											   String password = ZennyHash.hash256(connectPasswordTextField.getText());
@@ -98,16 +101,16 @@ public class StartMenu extends Scene {
 											   waitingWebServerResponse = false;
 											   
 											   if (query.equals("query-error")) {
-													connectErrorLabel.setText("Un problème est survenu");
+													connectInfoLabel.setText("Un problème est survenu");
 												} else {
 													if (query.equals("error")) {
-														connectErrorLabel.setText("Nom d'utilisateur ou mot de passe incorrect");
+														connectInfoLabel.setText("Nom d'utilisateur ou mot de passe incorrect");
 											        } else {
 											        	try {
 															JSONObject connectionObject = (JSONObject) new JSONParser().parse(query);
 															System.out.println(connectionObject.get("uuid"));
 														} catch (ParseException e) {
-															connectErrorLabel.setText("Un problème est survenu");
+															connectInfoLabel.setText("Un problème est survenu");
 														}
 											        }
 												}
@@ -174,6 +177,12 @@ public class StartMenu extends Scene {
 														registerPasswordConfirmTextField.setPassword(true);
 														registerPasswordConfirmTextField.setAcceptSpace(false);
 														registerPasswordConfirmTextField.setMaxChars(20);
+														
+		registerInfoLabel = new Label(this, registerPaneCenterX, 
+				   						   Math.round(registerPaneCenterY + App.proportionalValueByHeight(192)), 
+				   						   App.getFont(App.getFonts().OpenSans_REGULAR_ITALIC, App.proportionalValueByWidth(17)), 
+										   "");
+										   registerInfoLabel.setColor(ZennyColor.RED3);
 													
 		registerButton = new Button(this, registerPaneCenterX,
 										  registerPaneCenterY + App.proportionalValueByHeight(235), 
@@ -186,13 +195,24 @@ public class StartMenu extends Scene {
 										  registerButton.setClickAction(new Runnable() {
 											@Override
 											public void run() {
-												System.out.println(registerUsernameTextField.getText());
-												System.out.println(registerMailTextField.getText());
-												System.out.println(registerPasswordTextField.getText());
-												System.out.println(registerPasswordConfirmTextField.getText());
+												registerInfoLabel.setText("");
+												registerInfoLabel.setColor(ZennyColor.RED3);
 												
 												waitingWebServerResponse = true;
 												   
+												String query = ZennyWebQuery.query("register.php?uuid="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
+												while (query.equals("uuid already exists")) 
+													query = ZennyWebQuery.query("register.php?uuid="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
+												
+												if (query.equals("username already exists")) {
+													registerInfoLabel.setText("Nom d'utilisateur déjà utilisé");
+												} else if (query.equals("mail already exists")) {
+													registerInfoLabel.setText("E-mail déjà utilisé");
+												} else if (query.equals("valid")) {
+													registerInfoLabel.setColor(ZennyColor.GREEN1);
+													registerInfoLabel.setText("Compte créé avec succès !");
+												}
+												
 												waitingWebServerResponse = false;
 											}
 										  });
