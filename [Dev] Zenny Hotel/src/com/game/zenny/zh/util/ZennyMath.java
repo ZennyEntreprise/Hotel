@@ -15,6 +15,18 @@ public class ZennyMath {
 	}
 
 	/**
+	 * @param value
+	 * @param istart
+	 * @param istop
+	 * @param ostart
+	 * @param ostop
+	 * @return mapped value
+	 */
+	public static float map(double value, double istart, double istop, double ostart, double ostop) {
+		return (float) (ostart + (ostop - ostart) * ((value - istart) / (istop - istart)));
+	}
+	
+	/**
 	 * @param v1
 	 * @param v2
 	 * @return distance between these two values

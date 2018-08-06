@@ -16,6 +16,7 @@ public abstract class Component {
 	protected boolean focused;
 	protected boolean renderByScene = true;
 	protected boolean clicked;
+	protected boolean disabled;
 	private Runnable clickAction;
 
 	/**
@@ -167,6 +168,21 @@ public abstract class Component {
 	 */
 	public void setClicked(boolean clicked) {
 		this.clicked = clicked;
+	}
+
+	/**
+	 * @return the disabled
+	 */
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	/**
+	 * @param disabled
+	 *            the disabled to set
+	 */
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 
 	/**

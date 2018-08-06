@@ -20,14 +20,18 @@ public class ZennyImage extends Image {
 	/**
 	 * @return render x
 	 */
-	public float getRenderX(float x) {
+	public float getRenderX(float x, boolean customDimension) {
+		if (customDimension)
+			return App.WINDOW_WIDTH / 2 - Camera.getRealX() + x - App.proportionalValueByWidth(this.getWidth()) / 2;
 		return App.WINDOW_WIDTH / 2 - Camera.getRealX() + x - this.getWidth() / 2;
 	}
 
 	/**
 	 * @return render y
 	 */
-	public float getRenderY(float y) {
+	public float getRenderY(float y, boolean customDimension) {
+		if (customDimension)
+			return App.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - App.proportionalValueByHeight(this.getHeight()) / 2;
 		return App.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - this.getHeight() / 2;
 	}
 
@@ -41,7 +45,7 @@ public class ZennyImage extends Image {
 	 */
 	public void draw(float x, float y) {
 		if (drawable(x, y))
-			super.draw(getRenderX(x), getRenderY(y));
+			super.draw(getRenderX(x, false), getRenderY(y, false));
 	}
 
 	/**
@@ -51,7 +55,39 @@ public class ZennyImage extends Image {
 	 */
 	public void draw(float x, float y, Color filter) {
 		if (drawable(x, y))
-			super.draw(getRenderX(x), getRenderY(y), filter);
+			super.draw(getRenderX(x, false), getRenderY(y, false), filter);
+	}
+
+	/**
+	 * @param x
+	 * @param y
+	 * @param filter
+	 */
+	public void draw(float x, float y, ZennyColor filter) {
+		draw(x, y, filter.getColor());
+	}
+
+	/**
+	 * @param x
+	 * @param y
+	 * @param newWidth
+	 * @param newHeight
+	 * @param filter
+	 */
+	public void draw(float x, float y, int newWidth, int newHeight, Color filter) {
+		if (drawable(x, y))
+			super.draw(getRenderX(x, true), getRenderY(y, true), newWidth, newHeight, filter);
+	}
+
+	/**
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param filter
+	 */
+	public void draw(float x, float y, int width, int height, ZennyColor filter) {
+		draw(x, y, width, height, filter.getColor());
 	}
 
 	/**
@@ -60,8 +96,8 @@ public class ZennyImage extends Image {
 	 * @return if the image is drawable
 	 */
 	public boolean drawable(float x, float y) {
-		if (getRenderX(x) + this.getWidth() < 0 || getRenderX(x) > App.WINDOW_WIDTH
-				|| getRenderY(y) + this.getHeight() < 0 || getRenderY(y) > App.WINDOW_HEIGHT)
+		if (getRenderX(x, false) + this.getWidth() < 0 || getRenderX(x, false) > App.WINDOW_WIDTH
+				|| getRenderY(y, false) + this.getHeight() < 0 || getRenderY(y, false) > App.WINDOW_HEIGHT)
 			return false;
 
 		return true;

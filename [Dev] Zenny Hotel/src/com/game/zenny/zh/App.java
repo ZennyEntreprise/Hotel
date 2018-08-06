@@ -18,10 +18,12 @@ import com.game.zenny.zh.util.ZennyMath;
 public class App extends StateBasedGame {
 
 	//// STATIC
+	public static AppGameContainer app;
+
 	public final static int DEV_WINDOW_WIDTH = 1280;
 	public final static int DEV_WINDOW_HEIGHT = 720;
-	public final static boolean devMode = false;
-	
+	public final static boolean devMode = true;
+
 	public static int WINDOW_WIDTH = 1920;
 	public static int WINDOW_HEIGHT = 1080;
 
@@ -35,12 +37,12 @@ public class App extends StateBasedGame {
 			WINDOW_HEIGHT = DEV_WINDOW_HEIGHT;
 			fullscreen = false;
 		}
-		
-		AppGameContainer app = new AppGameContainer(new App(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
+
+		app = new AppGameContainer(new App(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
 		app.setMaximumLogicUpdateInterval(60);
 		app.setUpdateOnlyWhenVisible(false);
 		app.setTargetFrameRate(60);
-		app.setShowFPS(true);
+		app.setShowFPS(false);
 		app.setVSync(true);
 		app.setAlwaysRender(true);
 		app.start();

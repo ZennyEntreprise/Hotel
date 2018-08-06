@@ -11,6 +11,7 @@ public class Sprites {
 	public ZennyImage groundThicknessTL;
 	public ZennyImage groundThicknessBL;
 	public ZennyImage character;
+	public ZennyImage logoBig;
 	
 	public Sprites() throws SlickException {
 		ground = new ZennyImage("appartment/ground");
@@ -18,6 +19,7 @@ public class Sprites {
 		groundThicknessTL = new ZennyImage("appartment/ground-thickness-tl");
 		groundThicknessBL = new ZennyImage("appartment/ground-thickness-bl");
 		character = new ZennyImage("character");
+		logoBig = new ZennyImage("logo-big");
 	}
 	
 }

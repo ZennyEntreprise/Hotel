@@ -62,14 +62,17 @@ public class Button extends Component {
 	 */
 	@Override
 	public void updateComponent(GameContainer gc, StateBasedGame sbg, int delta) {
-		if (focused && clicked) {
+		if (focused && clicked && !disabled) {
 			bColor = buttonClickColor;
 			tColor = buttonClickTextColor;
-		} else if (focused && !clicked) {
+		} else if (focused && !clicked && !disabled) {
 			bColor = buttonHoverColor;
 			tColor = buttonHoverTextColor;
-		} else {
+		} else if (!focused && !clicked && !disabled) {
 			bColor = buttonColor;
+			tColor = textColor;
+		} else {
+			bColor = new Color(buttonColor.r, buttonColor.g, buttonColor.b, 0.5f);
 			tColor = textColor;
 		}
 	}

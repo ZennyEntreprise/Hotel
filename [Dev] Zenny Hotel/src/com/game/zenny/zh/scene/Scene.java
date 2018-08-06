@@ -8,13 +8,12 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.App;
+import com.game.zenny.zh.Camera;
 import com.game.zenny.zh.gui.Component;
-import com.game.zenny.zh.gui.ComponentGroup;
 import com.game.zenny.zh.gui.TextField;
 import com.game.zenny.zh.util.ZennyColor;
 import com.game.zenny.zh.util.ZennyMouse;
@@ -82,7 +81,7 @@ public abstract class Scene implements GameState {
 	@Override
 	public void keyPressed(int key, char c) {
 		if (selectedComponent instanceof TextField) {
-			if (Character.isLetter(c) || key == 57) {
+			if (Character.isLetter(c) || Character.isDigit(c) || key == 57 || key == 11 || key == 52 || key == 83) {
 				((TextField) selectedComponent).addChar(c);
 			} else if (key == 14) {
 				((TextField) selectedComponent).removeLastChar();
@@ -208,12 +207,17 @@ public abstract class Scene implements GameState {
 		g.setAntiAlias(true);
 		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
 
+		renderScene(gc, sbg, g);
+		
 		if (debug) {
 			g.drawLine(0, gc.getHeight() / 2, gc.getWidth(), gc.getHeight() / 2);
 			g.drawLine(gc.getWidth() / 2, 0, gc.getWidth() / 2, gc.getHeight());
+			g.setColor(Color.white);
+			g.drawString("Camera: Real X: " +   Camera.getRealX()   + "     Real Y: " + Camera.getRealY(), 10, 30);
+			g.drawString("             X: " +     Camera.getX()     + "          Y: " + Camera.getY(), 10, 50);
+			g.drawString("    Relative X: " + Camera.getRelativeX() + " Relative Y: " + Camera.getRelativeY(), 10, 70);
+			g.drawString("Mouse: X: " + ZennyMouse.getMapX() + " Y: " + ZennyMouse.getMapY(), 10, 90);
 		}
-		
-		renderScene(gc, sbg, g);
 	}
 
 	/**
@@ -252,7 +256,7 @@ public abstract class Scene implements GameState {
 				}
 
 				if (Mouse.isButtonDown(0)) {
-					if (!componentClicked) {
+					if (!componentClicked && !component.isDisabled()) {
 						componentClicked = true;
 						component.setClicked(true);
 						component.componentClickAction();
@@ -276,8 +280,9 @@ public abstract class Scene implements GameState {
 			component.updateComponent(gc, sbg, delta);
 		}
 
-		if (gc.getInput().isKeyPressed(Input.KEY_D)) {
+		if (gc.getInput().isKeyPressed(Input.KEY_MULTIPLY)) {
 			debug = !debug;
+			App.app.setShowFPS(debug);
 		}
 		
 		updateScene(gc, sbg, delta);
