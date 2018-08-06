@@ -1,5 +1,8 @@
 package com.game.zenny.zh.scene;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,11 +16,14 @@ import com.game.zenny.zh.gui.ComponentGroup;
 import com.game.zenny.zh.gui.Label;
 import com.game.zenny.zh.gui.TextField;
 import com.game.zenny.zh.util.ZennyColor;
+import com.game.zenny.zh.util.ZennyHash;
+import com.game.zenny.zh.util.ZennyWebQuery;
 
 public class StartMenu extends Scene {
 
 	private TextField connectUsernameTextField;
 	private TextField connectPasswordTextField;
+	private Label connectErrorLabel;
 	private Button connectButton;
 	
 	private TextField registerUsernameTextField;
@@ -25,6 +31,8 @@ public class StartMenu extends Scene {
 	private TextField registerPasswordTextField;
 	private TextField registerPasswordConfirmTextField;
 	private Button registerButton;
+	
+	private boolean waitingWebServerResponse = false;
 	
 	public StartMenu(App app) {
 		super(app, App.Scenes.START_MENU.getSceneID());
@@ -60,19 +68,55 @@ public class StartMenu extends Scene {
 													   connectPasswordTextField.setPassword(true);
 													   connectPasswordTextField.setAcceptSpace(false);
 													   connectPasswordTextField.setMaxChars(20);
+													  
+	   connectErrorLabel = new Label(this, connectionPaneCenterX, 
+			   							   Math.round(connectionPaneCenterY + App.proportionalValueByHeight(42)), 
+			   							   App.getFont(App.getFonts().OpenSans_REGULAR_ITALIC, App.proportionalValueByWidth(17)), 
+			   							   "");
+	   									   connectErrorLabel.setColor(ZennyColor.RED3);
 													   
-		connectButton = new Button(this, connectionPaneCenterX,
-										 connectionPaneCenterY + App.proportionalValueByHeight(75), 
-										 App.proportionalValueByWidth(200),
-										 App.proportionalValueByHeight(50), 
-										 "SE CONNECTER");
-										 connectButton.setCornerRadius(3);
-										 connectButton.setButtonColorAutomatic(ZennyColor.ORANGE1);
-										 connectButton.setDisabled(true);
+	   connectButton = new Button(this, connectionPaneCenterX,
+									    connectionPaneCenterY + App.proportionalValueByHeight(85), 
+									    App.proportionalValueByWidth(200),
+									    App.proportionalValueByHeight(50), 
+									    "SE CONNECTER");
+									    connectButton.setCornerRadius(3);
+									    connectButton.setButtonColorAutomatic(ZennyColor.ORANGE1);
+									    connectButton.setDisabled(true);
+									    connectButton.setClickAction(new Runnable() {
+									   	   @Override
+										   public void run() {
+									   		connectErrorLabel.setText("");
+									   		   
+											   String username = connectUsernameTextField.getText();
+											   String password = ZennyHash.hash256(connectPasswordTextField.getText());
+											
+											   waitingWebServerResponse = true;
+											   
+											   String query = ZennyWebQuery.query("connect.php?username="+username+"&password="+password);
+											   
+											   waitingWebServerResponse = false;
+											   
+											   if (query.equals("query-error")) {
+													connectErrorLabel.setText("Un problème est survenu");
+												} else {
+													if (query.equals("error")) {
+														connectErrorLabel.setText("Nom d'utilisateur ou mot de passe incorrect");
+											        } else {
+											        	try {
+															JSONObject connectionObject = (JSONObject) new JSONParser().parse(query);
+															System.out.println(connectionObject.get("uuid"));
+														} catch (ParseException e) {
+															connectErrorLabel.setText("Un problème est survenu");
+														}
+											        }
+												}
+									   	   }
+									    });
 
 		ComponentGroup connectGroup = new ComponentGroup(this, connectionPaneCenterX,
 												connectionPaneCenterY - App.proportionalValueByHeight(25), 
-												App.proportionalValueByWidth(300),
+												App.proportionalValueByWidth(350),
 												App.proportionalValueByHeight(300), 
 												new Color(255, 255, 255, 0.2f));
 												connectGroup.setCornerRadius(3);
@@ -132,12 +176,13 @@ public class StartMenu extends Scene {
 														registerPasswordConfirmTextField.setMaxChars(20);
 													
 		registerButton = new Button(this, registerPaneCenterX,
-										  registerPaneCenterY + App.proportionalValueByHeight(225), 
+										  registerPaneCenterY + App.proportionalValueByHeight(235), 
 										  App.proportionalValueByWidth(200),
 										  App.proportionalValueByHeight(50), 
 										  "S'INSCRIRE");
 										  registerButton.setCornerRadius(3);
 										  registerButton.setButtonColorAutomatic(ZennyColor.RED2);
+										  registerButton.setDisabled(true);
 										  registerButton.setClickAction(new Runnable() {
 											@Override
 											public void run() {
@@ -145,13 +190,16 @@ public class StartMenu extends Scene {
 												System.out.println(registerMailTextField.getText());
 												System.out.println(registerPasswordTextField.getText());
 												System.out.println(registerPasswordConfirmTextField.getText());
+												
+												waitingWebServerResponse = true;
+												   
+												waitingWebServerResponse = false;
 											}
 										  });
-										  registerButton.setDisabled(true);
 										  
 	    ComponentGroup registerGroup = new ComponentGroup(this, registerPaneCenterX,
 			  									registerPaneCenterY + App.proportionalValueByHeight(50), 
-			  									App.proportionalValueByWidth(300),
+			  									App.proportionalValueByWidth(350),
 			  									App.proportionalValueByHeight(450), 
 			  									new Color(255, 255, 255, 0.2f));
 												registerGroup.setCornerRadius(3);								  
@@ -162,7 +210,7 @@ public class StartMenu extends Scene {
 							     App.WINDOW_HEIGHT / 2, 
 							     App.WINDOW_WIDTH + 2,
 							     App.WINDOW_HEIGHT + 2, 
-							     new GradientFill(0, 0, ZennyColor.ORANGE2.getColor(), App.WINDOW_WIDTH, App.WINDOW_HEIGHT, ZennyColor.PURPLE2.getColor()));
+							     new GradientFill(0, 0, ZennyColor.DARKGREY1.getColor(), App.WINDOW_WIDTH, App.WINDOW_HEIGHT, ZennyColor.PURPLE2.getColor()));
 		
 	}
 
@@ -186,14 +234,11 @@ public class StartMenu extends Scene {
 	@Override
 	public void updateScene(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (!connectUsernameTextField.getText().equals("") 
-		 && !connectPasswordTextField.getText().equals("")) {
-
+		 && !connectPasswordTextField.getText().equals("")
+		 && !waitingWebServerResponse) {
 			connectButton.setDisabled(false);
-		
 		} else {
-			
 			connectButton.setDisabled(true);
-			
 		}
 		
 		if (!registerUsernameTextField.getText().equals("") && !registerMailTextField.getText().equals("") 

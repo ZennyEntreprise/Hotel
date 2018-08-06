@@ -22,6 +22,7 @@ public enum ZennyColor {
 	ORANGE3(new Color(211, 84, 0)),
 	RED1(new Color(231, 76, 60)),
 	RED2(new Color(192, 57, 43)),
+	RED3(new Color(234, 32, 39)),
 	WHITE(new Color(236, 240, 241)),
 	GREY1(new Color(189, 195, 199)),
 	GREY2(new Color(149, 165, 166)),

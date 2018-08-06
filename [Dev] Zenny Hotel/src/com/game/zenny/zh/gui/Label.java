@@ -87,6 +87,9 @@ public class Label extends Component {
 	 */
 	public void setText(String text) {
 		this.text = text;
+		
+		setWidth(font.getWidth(text));
+		setHeight(font.getHeight(text));
 	}
 
 	/**
@@ -102,6 +105,14 @@ public class Label extends Component {
 	 */
 	public void setColor(Color color) {
 		this.color = color;
+	}
+	
+	/**
+	 * @param color
+	 *            the color to set
+	 */
+	public void setColor(ZennyColor color) {
+		this.color = color.getColor();
 	}
 
 }

@@ -23,7 +23,8 @@ public class App extends StateBasedGame {
 	public final static int DEV_WINDOW_WIDTH = 1280;
 	public final static int DEV_WINDOW_HEIGHT = 720;
 	public final static boolean devMode = true;
-
+	public final static String serverDomain = "http://localhost/ZennyHotel/";
+	
 	public static int WINDOW_WIDTH = 1920;
 	public static int WINDOW_HEIGHT = 1080;
 
