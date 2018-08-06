@@ -3,15 +3,18 @@ package com.game.zenny.zh.scene;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.App;
 import com.game.zenny.zh.gui.Component;
+import com.game.zenny.zh.gui.ComponentGroup;
 import com.game.zenny.zh.gui.TextField;
 import com.game.zenny.zh.util.ZennyColor;
 import com.game.zenny.zh.util.ZennyMouse;
@@ -22,9 +25,10 @@ public abstract class Scene implements GameState {
 	private int sceneID;
 	protected boolean initialized = false;
 	protected boolean leaved = false;
+	protected boolean debug = false;
 	private ArrayList<Component> guiComponents = new ArrayList<Component>();
 	private Component selectedComponent = null;
-
+	
 	/**
 	 * @param app
 	 * @param sceneID
@@ -198,12 +202,17 @@ public abstract class Scene implements GameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		for (int i = guiComponents.size() - 1; i >= 0; i--)
-			guiComponents.get(i).renderComponent(gc, sbg, g);
-		;
+			if (guiComponents.get(i).isRenderByScene())
+				guiComponents.get(i).renderComponent(gc, sbg, g);
 
 		g.setAntiAlias(true);
 		g.setBackground(ZennyColor.BACKGROUND_COLOR.getColor());
 
+		if (debug) {
+			g.drawLine(0, gc.getHeight() / 2, gc.getWidth(), gc.getHeight() / 2);
+			g.drawLine(gc.getWidth() / 2, 0, gc.getWidth() / 2, gc.getHeight());
+		}
+		
 		renderScene(gc, sbg, g);
 	}
 
@@ -267,6 +276,10 @@ public abstract class Scene implements GameState {
 			component.updateComponent(gc, sbg, delta);
 		}
 
+		if (gc.getInput().isKeyPressed(Input.KEY_D)) {
+			debug = !debug;
+		}
+		
 		updateScene(gc, sbg, delta);
 	}
 

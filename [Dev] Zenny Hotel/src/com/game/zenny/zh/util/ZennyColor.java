@@ -13,7 +13,7 @@ public enum ZennyColor {
 	BLUE1(new Color(52, 152, 219)),
 	BLUE2(new Color(41, 128, 185)),
 	PURPLE1(new Color(155, 89, 182)),
-	PURLPLE2(new Color(142, 68, 173)),
+	PURPLE2(new Color(142, 68, 173)),
 	DARKGREY1(new Color(52, 73, 94)),
 	DARKGREY2(new Color(44, 62, 80)),
 	YELLOW(new Color(241, 196, 15)),

@@ -12,13 +12,13 @@ import com.game.zenny.zh.util.ZennyColor;
 
 public class Button extends Component {
 
-	private TrueTypeFont font = App.getFont(App.getFonts().OpenSans_BOLD, App.proportionalValueByWidth(23));
+	private TrueTypeFont font = App.getFont(App.getFonts().OpenSans_SEMI_BOLD, App.proportionalValueByWidth(18));
 	private String text;
-	private Color textColor = ZennyColor.WHITE.getColor(); 
-	private Color buttonHoverTextColor = ZennyColor.WHITE.getColor(); 
+	private Color textColor = ZennyColor.WHITE.getColor();
+	private Color buttonHoverTextColor = ZennyColor.WHITE.getColor();
 	private Color buttonClickTextColor = ZennyColor.WHITE.getColor();
 	private Color buttonColor;
-	private Color buttonHoverColor; 
+	private Color buttonHoverColor;
 	private Color buttonClickColor;
 	private int cornerRadius = 0;
 
@@ -49,7 +49,7 @@ public class Button extends Component {
 	@Override
 	public void renderComponent(GameContainer gc, StateBasedGame sbg, Graphics g) {
 		g.setColor(bColor);
-		g.fillRoundRect(x - width / 2, y - height / 2, width, height, cornerRadius);
+		g.fillRoundRect(getRealX(), getRealY(), width, height, cornerRadius);
 
 		font.drawString(Math.round(x + (width - font.getWidth(text)) / 2 - width / 2),
 				Math.round(y - 1 + (height - font.getHeight(text)) / 2 - height / 2), text, tColor);
@@ -120,6 +120,14 @@ public class Button extends Component {
 	}
 
 	/**
+	 * @param textColor
+	 *            the textColor to set
+	 */
+	public void setTextColor(ZennyColor textColor) {
+		this.textColor = textColor.getColor();
+	}
+
+	/**
 	 * @return the buttonHoverTextColor
 	 */
 	public Color getButtonHoverTextColor() {
@@ -132,6 +140,14 @@ public class Button extends Component {
 	 */
 	public void setButtonHoverTextColor(Color buttonHoverTextColor) {
 		this.buttonHoverTextColor = buttonHoverTextColor;
+	}
+
+	/**
+	 * @param buttonHoverTextColor
+	 *            the buttonHoverTextColor to set
+	 */
+	public void setButtonHoverTextColor(ZennyColor buttonHoverTextColor) {
+		this.buttonHoverTextColor = buttonHoverTextColor.getColor();
 	}
 
 	/**
@@ -150,6 +166,14 @@ public class Button extends Component {
 	}
 
 	/**
+	 * @param buttonClickTextColor
+	 *            the buttonClickTextColor to set
+	 */
+	public void setButtonClickTextColor(ZennyColor buttonClickTextColor) {
+		this.buttonClickTextColor = buttonClickTextColor.getColor();
+	}
+
+	/**
 	 * @return the buttonColor
 	 */
 	public Color getButtonColor() {
@@ -162,6 +186,14 @@ public class Button extends Component {
 	 */
 	public void setButtonColor(Color buttonColor) {
 		this.buttonColor = buttonColor;
+	}
+
+	/**
+	 * @param buttonColor
+	 *            the buttonColor to set
+	 */
+	public void setButtonColor(ZennyColor buttonColor) {
+		this.buttonColor = buttonColor.getColor();
 	}
 
 	/**
@@ -197,6 +229,14 @@ public class Button extends Component {
 	}
 
 	/**
+	 * @param buttonHoverColor
+	 *            the buttonHoverColor to set
+	 */
+	public void setButtonHoverColor(ZennyColor buttonHoverColor) {
+		this.buttonHoverColor = buttonHoverColor.getColor();
+	}
+
+	/**
 	 * @return the buttonClickColor
 	 */
 	public Color getButtonClickColor() {
@@ -209,6 +249,14 @@ public class Button extends Component {
 	 */
 	public void setButtonClickColor(Color buttonClickColor) {
 		this.buttonClickColor = buttonClickColor;
+	}
+
+	/**
+	 * @param buttonClickColor
+	 *            the buttonClickColor to set
+	 */
+	public void setButtonClickColor(ZennyColor buttonClickColor) {
+		this.buttonClickColor = buttonClickColor.getColor();
 	}
 
 	/**

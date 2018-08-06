@@ -9,11 +9,12 @@ import com.game.zenny.zh.scene.Scene;
 public abstract class Component {
 
 	private Scene scene;
-	protected float x;
-	protected float y;
+	protected float x = 0;
+	protected float y = 0;
 	protected float width;
 	protected float height;
 	protected boolean focused;
+	protected boolean renderByScene = true;
 	protected boolean clicked;
 	private Runnable clickAction;
 
@@ -57,6 +58,13 @@ public abstract class Component {
 	}
 
 	/**
+	 * @return center x
+	 */
+	public float getRealX() {
+		return x - width / 2;
+	}
+
+	/**
 	 * @param x
 	 *            the x to set
 	 */
@@ -69,6 +77,13 @@ public abstract class Component {
 	 */
 	public float getY() {
 		return y;
+	}
+
+	/**
+	 * @return center y
+	 */
+	public float getRealY() {
+		return y - height / 2;
 	}
 
 	/**
@@ -122,6 +137,21 @@ public abstract class Component {
 	 */
 	public void setFocused(boolean focused) {
 		this.focused = focused;
+	}
+
+	/**
+	 * @return the renderByScene
+	 */
+	public boolean isRenderByScene() {
+		return renderByScene;
+	}
+
+	/**
+	 * @param renderByScene
+	 *            the renderByScene to set
+	 */
+	public void setRenderByScene(boolean renderByScene) {
+		this.renderByScene = renderByScene;
 	}
 
 	/**

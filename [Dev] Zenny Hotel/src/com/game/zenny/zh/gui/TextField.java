@@ -13,8 +13,7 @@ import com.game.zenny.zh.util.ZennyColor;
 public class TextField extends Component {
 
 	private TrueTypeFont textFont = App.getFont(App.getFonts().OpenSans_BOLD, App.proportionalValueByWidth(15));
-	private TrueTypeFont placeHolderFont = App.getFont(App.getFonts().OpenSans_BOLD_ITALIC,
-			App.proportionalValueByWidth(15));
+	private TrueTypeFont placeHolderFont = App.getFont(App.getFonts().OpenSans_BOLD_ITALIC, App.proportionalValueByWidth(15));
 	private String text = "";
 	private String placeHolder = "";
 	private Color backgroundColor = ZennyColor.WHITE.getColor();
@@ -64,23 +63,22 @@ public class TextField extends Component {
 	 * @param sbg
 	 * @param g
 	 */
-
 	@Override
 	public void renderComponent(GameContainer gc, StateBasedGame sbg, Graphics g) {
 		g.setColor(backgroundColor);
-		g.fillRoundRect(x - width / 2, y - height / 2, width, height, cornerRadius);
+		g.fillRoundRect(getRealX(), getRealY(), width, height, cornerRadius);
 
 		if (text.equals("") && getScene().getSelectedComponent() != this) {
-			placeHolderFont.drawString(Math.round(x + App.proportionalValueByWidth(10) - width / 2),
+			placeHolderFont.drawString(Math.round(getRealX() + App.proportionalValueByWidth(10)),
 					Math.round(y - 1 + (height - textFont.getHeight(placeHolder)) / 2 - height / 2), placeHolder,
 					ZennyColor.GREY1.getColor());
 		} else {
-			textFont.drawString(Math.round(x + App.proportionalValueByWidth(10) - width / 2),
+			textFont.drawString(Math.round(getRealX() + App.proportionalValueByWidth(10)),
 					Math.round(y - 1 + (height - textFont.getHeight(text)) / 2 - height / 2), text,
 					ZennyColor.GREY3.getColor());
-			
+
 			if (getScene().getSelectedComponent() == this)
-				textFont.drawString(Math.round(x + App.proportionalValueByWidth(10) - width / 2 + textFont.getWidth(text) - App.proportionalValueByWidth(3)),
+				textFont.drawString(Math.round(getRealX() + App.proportionalValueByWidth(7) + textFont.getWidth(text)),
 						Math.round(y - 1 + (height - textFont.getHeight("|")) / 2 - height / 2), "|",
 						ZennyColor.GREY3.getColor());
 		}
@@ -102,12 +100,12 @@ public class TextField extends Component {
 	public void addChar(char c) {
 		text += c;
 	}
-	
+
 	public void removeLastChar() {
 		if (text.length() > 0)
 			text = text.substring(0, text.length() - 1);
 	}
-	
+
 	/**
 	 * @return the textFont
 	 */
@@ -181,6 +179,14 @@ public class TextField extends Component {
 	 */
 	public void setBackgroundColor(Color backgroundColor) {
 		this.backgroundColor = backgroundColor;
+	}
+	
+	/**
+	 * @param backgroundColor
+	 *            the backgroundColor to set
+	 */
+	public void setBackgroundColor(ZennyColor backgroundColor) {
+		this.backgroundColor = backgroundColor.getColor();
 	}
 
 	/**
