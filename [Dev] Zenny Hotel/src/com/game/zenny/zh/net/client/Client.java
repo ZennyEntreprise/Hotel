@@ -5,7 +5,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 import com.game.zenny.zh.net.Bridge;
-import com.game.zenny.zh.net.User;
 import com.game.zenny.zh.net.logger.LogType;
 import com.game.zenny.zh.net.logger.Logger;
 import com.game.zenny.zh.net.packet.Packet;

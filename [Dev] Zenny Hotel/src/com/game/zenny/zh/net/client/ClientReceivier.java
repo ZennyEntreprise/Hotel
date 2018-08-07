@@ -1,4 +1,4 @@
-package com.game.zenny.zh.net;
+package com.game.zenny.zh.net.client;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.game.zenny.zh.net.Bridge;
 import com.game.zenny.zh.net.logger.LogType;
 import com.game.zenny.zh.net.logger.Logger;
 import com.game.zenny.zh.net.packet.Packet;
