@@ -1,4 +1,4 @@
-package personnal.utils.zenny.transmitter;
+package com.game.zenny.zh.net;
 
 import java.net.InetAddress;
 

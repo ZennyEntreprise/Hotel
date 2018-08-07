@@ -1,14 +1,14 @@
-package personnal.utils.zenny.transmitter.packet.login;
+package com.game.zenny.zh.net.packet.login;
 
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
 
-import personnal.utils.zenny.transmitter.User;
-import personnal.utils.zenny.transmitter.client.Client;
-import personnal.utils.zenny.transmitter.exception.InvalidPacketConstructorException;
-import personnal.utils.zenny.transmitter.packet.Packet;
-import personnal.utils.zenny.transmitter.server.Server;
+import com.game.zenny.zh.net.User;
+import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.server.Server;
 
 public class ErrorLoginPacket extends Packet {
 

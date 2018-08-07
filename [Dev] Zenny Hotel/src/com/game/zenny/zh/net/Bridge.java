@@ -1,20 +1,20 @@
-package personnal.utils.zenny.transmitter;
+package com.game.zenny.zh.net;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-import personnal.utils.zenny.transmitter.logger.LogType;
-import personnal.utils.zenny.transmitter.logger.Logger;
-import personnal.utils.zenny.transmitter.packet.Packet;
-import personnal.utils.zenny.transmitter.packet.UnknownPacket;
-import personnal.utils.zenny.transmitter.packet.disconnect.DisconnectPacket;
-import personnal.utils.zenny.transmitter.packet.login.ErrorLoginPacket;
-import personnal.utils.zenny.transmitter.packet.login.LoginPacket;
-import personnal.utils.zenny.transmitter.packet.login.ValidLoginPacket;
-import personnal.utils.zenny.transmitter.packet.user.AddUserPacket;
-import personnal.utils.zenny.transmitter.packet.user.RemoveUserPacket;
+import com.game.zenny.zh.net.logger.LogType;
+import com.game.zenny.zh.net.logger.Logger;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.packet.UnknownPacket;
+import com.game.zenny.zh.net.packet.disconnect.DisconnectPacket;
+import com.game.zenny.zh.net.packet.login.ErrorLoginPacket;
+import com.game.zenny.zh.net.packet.login.LoginPacket;
+import com.game.zenny.zh.net.packet.login.ValidLoginPacket;
+import com.game.zenny.zh.net.packet.user.AddUserPacket;
+import com.game.zenny.zh.net.packet.user.RemoveUserPacket;
 
 public abstract class Bridge {
 

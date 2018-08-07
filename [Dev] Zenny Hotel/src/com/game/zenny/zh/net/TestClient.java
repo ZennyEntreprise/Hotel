@@ -1,12 +1,12 @@
-package personnal.utils.zenny.transmitter;
+package com.game.zenny.zh.net;
 
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import personnal.utils.zenny.transmitter.client.Client;
-import personnal.utils.zenny.transmitter.logger.LogType;
-import personnal.utils.zenny.transmitter.logger.Logger;
+import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.net.logger.LogType;
+import com.game.zenny.zh.net.logger.Logger;
 
 public class TestClient extends Client {
 

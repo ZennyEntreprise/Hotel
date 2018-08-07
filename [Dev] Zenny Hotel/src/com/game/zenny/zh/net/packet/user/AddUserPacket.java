@@ -1,20 +1,20 @@
-package personnal.utils.zenny.transmitter.packet.user;
+package com.game.zenny.zh.net.packet.user;
 
 import org.json.simple.JSONArray;
 
-import personnal.utils.zenny.transmitter.User;
-import personnal.utils.zenny.transmitter.client.Client;
-import personnal.utils.zenny.transmitter.exception.InvalidPacketConstructorException;
-import personnal.utils.zenny.transmitter.packet.Packet;
-import personnal.utils.zenny.transmitter.server.Server;
+import com.game.zenny.zh.net.User;
+import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.server.Server;
 
-public class RemoveUserPacket extends Packet {
+public class AddUserPacket extends Packet {
 
 	//// OBJECT
-	// -- REMOVE USER PACKET
-	private String userIdentifierToRemove;
+	// -- ADD USER PACKET
+	private String userIdentifierToAdd;
 	
-	public RemoveUserPacket(Object[] datas, String fromUserIdentifier, String toUserIdentifier) {
+	public AddUserPacket(Object[] datas, String fromUserIdentifier, String toUserIdentifier) {
 		super(datas, fromUserIdentifier, toUserIdentifier);
 		
 		if (datas.length == 0)
@@ -38,18 +38,18 @@ public class RemoveUserPacket extends Packet {
 				e.printStackTrace();
 			}
 		
-		this.userIdentifierToRemove = (String) datas[0];
+		this.userIdentifierToAdd = (String) datas[0];
 	}
 
 	@Override
 	public int getPacketTypeID() {
-		return 6;
+		return 5;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONArray build(JSONArray datas) {
-		datas.add(userIdentifierToRemove);
+		datas.add(userIdentifierToAdd);
 		
 		return datas;
 	}
@@ -61,9 +61,9 @@ public class RemoveUserPacket extends Packet {
 
 	@Override
 	public void clientReceivedAction(Client client, String fromUserIdentifier) {
-		if (client.containsUser(userIdentifierToRemove)) {
-			client.removeUser(userIdentifierToRemove);
-			client.userRemoved(userIdentifierToRemove);
+		if (!client.containsUser(userIdentifierToAdd)) {
+			client.addUser(userIdentifierToAdd);
+			client.userAdded(userIdentifierToAdd);
 		}
 	}
 

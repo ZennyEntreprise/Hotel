@@ -1,14 +1,14 @@
-package personnal.utils.zenny.transmitter.server;
+package com.game.zenny.zh.net.server;
 
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
-import personnal.utils.zenny.transmitter.Bridge;
-import personnal.utils.zenny.transmitter.User;
-import personnal.utils.zenny.transmitter.logger.LogType;
-import personnal.utils.zenny.transmitter.logger.Logger;
-import personnal.utils.zenny.transmitter.packet.Packet;
+import com.game.zenny.zh.net.Bridge;
+import com.game.zenny.zh.net.User;
+import com.game.zenny.zh.net.logger.LogType;
+import com.game.zenny.zh.net.logger.Logger;
+import com.game.zenny.zh.net.packet.Packet;
 
 public class Server extends Bridge {
 

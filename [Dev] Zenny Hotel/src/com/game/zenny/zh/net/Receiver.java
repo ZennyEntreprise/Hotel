@@ -1,4 +1,4 @@
-package personnal.utils.zenny.transmitter;
+package com.game.zenny.zh.net;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -11,14 +11,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import personnal.utils.zenny.transmitter.logger.LogType;
-import personnal.utils.zenny.transmitter.logger.Logger;
-import personnal.utils.zenny.transmitter.packet.Packet;
-import personnal.utils.zenny.transmitter.packet.PacketDestination;
-import personnal.utils.zenny.transmitter.packet.login.LoginPacket;
-import personnal.utils.zenny.transmitter.packet.login.ValidLoginPacket;
-import personnal.utils.zenny.transmitter.packet.user.AddUserPacket;
-import personnal.utils.zenny.transmitter.server.Server;
+import com.game.zenny.zh.net.logger.LogType;
+import com.game.zenny.zh.net.logger.Logger;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.packet.PacketDestination;
+import com.game.zenny.zh.net.packet.login.LoginPacket;
+import com.game.zenny.zh.net.packet.login.ValidLoginPacket;
+import com.game.zenny.zh.net.packet.user.AddUserPacket;
+import com.game.zenny.zh.net.server.Server;
 
 public class Receiver extends Thread {
 

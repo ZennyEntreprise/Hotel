@@ -1,12 +1,12 @@
-package personnal.utils.zenny.transmitter.packet.disconnect;
+package com.game.zenny.zh.net.packet.disconnect;
 
 import org.json.simple.JSONArray;
 
-import personnal.utils.zenny.transmitter.User;
-import personnal.utils.zenny.transmitter.client.Client;
-import personnal.utils.zenny.transmitter.packet.Packet;
-import personnal.utils.zenny.transmitter.packet.user.RemoveUserPacket;
-import personnal.utils.zenny.transmitter.server.Server;
+import com.game.zenny.zh.net.User;
+import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.packet.user.RemoveUserPacket;
+import com.game.zenny.zh.net.server.Server;
 
 public class DisconnectPacket extends Packet {
 

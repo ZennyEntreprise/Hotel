@@ -1,4 +1,4 @@
-package personnal.utils.zenny.transmitter.logger;
+package com.game.zenny.zh.net.logger;
 
 public enum LogType {
 	INFO(ANSIColor.ANSI_BLUE, "[INFO]"), NORMAL(ANSIColor.ANSI_RESET, "[NORMAL]"), WARNING(ANSIColor.ANSI_YELLOW,

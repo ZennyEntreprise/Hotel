@@ -1,13 +1,13 @@
-package personnal.utils.zenny.transmitter.packet;
+package com.game.zenny.zh.net.packet;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 
-import personnal.utils.zenny.transmitter.User;
-import personnal.utils.zenny.transmitter.client.Client;
-import personnal.utils.zenny.transmitter.server.Server;
+import com.game.zenny.zh.net.User;
+import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.net.server.Server;
 
 public abstract class Packet {
 

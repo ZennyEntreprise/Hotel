@@ -1,4 +1,4 @@
-package personnal.utils.zenny.transmitter;
+package com.game.zenny.zh.net;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -7,9 +7,9 @@ import java.net.InetAddress;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import personnal.utils.zenny.transmitter.logger.LogType;
-import personnal.utils.zenny.transmitter.logger.Logger;
-import personnal.utils.zenny.transmitter.packet.Packet;
+import com.game.zenny.zh.net.logger.LogType;
+import com.game.zenny.zh.net.logger.Logger;
+import com.game.zenny.zh.net.packet.Packet;
 
 public class Sender {
 

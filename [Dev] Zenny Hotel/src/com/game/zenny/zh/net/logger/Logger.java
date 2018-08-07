@@ -1,9 +1,9 @@
-package personnal.utils.zenny.transmitter.logger;
+package com.game.zenny.zh.net.logger;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-import personnal.utils.zenny.transmitter.Bridge;
+import com.game.zenny.zh.net.Bridge;
 
 public class Logger {
 

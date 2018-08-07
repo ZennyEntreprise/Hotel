@@ -1,17 +1,17 @@
-package personnal.utils.zenny.transmitter.client;
+package com.game.zenny.zh.net.client;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-import personnal.utils.zenny.transmitter.Bridge;
-import personnal.utils.zenny.transmitter.User;
-import personnal.utils.zenny.transmitter.logger.LogType;
-import personnal.utils.zenny.transmitter.logger.Logger;
-import personnal.utils.zenny.transmitter.packet.Packet;
-import personnal.utils.zenny.transmitter.packet.PacketDestination;
-import personnal.utils.zenny.transmitter.packet.disconnect.DisconnectPacket;
-import personnal.utils.zenny.transmitter.packet.login.LoginPacket;
+import com.game.zenny.zh.net.Bridge;
+import com.game.zenny.zh.net.User;
+import com.game.zenny.zh.net.logger.LogType;
+import com.game.zenny.zh.net.logger.Logger;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.packet.PacketDestination;
+import com.game.zenny.zh.net.packet.disconnect.DisconnectPacket;
+import com.game.zenny.zh.net.packet.login.LoginPacket;
 
 public abstract class Client extends Bridge {
 
