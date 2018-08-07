@@ -5,9 +5,7 @@ import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.User;
 import com.game.zenny.zh.net.client.Client;
-import com.game.zenny.zh.net.server.Server;
 
 public abstract class Packet {
 
@@ -72,12 +70,6 @@ public abstract class Packet {
 	 * @return completed datas
 	 */
 	public abstract JSONArray build(JSONArray datas);
-
-	/**
-	 * @param server
-	 * @param fromUser
-	 */
-	public abstract void serverReceivedAction(Server server, User fromUser);
 
 	/**
 	 * @param client

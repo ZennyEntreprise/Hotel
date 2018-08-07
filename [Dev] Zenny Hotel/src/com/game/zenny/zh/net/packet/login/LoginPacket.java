@@ -8,7 +8,6 @@ import com.game.zenny.zh.net.User;
 import com.game.zenny.zh.net.client.Client;
 import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
 import com.game.zenny.zh.net.packet.Packet;
-import com.game.zenny.zh.net.packet.user.AddUserPacket;
 import com.game.zenny.zh.net.server.Server;
 
 public class LoginPacket extends Packet {
@@ -73,7 +72,6 @@ public class LoginPacket extends Packet {
 			fromUser.setUserIdentifier(newUserIdentifier);
 			server.addUser(fromUser);
 			server.sendPacket(new ValidLoginPacket(Packet.buildDatasObject(userIdentifier), server.getIdentifier(), fromUser.getUserIdentifier()), fromUser);
-			server.sendPacket(new AddUserPacket(Packet.buildDatasObject(userIdentifier), server.getIdentifier(), null), server.getUsers());
 		}
 	}
 

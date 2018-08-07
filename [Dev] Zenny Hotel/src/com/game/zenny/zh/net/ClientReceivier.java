@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.DatagramPacket;
-import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,13 +13,8 @@ import org.json.simple.parser.ParseException;
 import com.game.zenny.zh.net.logger.LogType;
 import com.game.zenny.zh.net.logger.Logger;
 import com.game.zenny.zh.net.packet.Packet;
-import com.game.zenny.zh.net.packet.PacketDestination;
-import com.game.zenny.zh.net.packet.login.LoginPacket;
-import com.game.zenny.zh.net.packet.login.ValidLoginPacket;
-import com.game.zenny.zh.net.packet.user.AddUserPacket;
-import com.game.zenny.zh.net.server.Server;
 
-public class Receiver extends Thread {
+public class ClientReceivier extends Thread {
 
 	//// OBJECT
 	// -- RECEIVER
@@ -29,7 +23,7 @@ public class Receiver extends Thread {
 	/**
 	 * @param bridge
 	 */
-	public Receiver(Bridge bridge) {
+	public ClientReceivier(Bridge bridge) {
 		this.bridge = bridge;
 	}
 
@@ -58,8 +52,10 @@ public class Receiver extends Thread {
 			if (datasArray == null)
 				continue;
 
-			Object[] datas = new Object[datasArray.size()]; 
-			for (int i = 0; i < datasArray.size(); i++) { datas[i] = datasArray.get(i); }
+			Object[] datas = new Object[datasArray.size()];
+			for (int i = 0; i < datasArray.size(); i++) {
+				datas[i] = datasArray.get(i);
+			}
 
 			Packet packet = null;
 			try {
@@ -70,7 +66,6 @@ public class Receiver extends Thread {
 						toUserIdentifier);
 			} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException e) {
-				e.printStackTrace();
 				continue;
 			}
 
@@ -81,45 +76,7 @@ public class Receiver extends Thread {
 			logJson.put("packetJSON", json);
 			Logger.log(bridge, LogType.INFO, "RECEIVING PACKET   :   " + logJson.toJSONString());
 
-			User fromUser = null;
-			if (bridge.containsUser(fromUserIdentifier, datagramPacket.getAddress(), datagramPacket.getPort())) {
-				fromUser = bridge.getUser(fromUserIdentifier, datagramPacket.getAddress(),
-						datagramPacket.getPort());
-			} else {
-				fromUser = new User(fromUserIdentifier, datagramPacket.getAddress(), datagramPacket.getPort());
-			}
-
-			if (packet instanceof LoginPacket || packet instanceof ValidLoginPacket || packet instanceof AddUserPacket || bridge.containsUser(fromUserIdentifier)) {
-				bridge.packetAction(packet, fromUser);
-			} else {
-				System.out.println(fromUserIdentifier + " " + datagramPacket.getAddress() + " " + datagramPacket.getPort());
-				for (User user : bridge.getUsers()) {
-					System.out.println(user.getUserIdentifier() + " " + user.getUserAddress() + " " + user.getUserPort());
-				}
-				continue;
-			}
-
-			if (!(bridge.getIdentifier().equals("server")))
-				continue;
-
-			Server server = (Server) bridge;
-
-			if (toUserIdentifier.equals(PacketDestination.TO_SERVER.getPacketDestination())) {
-				continue;
-			} 
-			else if (toUserIdentifier.equals(PacketDestination.TO_ALL_CLIENTS_WITHOUT_ME.getPacketDestination())) {
-				ArrayList<User> toUsers = (ArrayList<User>) server.getUsers().clone();
-				toUsers.remove(fromUser);
-				server.sendPacket(packet, toUsers);
-			} 
-			else if (toUserIdentifier.equals(PacketDestination.TO_ALL_CLIENTS_WITH_ME.getPacketDestination())) {
-				server.sendPacket(packet, server.getUsers());
-			} else {
-				if (!bridge.containsUser(toUserIdentifier))
-					continue;
-				server.sendPacket(packet, bridge.getUser(toUserIdentifier));
-			}
-
+			bridge.packetAction(packet, fromUserIdentifier);
 		}
 	}
 

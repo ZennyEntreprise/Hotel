@@ -88,8 +88,8 @@ public abstract class Client extends Bridge {
 	 * @param user
 	 */
 	@Override
-	public void packetAction(Packet packet, User fromUser) {
-		packet.clientReceivedAction(this, fromUser.getUserIdentifier());
+	public void packetAction(Packet packet, String fromUserIdentifier) {
+		packet.clientReceivedAction(this, fromUserIdentifier);
 	}
 
 	/**

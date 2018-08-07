@@ -1,7 +1,5 @@
 package com.game.zenny.zh.net.packet.login;
 
-import java.util.UUID;
-
 import org.json.simple.JSONArray;
 
 import com.game.zenny.zh.net.User;
@@ -88,7 +86,7 @@ public class ErrorLoginPacket extends Packet {
 	@Override
 	public void clientReceivedAction(Client client, String fromUserIdentifier) {
 		if (errorMessage.equalsIgnoreCase(ErrorMessage.USER_IDENTIFIER_ALREADY_EXISTS.getErrorMessage())) {
-			client.connect(UUID.randomUUID().toString());
+			System.exit(0);
 		}
 	}
 

@@ -2,11 +2,9 @@ package com.game.zenny.zh.net.packet;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.User;
 import com.game.zenny.zh.net.client.Client;
 import com.game.zenny.zh.net.logger.LogType;
 import com.game.zenny.zh.net.logger.Logger;
-import com.game.zenny.zh.net.server.Server;
 
 public class UnknownPacket extends Packet {
 
@@ -24,11 +22,6 @@ public class UnknownPacket extends Packet {
 	@Override
 	public JSONArray build(JSONArray datas) {
 		return datas;
-	}
-
-	@Override
-	public void serverReceivedAction(Server server, User fromUser) {
-		Logger.log(server, LogType.WARNING, "Unknown Packet");
 	}
 
 	@Override

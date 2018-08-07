@@ -13,8 +13,6 @@ import com.game.zenny.zh.net.packet.disconnect.DisconnectPacket;
 import com.game.zenny.zh.net.packet.login.ErrorLoginPacket;
 import com.game.zenny.zh.net.packet.login.LoginPacket;
 import com.game.zenny.zh.net.packet.login.ValidLoginPacket;
-import com.game.zenny.zh.net.packet.user.AddUserPacket;
-import com.game.zenny.zh.net.packet.user.RemoveUserPacket;
 
 public abstract class Bridge {
 
@@ -26,7 +24,7 @@ public abstract class Bridge {
 	private String identifier;
 	private DatagramSocket socket;
 	private Sender sender;
-	private Receiver receiver;
+	private ClientReceivier receiver;
 
 	/**
 	 * @param socket
@@ -45,7 +43,7 @@ public abstract class Bridge {
 			Logger.log(this, LogType.INFO, " - " + packet.getValue().getSimpleName());
 
 		sender = new Sender(this);
-		receiver = new Receiver(this);
+		receiver = new ClientReceivier(this);
 		receiver.start();
 	}
 
@@ -96,7 +94,7 @@ public abstract class Bridge {
 	/**
 	 * @return the receiver
 	 */
-	public Receiver getReceiver() {
+	public ClientReceivier getReceiver() {
 		return receiver;
 	}
 
@@ -104,7 +102,7 @@ public abstract class Bridge {
 	 * @param receiver
 	 *            the receiver to set
 	 */
-	public void setReceiver(Receiver receiver) {
+	public void setReceiver(ClientReceivier receiver) {
 		this.receiver = receiver;
 	}
 
@@ -116,15 +114,13 @@ public abstract class Bridge {
 		Packet.registerPacket(2, ValidLoginPacket.class);
 		Packet.registerPacket(3, ErrorLoginPacket.class);
 		Packet.registerPacket(4, DisconnectPacket.class);
-		Packet.registerPacket(5, AddUserPacket.class);
-		Packet.registerPacket(6, RemoveUserPacket.class);
 	}
 
 	/**
 	 * @param packet
 	 * @param fromUser
 	 */
-	public abstract void packetAction(Packet packet, User fromUser);
+	public abstract void packetAction(Packet packet, String fromUserIdentifier);
 
 	// -- USER
 	private ArrayList<User> users = new ArrayList<User>();
