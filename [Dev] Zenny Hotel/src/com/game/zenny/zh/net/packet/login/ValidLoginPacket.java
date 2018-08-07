@@ -2,11 +2,9 @@ package com.game.zenny.zh.net.packet.login;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.User;
 import com.game.zenny.zh.net.client.Client;
 import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
 import com.game.zenny.zh.net.packet.Packet;
-import com.game.zenny.zh.net.server.Server;
 
 public class ValidLoginPacket extends Packet {
 
@@ -52,11 +50,6 @@ public class ValidLoginPacket extends Packet {
 		datas.add(userIdentifier);
 		
 		return datas;
-	}
-
-	@Override
-	public void serverReceivedAction(Server server, User fromUser) {
-		return;
 	}
 
 	@Override

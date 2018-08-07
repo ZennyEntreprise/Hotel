@@ -1,14 +1,10 @@
 package com.game.zenny.zh.net.packet.login;
 
-import java.net.InetAddress;
-
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.User;
 import com.game.zenny.zh.net.client.Client;
 import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
 import com.game.zenny.zh.net.packet.Packet;
-import com.game.zenny.zh.net.server.Server;
 
 public class LoginPacket extends Packet {
 
@@ -54,25 +50,6 @@ public class LoginPacket extends Packet {
 		datas.add(userIdentifier);
 
 		return datas;
-	}
-
-	@Override
-	public void serverReceivedAction(Server server, User fromUser) {
-		String newUserIdentifier = this.userIdentifier;
-		InetAddress fromUserAddress = fromUser.getUserAddress();
-		int fromUserPort = fromUser.getUserPort();
-
-		if (server.containsUser(newUserIdentifier) && !server.containsUser(fromUserAddress, fromUserPort)) {
-			server.sendPacket(new ErrorLoginPacket(Packet.buildDatasObject(ErrorLoginPacket.ErrorMessage.USER_IDENTIFIER_ALREADY_EXISTS.getErrorMessage()), server.getIdentifier(), fromUser.getUserIdentifier()), fromUser);
-		} else if (!server.containsUser(newUserIdentifier) && server.containsUser(fromUserAddress, fromUserPort)) {
-			server.sendPacket(new ErrorLoginPacket(Packet.buildDatasObject(ErrorLoginPacket.ErrorMessage.USER_IP_AND_USER_PORT_ALREADY_EXISTS.getErrorMessage()), server.getIdentifier(), fromUser.getUserIdentifier()), fromUser);
-		} else if (server.containsUser(newUserIdentifier) && server.containsUser(fromUserAddress, fromUserPort)) {
-			server.sendPacket(new ErrorLoginPacket(Packet.buildDatasObject(ErrorLoginPacket.ErrorMessage.USER_IDENTIFIER_USER_IP_AND_USER_PORT_ALREADY_EXISTS.getErrorMessage()), server.getIdentifier(), fromUser.getUserIdentifier()), fromUser);
-		} else {
-			fromUser.setUserIdentifier(newUserIdentifier);
-			server.addUser(fromUser);
-			server.sendPacket(new ValidLoginPacket(Packet.buildDatasObject(userIdentifier), server.getIdentifier(), fromUser.getUserIdentifier()), fromUser);
-		}
 	}
 
 	@Override
