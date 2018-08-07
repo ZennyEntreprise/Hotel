@@ -98,17 +98,4 @@ public abstract class Client extends Bridge {
 		getSender().sendPacket(packet, this.serverAddress, this.serverPort);
 	}
 
-	// -- EVENTS
-	
-	public abstract void connected();
-	
-	/**
-	 * @param userAddedIdentifier
-	 */
-	public abstract void userAdded(String userAddedIdentifier);
-	
-	/**
-	 * @param userRemovedIdentifier
-	 */
-	public abstract void userRemoved(String userRemovedIdentifier);
 }

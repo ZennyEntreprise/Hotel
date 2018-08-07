@@ -55,7 +55,6 @@ public class ValidLoginPacket extends Packet {
 	@Override
 	public void clientReceivedAction(Client client, String fromUserIdentifier) {
 		client.setIdentifier(userIdentifier);
-		client.connected();
 	}
 
 }
