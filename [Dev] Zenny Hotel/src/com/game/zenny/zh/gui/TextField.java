@@ -6,15 +6,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.scene.Scene;
 import com.game.zenny.zh.util.ZennyColor;
 
 public class TextField extends Component {
 
-	private TrueTypeFont textFont = App.getFont(App.getFonts().OpenSans_BOLD, App.proportionalValueByWidth(15));
-	private TrueTypeFont placeHolderFont = App.getFont(App.getFonts().OpenSans_BOLD_ITALIC,
-			App.proportionalValueByWidth(15));
+	private TrueTypeFont textFont = AppClient.getFont(AppClient.getFonts().OpenSans_BOLD, AppClient.proportionalValueByWidth(15));
+	private TrueTypeFont placeHolderFont = AppClient.getFont(AppClient.getFonts().OpenSans_BOLD_ITALIC,
+			AppClient.proportionalValueByWidth(15));
 	private String text = "";
 	private String placeHolder = "";
 	private boolean password = false;
@@ -75,7 +75,7 @@ public class TextField extends Component {
 		g.fillRoundRect(getRealX(), getRealY(), width, height, cornerRadius);
 
 		if (text.equals("") && getScene().getSelectedComponent() != this) {
-			placeHolderFont.drawString(Math.round(getRealX() + App.proportionalValueByWidth(10)),
+			placeHolderFont.drawString(Math.round(getRealX() + AppClient.proportionalValueByWidth(10)),
 									   Math.round(y - 1 + (height - textFont.getHeight(placeHolder)) / 2 - height / 2), 
 									   placeHolder,
 									   ZennyColor.GREY1.getColor());
@@ -91,20 +91,20 @@ public class TextField extends Component {
 
 			String t = "";
 			for (int i = text.length() - 1; i >= 0; i--) {
-				if (textFont.getWidth(t + text.split("")[i]) < width - 2 * App.proportionalValueByWidth(10)) {
+				if (textFont.getWidth(t + text.split("")[i]) < width - 2 * AppClient.proportionalValueByWidth(10)) {
 					t = text.split("")[i] + t;
 				} else {
 					continue;
 				}
 			}
 			
-			textFont.drawString(Math.round(getRealX() + App.proportionalValueByWidth(10)),
+			textFont.drawString(Math.round(getRealX() + AppClient.proportionalValueByWidth(10)),
 								Math.round(y - 1 + (height - textFont.getHeight(t)) / 2 - height / 2), 
 								t,
 								ZennyColor.GREY3.getColor());
 
 			if (getScene().getSelectedComponent() == this)
-				textFont.drawString(Math.round(getRealX() + App.proportionalValueByWidth(7) + textFont.getWidth(t)),
+				textFont.drawString(Math.round(getRealX() + AppClient.proportionalValueByWidth(7) + textFont.getWidth(t)),
 									Math.round(y - 1 + (height - textFont.getHeight("|")) / 2 - height / 2), 
 									"|",
 									ZennyColor.GREY3.getColor());

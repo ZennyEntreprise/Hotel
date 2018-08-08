@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.gui.Button;
 import com.game.zenny.zh.gui.ComponentGroup;
 import com.game.zenny.zh.gui.Label;
@@ -37,24 +37,24 @@ public class StartMenu extends Scene {
 	
 	private boolean waitingWebServerResponse = false;
 	
-	public StartMenu(App app) {
-		super(app, App.Scenes.START_MENU.getSceneID());
+	public StartMenu(AppClient app) {
+		super(app, AppClient.Scenes.START_MENU.getSceneID());
 	}
 
 	@Override
 	public void initScene(GameContainer gc, StateBasedGame sbg) {
 		/* CONNECTION PANE */
-		float connectionPaneCenterX = App.WINDOW_WIDTH / 2 - App.proportionalValueByWidth(200);
-		float connectionPaneCenterY = App.WINDOW_HEIGHT / 2 + App.proportionalValueByHeight(50);
+		float connectionPaneCenterX = AppClient.WINDOW_WIDTH / 2 - AppClient.proportionalValueByWidth(200);
+		float connectionPaneCenterY = AppClient.WINDOW_HEIGHT / 2 + AppClient.proportionalValueByHeight(50);
 
 		new Label(this, connectionPaneCenterX, 
-						connectionPaneCenterY - App.proportionalValueByHeight(140), 
+						connectionPaneCenterY - AppClient.proportionalValueByHeight(140), 
 					   	"CONNEXION");
 		
 		connectUsernameTextField = new TextField(this, connectionPaneCenterX, 
-													   connectionPaneCenterY - App.proportionalValueByHeight(75), 
-													   App.proportionalValueByWidth(200),
-													   App.proportionalValueByHeight(50), 
+													   connectionPaneCenterY - AppClient.proportionalValueByHeight(75), 
+													   AppClient.proportionalValueByWidth(200),
+													   AppClient.proportionalValueByHeight(50), 
 													   "", 
 													   "Nom d'utilisateur");
 													   connectUsernameTextField.setCornerRadius(3);
@@ -63,8 +63,8 @@ public class StartMenu extends Scene {
 
 		connectPasswordTextField = new TextField(this, connectionPaneCenterX, 
 													   connectionPaneCenterY,
-													   App.proportionalValueByWidth(200), 
-													   App.proportionalValueByHeight(50), 
+													   AppClient.proportionalValueByWidth(200), 
+													   AppClient.proportionalValueByHeight(50), 
 													   "", 
 													   "Mot de passe");
 													   connectPasswordTextField.setCornerRadius(3);
@@ -73,15 +73,15 @@ public class StartMenu extends Scene {
 													   connectPasswordTextField.setMaxChars(20);
 													  
 	   connectInfoLabel = new Label(this, connectionPaneCenterX, 
-			   							   Math.round(connectionPaneCenterY + App.proportionalValueByHeight(42)), 
-			   							   App.getFont(App.getFonts().OpenSans_REGULAR_ITALIC, App.proportionalValueByWidth(17)), 
+			   							   Math.round(connectionPaneCenterY + AppClient.proportionalValueByHeight(42)), 
+			   							   AppClient.getFont(AppClient.getFonts().OpenSans_REGULAR_ITALIC, AppClient.proportionalValueByWidth(17)), 
 			   							   "");
 	   									   connectInfoLabel.setColor(ZennyColor.RED3);
 													   
 	   connectButton = new Button(this, connectionPaneCenterX,
-									    connectionPaneCenterY + App.proportionalValueByHeight(85), 
-									    App.proportionalValueByWidth(200),
-									    App.proportionalValueByHeight(50), 
+									    connectionPaneCenterY + AppClient.proportionalValueByHeight(85), 
+									    AppClient.proportionalValueByWidth(200),
+									    AppClient.proportionalValueByHeight(50), 
 									    "SE CONNECTER");
 									    connectButton.setCornerRadius(3);
 									    connectButton.setButtonColorAutomatic(ZennyColor.ORANGE1);
@@ -108,7 +108,7 @@ public class StartMenu extends Scene {
 											        } else {
 											        	try {
 															JSONObject connectionObject = (JSONObject) new JSONParser().parse(query);
-															App.enterScene(new Game(getApp(), connectionObject.get("uuid").toString()), gc);
+															AppClient.enterScene(new Game(getApp(), connectionObject.get("uuid").toString()), gc);
 														} catch (ParseException e) {
 															connectInfoLabel.setText("Un problème est survenu");
 														}
@@ -118,9 +118,9 @@ public class StartMenu extends Scene {
 									    });
 
 		ComponentGroup connectGroup = new ComponentGroup(this, connectionPaneCenterX,
-												connectionPaneCenterY - App.proportionalValueByHeight(25), 
-												App.proportionalValueByWidth(350),
-												App.proportionalValueByHeight(300), 
+												connectionPaneCenterY - AppClient.proportionalValueByHeight(25), 
+												AppClient.proportionalValueByWidth(350),
+												AppClient.proportionalValueByHeight(300), 
 												new Color(255, 255, 255, 0.2f));
 												connectGroup.setCornerRadius(3);
 
@@ -128,17 +128,17 @@ public class StartMenu extends Scene {
 
 		/* REGISTER PANE */
 												
-		float registerPaneCenterX = App.WINDOW_WIDTH / 2 + App.proportionalValueByWidth(200);
-		float registerPaneCenterY = App.WINDOW_HEIGHT / 2 + App.proportionalValueByHeight(50);
+		float registerPaneCenterX = AppClient.WINDOW_WIDTH / 2 + AppClient.proportionalValueByWidth(200);
+		float registerPaneCenterY = AppClient.WINDOW_HEIGHT / 2 + AppClient.proportionalValueByHeight(50);
 				
 		new Label(this, registerPaneCenterX, 
-						registerPaneCenterY - App.proportionalValueByHeight(140), 
+						registerPaneCenterY - AppClient.proportionalValueByHeight(140), 
 				   		"INSCRIPTION");
 		
 		registerUsernameTextField = new TextField(this, registerPaneCenterX, 
-													 	registerPaneCenterY - App.proportionalValueByHeight(75), 
-													 	App.proportionalValueByWidth(200),
-													 	App.proportionalValueByHeight(50), 
+													 	registerPaneCenterY - AppClient.proportionalValueByHeight(75), 
+													 	AppClient.proportionalValueByWidth(200),
+													 	AppClient.proportionalValueByHeight(50), 
 													 	"", 
 													 	"Nom d'utilisateur");
 													 	registerUsernameTextField.setCornerRadius(3);
@@ -147,8 +147,8 @@ public class StartMenu extends Scene {
 													 	
 		registerMailTextField = new TextField(this, registerPaneCenterX,
 													registerPaneCenterY,
-													App.proportionalValueByWidth(200),
-													App.proportionalValueByHeight(50),
+													AppClient.proportionalValueByWidth(200),
+													AppClient.proportionalValueByHeight(50),
 													"",
 													"E-mail");
 													registerMailTextField.setCornerRadius(3);
@@ -157,9 +157,9 @@ public class StartMenu extends Scene {
 													registerMailTextField.setAcceptDot(true);
 													
 		registerPasswordTextField = new TextField(this, registerPaneCenterX,
-													registerPaneCenterY + App.proportionalValueByHeight(75),
-													App.proportionalValueByWidth(200),
-													App.proportionalValueByHeight(50),
+													registerPaneCenterY + AppClient.proportionalValueByHeight(75),
+													AppClient.proportionalValueByWidth(200),
+													AppClient.proportionalValueByHeight(50),
 													"",
 													"Mot de passe");
 													registerPasswordTextField.setCornerRadius(3);
@@ -168,9 +168,9 @@ public class StartMenu extends Scene {
 													registerPasswordTextField.setMaxChars(20);
 		
 		registerPasswordConfirmTextField = new TextField(this, registerPaneCenterX,
-														registerPaneCenterY + App.proportionalValueByHeight(150),
-														App.proportionalValueByWidth(200),
-														App.proportionalValueByHeight(50),
+														registerPaneCenterY + AppClient.proportionalValueByHeight(150),
+														AppClient.proportionalValueByWidth(200),
+														AppClient.proportionalValueByHeight(50),
 														"",
 														"Confirmation");
 														registerPasswordConfirmTextField.setCornerRadius(3);
@@ -179,15 +179,15 @@ public class StartMenu extends Scene {
 														registerPasswordConfirmTextField.setMaxChars(20);
 														
 		registerInfoLabel = new Label(this, registerPaneCenterX, 
-				   						   Math.round(registerPaneCenterY + App.proportionalValueByHeight(192)), 
-				   						   App.getFont(App.getFonts().OpenSans_REGULAR_ITALIC, App.proportionalValueByWidth(17)), 
+				   						   Math.round(registerPaneCenterY + AppClient.proportionalValueByHeight(192)), 
+				   						   AppClient.getFont(AppClient.getFonts().OpenSans_REGULAR_ITALIC, AppClient.proportionalValueByWidth(17)), 
 										   "");
 										   registerInfoLabel.setColor(ZennyColor.RED3);
 													
 		registerButton = new Button(this, registerPaneCenterX,
-										  registerPaneCenterY + App.proportionalValueByHeight(235), 
-										  App.proportionalValueByWidth(200),
-										  App.proportionalValueByHeight(50), 
+										  registerPaneCenterY + AppClient.proportionalValueByHeight(235), 
+										  AppClient.proportionalValueByWidth(200),
+										  AppClient.proportionalValueByHeight(50), 
 										  "S'INSCRIRE");
 										  registerButton.setCornerRadius(3);
 										  registerButton.setButtonColorAutomatic(ZennyColor.RED2);
@@ -218,19 +218,19 @@ public class StartMenu extends Scene {
 										  });
 										  
 	    ComponentGroup registerGroup = new ComponentGroup(this, registerPaneCenterX,
-			  									registerPaneCenterY + App.proportionalValueByHeight(50), 
-			  									App.proportionalValueByWidth(350),
-			  									App.proportionalValueByHeight(450), 
+			  									registerPaneCenterY + AppClient.proportionalValueByHeight(50), 
+			  									AppClient.proportionalValueByWidth(350),
+			  									AppClient.proportionalValueByHeight(450), 
 			  									new Color(255, 255, 255, 0.2f));
 												registerGroup.setCornerRadius(3);								  
 										  
 		/* REGISTER PANE */
 
-		new ComponentGroup(this, App.WINDOW_WIDTH / 2, 
-							     App.WINDOW_HEIGHT / 2, 
-							     App.WINDOW_WIDTH + 2,
-							     App.WINDOW_HEIGHT + 2, 
-							     new GradientFill(0, 0, ZennyColor.DARKGREY1.getColor(), App.WINDOW_WIDTH, App.WINDOW_HEIGHT, ZennyColor.PURPLE2.getColor()));
+		new ComponentGroup(this, AppClient.WINDOW_WIDTH / 2, 
+							     AppClient.WINDOW_HEIGHT / 2, 
+							     AppClient.WINDOW_WIDTH + 2,
+							     AppClient.WINDOW_HEIGHT + 2, 
+							     new GradientFill(0, 0, ZennyColor.DARKGREY1.getColor(), AppClient.WINDOW_WIDTH, AppClient.WINDOW_HEIGHT, ZennyColor.PURPLE2.getColor()));
 		
 	}
 
@@ -243,9 +243,9 @@ public class StartMenu extends Scene {
 	public void renderScene(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		/* HEADER */
 		
-		App.getSprites().logoBig.draw(0, -App.proportionalValueByHeight(240), 
-										 Math.round(App.proportionalValueByWidth(App.getSprites().logoBig.getWidth())), 
-										 Math.round(App.proportionalValueByHeight(App.getSprites().logoBig.getHeight())), 
+		AppClient.getSprites().logoBig.draw(0, -AppClient.proportionalValueByHeight(240), 
+										 Math.round(AppClient.proportionalValueByWidth(AppClient.getSprites().logoBig.getWidth())), 
+										 Math.round(AppClient.proportionalValueByHeight(AppClient.getSprites().logoBig.getHeight())), 
 										 ZennyColor.WHITE);
 		
 		/* HEADER */

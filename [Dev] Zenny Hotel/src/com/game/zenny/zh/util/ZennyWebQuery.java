@@ -7,7 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 
 public class ZennyWebQuery {
 
@@ -18,7 +18,7 @@ public class ZennyWebQuery {
 	public static String query(String url) {
 		try {
 			URL uri = null;
-			uri = new URL(App.serverDomain+url);
+			uri = new URL(AppClient.serverDomain+url);
 			
 			URLConnection ec = uri.openConnection();
 	        BufferedReader in = new BufferedReader(new InputStreamReader(ec.getInputStream(), "UTF-8"));

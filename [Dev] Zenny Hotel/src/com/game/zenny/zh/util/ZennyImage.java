@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.Camera;
 
 public class ZennyImage extends Image {
@@ -22,8 +22,8 @@ public class ZennyImage extends Image {
 	 */
 	public float getRenderX(float x, boolean customDimension) {
 		if (customDimension)
-			return App.WINDOW_WIDTH / 2 - Camera.getRealX() + x - App.proportionalValueByWidth(this.getWidth()) / 2;
-		return App.WINDOW_WIDTH / 2 - Camera.getRealX() + x - this.getWidth() / 2;
+			return AppClient.WINDOW_WIDTH / 2 - Camera.getRealX() + x - AppClient.proportionalValueByWidth(this.getWidth()) / 2;
+		return AppClient.WINDOW_WIDTH / 2 - Camera.getRealX() + x - this.getWidth() / 2;
 	}
 
 	/**
@@ -31,8 +31,8 @@ public class ZennyImage extends Image {
 	 */
 	public float getRenderY(float y, boolean customDimension) {
 		if (customDimension)
-			return App.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - App.proportionalValueByHeight(this.getHeight()) / 2;
-		return App.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - this.getHeight() / 2;
+			return AppClient.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - AppClient.proportionalValueByHeight(this.getHeight()) / 2;
+		return AppClient.WINDOW_HEIGHT / 2 - Camera.getRealY() + y - this.getHeight() / 2;
 	}
 
 	public void draw() {
@@ -96,8 +96,8 @@ public class ZennyImage extends Image {
 	 * @return if the image is drawable
 	 */
 	public boolean drawable(float x, float y) {
-		if (getRenderX(x, false) + this.getWidth() < 0 || getRenderX(x, false) > App.WINDOW_WIDTH
-				|| getRenderY(y, false) + this.getHeight() < 0 || getRenderY(y, false) > App.WINDOW_HEIGHT)
+		if (getRenderX(x, false) + this.getWidth() < 0 || getRenderX(x, false) > AppClient.WINDOW_WIDTH
+				|| getRenderY(y, false) + this.getHeight() < 0 || getRenderY(y, false) > AppClient.WINDOW_HEIGHT)
 			return false;
 
 		return true;

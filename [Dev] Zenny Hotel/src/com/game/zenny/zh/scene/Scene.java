@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.Camera;
 import com.game.zenny.zh.gui.Component;
 import com.game.zenny.zh.gui.TextField;
@@ -20,7 +20,7 @@ import com.game.zenny.zh.util.ZennyMouse;
 
 public abstract class Scene implements GameState {
 
-	private App app;
+	private AppClient app;
 	private int sceneID;
 	protected boolean initialized = false;
 	protected boolean leaved = false;
@@ -32,7 +32,7 @@ public abstract class Scene implements GameState {
 	 * @param app
 	 * @param sceneID
 	 */
-	public Scene(App app, int sceneID) {
+	public Scene(AppClient app, int sceneID) {
 		this.app = app;
 		this.sceneID = sceneID;
 	}
@@ -282,7 +282,7 @@ public abstract class Scene implements GameState {
 
 		if (gc.getInput().isKeyPressed(Input.KEY_MULTIPLY)) {
 			debug = !debug;
-			App.appGameContainer.setShowFPS(debug);
+			AppClient.appGameContainer.setShowFPS(debug);
 		}
 		
 		updateScene(gc, sbg, delta);
@@ -320,7 +320,7 @@ public abstract class Scene implements GameState {
 	/**
 	 * @return the app
 	 */
-	public App getApp() {
+	public AppClient getApp() {
 		return app;
 	}
 
@@ -328,7 +328,7 @@ public abstract class Scene implements GameState {
 	 * @param app
 	 *            the app to set
 	 */
-	public void setApp(App app) {
+	public void setApp(AppClient app) {
 		this.app = app;
 	}
 

@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 
 public class AppartmentStructure {
 
@@ -61,10 +61,10 @@ public class AppartmentStructure {
 	 * @return x coordinate
 	 */
 	public float getCellXCoordinate(int x, int y) {
-		float wd = App.getSprites().ground.getWidth() / 2 - 1;
+		float wd = AppClient.getSprites().ground.getWidth() / 2 - 1;
 
 		float cx = x;
-		cx = cx * App.getSprites().ground.getWidth();
+		cx = cx * AppClient.getSprites().ground.getWidth();
 		cx = cx - (y + x) * wd;
 		cx = cx - 2 * x;
 
@@ -77,10 +77,10 @@ public class AppartmentStructure {
 	 * @return y coordinate
 	 */
 	public float getCellYCoordinate(int x, int y) {
-		float hd = App.getSprites().ground.getHeight() / 2 + 1;
+		float hd = AppClient.getSprites().ground.getHeight() / 2 + 1;
 
 		float cy = y;
-		cy = cy * App.getSprites().ground.getHeight();
+		cy = cy * AppClient.getSprites().ground.getHeight();
 		cy = cy + x * hd;
 		cy = cy - y * hd;
 		cy = cy - x;

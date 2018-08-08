@@ -9,10 +9,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.NetworkClient;
-import com.game.zenny.zh.Player;
 import com.game.zenny.zh.appartment.Appartment;
+import com.game.zenny.zh.entity.Player;
 import com.game.zenny.zh.net.Bridge;
 
 public class Game extends Scene {
@@ -24,8 +24,8 @@ public class Game extends Scene {
 	/**
 	 * @param app
 	 */
-	public Game(App app, String uuid) {
-		super(app, App.Scenes.GAME.getSceneID());
+	public Game(AppClient app, String uuid) {
+		super(app, AppClient.Scenes.GAME.getSceneID());
 		
 		try {
 			networkClient = new NetworkClient(this, InetAddress.getByName("localhost"), Bridge.defaultPort);
@@ -49,6 +49,9 @@ public class Game extends Scene {
 	@Override
 	public void renderScene(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		appartment.render(gc, sbg, g);
+		
+		if (player != null)
+			System.out.println(player.toJSON());
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package com.game.zenny.zh.util;
 
 import org.lwjgl.input.Mouse;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.Camera;
 
 public class ZennyMouse {
@@ -19,7 +19,7 @@ public class ZennyMouse {
 	 */
 	
 	public static int getMapX() {
-		return getX() - (App.WINDOW_WIDTH / 2) + Camera.getRealX();
+		return getX() - (AppClient.WINDOW_WIDTH / 2) + Camera.getRealX();
 	}
 	
 	/**
@@ -33,14 +33,14 @@ public class ZennyMouse {
 	 * @return mouse y
 	 */
 	public static int getY() {
-		return Mouse.getY() * -1 + App.WINDOW_HEIGHT;
+		return Mouse.getY() * -1 + AppClient.WINDOW_HEIGHT;
 	}
 	
 	/**
 	 * @return mouse y in map
 	 */
 	public static int getMapY() {
-		return getY() - App.WINDOW_HEIGHT / 2 + Camera.getRealY();
+		return getY() - AppClient.WINDOW_HEIGHT / 2 + Camera.getRealY();
 	}
 	
 	/**

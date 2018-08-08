@@ -6,13 +6,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
-import com.game.zenny.zh.App;
+import com.game.zenny.zh.AppClient;
 import com.game.zenny.zh.scene.Scene;
 import com.game.zenny.zh.util.ZennyColor;
 
 public class Button extends Component {
 
-	private TrueTypeFont font = App.getFont(App.getFonts().OpenSans_SEMI_BOLD, App.proportionalValueByWidth(18));
+	private TrueTypeFont font = AppClient.getFont(AppClient.getFonts().OpenSans_SEMI_BOLD, AppClient.proportionalValueByWidth(18));
 	private String text;
 	private Color textColor = ZennyColor.WHITE.getColor();
 	private Color buttonHoverTextColor = ZennyColor.WHITE.getColor();

@@ -15,7 +15,7 @@ import com.game.zenny.zh.scene.Scene;
 import com.game.zenny.zh.scene.StartMenu;
 import com.game.zenny.zh.util.ZennyMath;
 
-public class App extends StateBasedGame {
+public class AppClient extends StateBasedGame {
 
 	//// STATIC
 	public static AppGameContainer appGameContainer;
@@ -24,7 +24,7 @@ public class App extends StateBasedGame {
 	public final static int DEV_WINDOW_HEIGHT = 720;
 	public final static boolean devMode = true;
 	public final static String serverDomain = "http://localhost/ZennyHotel/";
-	
+
 	public static int WINDOW_WIDTH = 1920;
 	public static int WINDOW_HEIGHT = 1080;
 
@@ -39,7 +39,7 @@ public class App extends StateBasedGame {
 			fullscreen = false;
 		}
 
-		appGameContainer = new AppGameContainer(new App(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
+		appGameContainer = new AppGameContainer(new AppClient(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
 		appGameContainer.setMaximumLogicUpdateInterval(60);
 		appGameContainer.setUpdateOnlyWhenVisible(false);
 		appGameContainer.setTargetFrameRate(60);
@@ -69,7 +69,7 @@ public class App extends StateBasedGame {
 	 * @return truetype font from font
 	 */
 	public static TrueTypeFont getFont(java.awt.Font font, float size) {
-		return App.getFonts().get(font, size);
+		return AppClient.getFonts().get(font, size);
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class App extends StateBasedGame {
 
 	//// OBJECT
 	// -- APP
-	public App() {
+	public AppClient() {
 		super("Zenny Hotel");
 	}
 
