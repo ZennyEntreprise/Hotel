@@ -48,14 +48,21 @@ public class Game extends Scene {
 
 	@Override
 	public void renderScene(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		if (player == null || appartment == null)
+			return;
+		
 		appartment.render(gc, sbg, g);
 		
-		if (player != null)
-			System.out.println(player.toJSON());
+		g.drawString("UUID: "+player.getPlayerIdentifier(), 10, 180);
+		g.drawString("Username: "+player.getUsername(), 10, 200);
+		g.drawString("Credits: "+player.getCredits(), 10, 220);
 	}
 
 	@Override
 	public void updateScene(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		if (player == null || appartment == null)
+			return;
+		
 		appartment.update(gc, sbg, delta);
 	}
 

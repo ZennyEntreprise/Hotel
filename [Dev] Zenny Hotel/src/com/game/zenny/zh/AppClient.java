@@ -8,9 +8,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.Log;
 
 import com.game.zenny.zh.res.Fonts;
 import com.game.zenny.zh.res.Sprites;
+import com.game.zenny.zh.scene.Game;
 import com.game.zenny.zh.scene.Scene;
 import com.game.zenny.zh.scene.StartMenu;
 import com.game.zenny.zh.util.ZennyMath;
@@ -28,6 +30,8 @@ public class AppClient extends StateBasedGame {
 	public static int WINDOW_WIDTH = 1920;
 	public static int WINDOW_HEIGHT = 1080;
 
+	public static Scene currentScene = null;
+	
 	private static Fonts fonts;
 	private static Sprites sprites;
 
@@ -40,6 +44,8 @@ public class AppClient extends StateBasedGame {
 		}
 
 		appGameContainer = new AppGameContainer(new AppClient(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
+		Log.setLogSystem(new NullLogSystem());
+        Log.setVerbose(false);
 		appGameContainer.setMaximumLogicUpdateInterval(60);
 		appGameContainer.setUpdateOnlyWhenVisible(false);
 		appGameContainer.setTargetFrameRate(60);
@@ -132,6 +138,10 @@ public class AppClient extends StateBasedGame {
 		enterScene(new StartMenu(this), gc);
 	}
 
+	/**
+	 * @param scene
+	 * @param gc
+	 */
 	public static void enterScene(Scene scene, GameContainer gc) {
 		if (scene.getApp().getState(scene.getID()) == null)
 			scene.getApp().addState(scene);
@@ -140,9 +150,20 @@ public class AppClient extends StateBasedGame {
 			scene.init(gc, scene.getApp());
 		} catch (SlickException e) {
 			e.printStackTrace();
+			return;
 		}
 
+		currentScene = scene;
 		scene.getApp().enterState(scene.getID());
+	}
+
+	@Override
+	public boolean closeRequested() {
+		if (currentScene instanceof Game)
+			((Game) currentScene).getNetworkClient().disconnect();
+		
+		System.exit(0);
+		return false;
 	}
 
 }
