@@ -108,7 +108,7 @@ public class StartMenu extends Scene {
 											        } else {
 											        	try {
 															JSONObject connectionObject = (JSONObject) new JSONParser().parse(query);
-															System.out.println(connectionObject.get("uuid"));
+															App.enterScene(new Game(getApp(), connectionObject.get("uuid").toString()), gc);
 														} catch (ParseException e) {
 															connectInfoLabel.setText("Un problème est survenu");
 														}

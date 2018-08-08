@@ -2,7 +2,7 @@ package com.game.zenny.zh.net.packet.login;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.NetworkClient;
 import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
 import com.game.zenny.zh.net.packet.Packet;
 
@@ -10,10 +10,10 @@ public class LoginPacket extends Packet {
 
 	//// OBJECT
 	// -- LOGIN PACKET
-	private String userIdentifier;
+	private String playerIdentifier;
 
-	public LoginPacket(Object[] datas, String fromUserIdentifier, String toUserIdentifier) {
-		super(datas, fromUserIdentifier, toUserIdentifier);
+	public LoginPacket(Object[] datas, String fromPlayerIdentifier, String toPlayerIdentifier) {
+		super(datas, fromPlayerIdentifier, toPlayerIdentifier);
 
 		if (datas.length == 0)
 			try {
@@ -36,7 +36,7 @@ public class LoginPacket extends Packet {
 				e.printStackTrace();
 			}
 
-		this.userIdentifier = (String) datas[0];
+		this.playerIdentifier = (String) datas[0];
 	}
 
 	@Override
@@ -47,13 +47,13 @@ public class LoginPacket extends Packet {
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONArray build(JSONArray datas) {
-		datas.add(userIdentifier);
+		datas.add(playerIdentifier);
 
 		return datas;
 	}
 
 	@Override
-	public void clientReceivedAction(Client client, String fromUserIdentifier) {
+	public void clientReceivedAction(NetworkClient client, String fromPlayerIdentifier) {
 		return;
 	}
 

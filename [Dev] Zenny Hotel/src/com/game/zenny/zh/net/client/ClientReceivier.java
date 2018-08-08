@@ -47,8 +47,8 @@ public class ClientReceivier extends Thread {
 				continue;
 
 			long packetTypeID = getPacketTypeID(json);
-			String fromUserIdentifier = getFromUserIdentifier(json);
-			String toUserIdentifier = getToUserIdentifier(json);
+			String fromPlayerIdentifier = getFromPlayerIdentifier(json);
+			String toPlayerIdentifier = getToPlayerIdentifier(json);
 			JSONArray datasArray = getDatasArray(json);
 			if (datasArray == null)
 				continue;
@@ -63,8 +63,8 @@ public class ClientReceivier extends Thread {
 				Class<?> packetClass = Packet.getPacketClassByID(packetTypeID);
 				Constructor<?> packetClassConstructor = packetClass.getConstructor(Object[].class, String.class,
 						String.class);
-				packet = (Packet) packetClassConstructor.newInstance((Object) datas, fromUserIdentifier,
-						toUserIdentifier);
+				packet = (Packet) packetClassConstructor.newInstance((Object) datas, fromPlayerIdentifier,
+						toPlayerIdentifier);
 			} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException e) {
 				continue;
@@ -77,7 +77,7 @@ public class ClientReceivier extends Thread {
 			logJson.put("packetJSON", json);
 			Logger.log(bridge, LogType.INFO, "RECEIVING PACKET   :   " + logJson.toJSONString());
 
-			bridge.packetAction(packet, fromUserIdentifier);
+			bridge.packetAction(packet, fromPlayerIdentifier);
 		}
 	}
 
@@ -109,11 +109,11 @@ public class ClientReceivier extends Thread {
 
 	/**
 	 * @param json
-	 * @return from user identifier contained in json
+	 * @return from player identifier contained in json
 	 */
-	public String getFromUserIdentifier(JSONObject json) {
+	public String getFromPlayerIdentifier(JSONObject json) {
 		try {
-			return (String) json.get("fromUserIdentifier");
+			return (String) json.get("fromPlayerIdentifier");
 		} catch (NullPointerException e) {
 			return "unknown";
 		}
@@ -121,11 +121,11 @@ public class ClientReceivier extends Thread {
 
 	/**
 	 * @param json
-	 * @return to user identifier contained in json
+	 * @return to player identifier contained in json
 	 */
-	public String getToUserIdentifier(JSONObject json) {
+	public String getToPlayerIdentifier(JSONObject json) {
 		try {
-			return (String) json.get("toUserIdentifier");
+			return (String) json.get("toPlayerIdentifier");
 		} catch (NullPointerException e) {
 			return "unknown";
 		}

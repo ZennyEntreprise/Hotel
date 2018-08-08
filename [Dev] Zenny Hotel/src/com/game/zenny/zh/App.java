@@ -18,7 +18,7 @@ import com.game.zenny.zh.util.ZennyMath;
 public class App extends StateBasedGame {
 
 	//// STATIC
-	public static AppGameContainer app;
+	public static AppGameContainer appGameContainer;
 
 	public final static int DEV_WINDOW_WIDTH = 1280;
 	public final static int DEV_WINDOW_HEIGHT = 720;
@@ -39,14 +39,14 @@ public class App extends StateBasedGame {
 			fullscreen = false;
 		}
 
-		app = new AppGameContainer(new App(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
-		app.setMaximumLogicUpdateInterval(60);
-		app.setUpdateOnlyWhenVisible(false);
-		app.setTargetFrameRate(60);
-		app.setShowFPS(false);
-		app.setVSync(true);
-		app.setAlwaysRender(true);
-		app.start();
+		appGameContainer = new AppGameContainer(new App(), WINDOW_WIDTH, WINDOW_HEIGHT, fullscreen);
+		appGameContainer.setMaximumLogicUpdateInterval(60);
+		appGameContainer.setUpdateOnlyWhenVisible(false);
+		appGameContainer.setTargetFrameRate(60);
+		appGameContainer.setShowFPS(false);
+		appGameContainer.setVSync(true);
+		appGameContainer.setAlwaysRender(true);
+		appGameContainer.start();
 	}
 
 	/**
@@ -132,17 +132,17 @@ public class App extends StateBasedGame {
 		enterScene(new StartMenu(this), gc);
 	}
 
-	public void enterScene(Scene scene, GameContainer gc) {
-		if (getState(scene.getID()) == null)
-			addState(scene);
+	public static void enterScene(Scene scene, GameContainer gc) {
+		if (scene.getApp().getState(scene.getID()) == null)
+			scene.getApp().addState(scene);
 
 		try {
-			scene.init(gc, this);
+			scene.init(gc, scene.getApp());
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
 
-		enterState(scene.getID());
+		scene.getApp().enterState(scene.getID());
 	}
 
 }

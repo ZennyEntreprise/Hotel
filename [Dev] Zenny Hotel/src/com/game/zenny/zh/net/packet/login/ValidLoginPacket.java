@@ -2,7 +2,7 @@ package com.game.zenny.zh.net.packet.login;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.NetworkClient;
 import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
 import com.game.zenny.zh.net.packet.Packet;
 
@@ -10,33 +10,37 @@ public class ValidLoginPacket extends Packet {
 
 	//// OBJECT
 	// -- VALID LOGIN PACKET
-	private String userIdentifier;
+	private String playerIdentifier;
+	private String playername;
+	private int credits;
 	
-	public ValidLoginPacket(Object[] datas, String fromUserIdentifier, String toUserIdentifier) {
-		super(datas, fromUserIdentifier, toUserIdentifier);
+	public ValidLoginPacket(Object[] datas, String fromPlayerIdentifier, String toPlayerIdentifier) {
+		super(datas, fromPlayerIdentifier, toPlayerIdentifier);
 		
-		if (datas.length == 0)
+		if (datas.length < 3)
 			try {
-				throw new InvalidPacketConstructorException("No argument ! :/");
+				throw new InvalidPacketConstructorException("Not enough arguments ! :/");
 			} catch (InvalidPacketConstructorException e) {
 				e.printStackTrace();
 			}
 		
-		if (datas.length > 1)
+		if (datas.length > 3)
 			try {
 				throw new InvalidPacketConstructorException("Too many arguments !");
 			} catch (InvalidPacketConstructorException e) {
 				e.printStackTrace();
 			}
 		
-		if (!(datas[0] instanceof String))
+		if (!(datas[0] instanceof String) && !(datas[1] instanceof String) && !(datas[2] instanceof Long))
 			try {
-				throw new InvalidPacketConstructorException("First argument is not a string !");
+				throw new InvalidPacketConstructorException("Arguments aren't correct !");
 			} catch (InvalidPacketConstructorException e) {
 				e.printStackTrace();
 			}
 		
-		this.userIdentifier = (String) datas[0];
+		this.playerIdentifier = (String) datas[0];
+		this.playername = (String) datas[1];
+		this.credits = (int) datas[3];
 	}
 
 	@Override
@@ -47,14 +51,18 @@ public class ValidLoginPacket extends Packet {
 	@SuppressWarnings("unchecked")
 	@Override
 	public JSONArray build(JSONArray datas) {
-		datas.add(userIdentifier);
+		datas.add(playerIdentifier);
+		datas.add(playername);
+		datas.add(credits);
 		
 		return datas;
 	}
 
 	@Override
-	public void clientReceivedAction(Client client, String fromUserIdentifier) {
-		client.setIdentifier(userIdentifier);
+	public void clientReceivedAction(NetworkClient client, String fromPlayerIdentifier) {
+		client.setIdentifier(playerIdentifier);
+		
+		// TODO [HOTEL] SET PLAYER
 	}
 
 }

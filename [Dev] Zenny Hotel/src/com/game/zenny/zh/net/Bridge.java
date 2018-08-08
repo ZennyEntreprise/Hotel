@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
+import com.game.zenny.zh.entity.Player;
 import com.game.zenny.zh.net.client.ClientReceivier;
 import com.game.zenny.zh.net.logger.LogType;
 import com.game.zenny.zh.net.logger.Logger;
@@ -119,72 +120,72 @@ public abstract class Bridge {
 
 	/**
 	 * @param packet
-	 * @param fromUser
+	 * @param fromPlayer
 	 */
-	public abstract void packetAction(Packet packet, String fromUserIdentifier);
+	public abstract void packetAction(Packet packet, String fromPlayerIdentifier);
 
 	// -- USER
-	private ArrayList<User> users = new ArrayList<User>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 
 	/**
-	 * @return user list
+	 * @return player list
 	 */
-	public ArrayList<User> getUsers() {
-		return users;
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 
 	/**
-	 * @param user
+	 * @param player
 	 */
-	public void addUser(User user) {
-		users.add(user);
+	public void addPlayer(Player player) {
+		players.add(player);
 	}
 
 	/**
 	 * @param identifier
 	 */
-	public void addUser(String identifier) {
-		users.add(new User(identifier));
+	public void addPlayer(String identifier) {
+		players.add(new Player(identifier));
 	}
 
 	/**
-	 * @param userIdentifier
-	 * @param userAddress
-	 * @param userPort
+	 * @param playerIdentifier
+	 * @param playerAddress
+	 * @param playerPort
 	 */
-	public void addUser(String userIdentifier, InetAddress userAddress, int userPort) {
-		users.add(new User(userIdentifier, userAddress, userPort));
+	public void addPlayer(String playerIdentifier, InetAddress playerAddress, int playerPort) {
+		players.add(new Player(playerIdentifier, playerAddress, playerPort));
 	}
 
 	/**
-	 * @param user
-	 * @return true if the user is contained in user list
+	 * @param player
+	 * @return true if the player is contained in player list
 	 */
-	public boolean containsUser(User user) {
-		return users.contains(user);
+	public boolean containsPlayer(Player player) {
+		return players.contains(player);
 	}
 
 	/**
-	 * @param userIdentifier
-	 * @return true if the user list contains user with this userIdentifier
+	 * @param playerIdentifier
+	 * @return true if the player list contains player with this playerIdentifier
 	 */
-	public boolean containsUser(String userIdentifier) {
-		for (User user : users)
-			if (user.getUserIdentifier().equals(userIdentifier))
+	public boolean containsPlayer(String playerIdentifier) {
+		for (Player player : players)
+			if (player.getPlayerIdentifier().equals(playerIdentifier))
 				return true;
 		return false;
 	}
 
 	/**
-	 * @param userAddress
-	 * @param userPort
-	 * @return true if the user list contains user with this userAddress and
-	 *         this userPort
+	 * @param playerAddress
+	 * @param playerPort
+	 * @return true if the player list contains player with this playerAddress and
+	 *         this playerPort
 	 */
-	public boolean containsUser(InetAddress userAddress, int userPort) {
+	public boolean containsPlayer(InetAddress playerAddress, int playerPort) {
 		try {
-			for (User user : users)
-				if (user.getUserAddress().toString().equals(userAddress.toString()) && user.getUserPort() == userPort)
+			for (Player player : players)
+				if (player.getPlayerAddress().toString().equals(playerAddress.toString()) && player.getPlayerPort() == playerPort)
 					return true;
 		} catch (NullPointerException e) {
 			return false;
@@ -193,89 +194,89 @@ public abstract class Bridge {
 	}
 
 	/**
-	 * @param userIdentifier
-	 * @param userAddress
-	 * @param userPort
-	 * @return true if the user list contains user with this userIdentifier,
-	 *         this userAddress and this userPort
+	 * @param playerIdentifier
+	 * @param playerAddress
+	 * @param playerPort
+	 * @return true if the player list contains player with this playerIdentifier,
+	 *         this playerAddress and this playerPort
 	 */
-	public boolean containsUser(String userIdentifier, InetAddress userAddress, int userPort) {
-		return containsUser(userIdentifier) && containsUser(userAddress, userPort);
+	public boolean containsPlayer(String playerIdentifier, InetAddress playerAddress, int playerPort) {
+		return containsPlayer(playerIdentifier) && containsPlayer(playerAddress, playerPort);
 	}
 
 	/**
-	 * @param userIdentifier
-	 * @return the user where his userIdentifier is the same
+	 * @param playerIdentifier
+	 * @return the player where his playerIdentifier is the same
 	 */
-	public User getUser(String userIdentifier) {
-		for (User user : users)
-			if (user.getUserIdentifier().equals(userIdentifier))
-				return user;
+	public Player getPlayer(String playerIdentifier) {
+		for (Player player : players)
+			if (player.getPlayerIdentifier().equals(playerIdentifier))
+				return player;
 		return null;
 	}
 
 	/**
-	 * @param userAddress
-	 * @param userPort
-	 * @return the user where his userAddress and his userPort are the same
+	 * @param playerAddress
+	 * @param playerPort
+	 * @return the player where his playerAddress and his playerPort are the same
 	 */
-	public User getUser(InetAddress userAddress, int userPort) {
-		for (User user : users)
-			if (user.getUserAddress().toString().equals(userAddress.toString()) && user.getUserPort() == userPort)
-				return user;
+	public Player getPlayer(InetAddress playerAddress, int playerPort) {
+		for (Player player : players)
+			if (player.getPlayerAddress().toString().equals(playerAddress.toString()) && player.getPlayerPort() == playerPort)
+				return player;
 		return null;
 	}
 
 	/**
-	 * @param userIdentifier
-	 * @param userAddress
-	 * @param userPort
-	 * @return the user where his userIdentifier, his userAddress and his
-	 *         userPort are the same
+	 * @param playerIdentifier
+	 * @param playerAddress
+	 * @param playerPort
+	 * @return the player where his playerIdentifier, his playerAddress and his
+	 *         playerPort are the same
 	 */
-	public User getUser(String userIdentifier, InetAddress userAddress, int userPort) {
-		for (User user : users)
-			if (user.getUserIdentifier().equals(userIdentifier) && user.getUserAddress().toString().equals(userAddress.toString())
-					&& user.getUserPort() == userPort)
-				return user;
+	public Player getPlayer(String playerIdentifier, InetAddress playerAddress, int playerPort) {
+		for (Player player : players)
+			if (player.getPlayerIdentifier().equals(playerIdentifier) && player.getPlayerAddress().toString().equals(playerAddress.toString())
+					&& player.getPlayerPort() == playerPort)
+				return player;
 		return null;
 	}
 
 	/**
-	 * @param user
+	 * @param player
 	 */
-	public void removeUser(User user) {
-		users.remove(user);
+	public void removePlayer(Player player) {
+		players.remove(player);
 	}
 
 	/**
 	 * @param identifier
 	 */
-	public void removeUser(String identifier) {
-		for (User user : users)
-			if (user.getUserIdentifier().equals(identifier))
-				users.remove(user);
+	public void removePlayer(String identifier) {
+		for (Player player : players)
+			if (player.getPlayerIdentifier().equals(identifier))
+				players.remove(player);
 	}
 
 	/**
-	 * @param userAddress
-	 * @param userPort
+	 * @param playerAddress
+	 * @param playerPort
 	 */
-	public void removeUser(InetAddress userAddress, int userPort) {
-		for (User user : users)
-			if (user.getUserAddress().toString().equals(userAddress.toString()) && user.getUserPort() == userPort)
-				users.remove(user);
+	public void removePlayer(InetAddress playerAddress, int playerPort) {
+		for (Player player : players)
+			if (player.getPlayerAddress().toString().equals(playerAddress.toString()) && player.getPlayerPort() == playerPort)
+				players.remove(player);
 	}
 
 	/**
-	 * @param userIdentifier
-	 * @param userAddress
-	 * @param userPort
+	 * @param playerIdentifier
+	 * @param playerAddress
+	 * @param playerPort
 	 */
-	public void removeUser(String userIdentifier, InetAddress userAddress, int userPort) {
-		for (User user : users)
-			if (user.getUserIdentifier().equals(identifier) && user.getUserAddress().toString().equals(userAddress.toString())
-					&& user.getUserPort() == userPort)
-				users.remove(user);
+	public void removePlayer(String playerIdentifier, InetAddress playerAddress, int playerPort) {
+		for (Player player : players)
+			if (player.getPlayerIdentifier().equals(identifier) && player.getPlayerAddress().toString().equals(playerAddress.toString())
+					&& player.getPlayerPort() == playerPort)
+				players.remove(player);
 	}
 }

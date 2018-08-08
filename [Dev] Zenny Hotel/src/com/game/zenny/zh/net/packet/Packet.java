@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.net.client.Client;
+import com.game.zenny.zh.NetworkClient;
 
 public abstract class Packet {
 
@@ -48,16 +48,16 @@ public abstract class Packet {
 
 	//// OBJECT
 	// -- PACKET
-	private String fromUserIdentifier, toUserIdentifier;
+	private String fromPlayerIdentifier, toPlayerIdentifier;
 
 	/**
 	 * @param datas
-	 * @param fromUserIdentifier
-	 * @param toUserIdentifier
+	 * @param fromPlayerIdentifier
+	 * @param toPlayerIdentifier
 	 */
-	public Packet(Object[] datas, String fromUserIdentifier, String toUserIdentifier) {
-		this.fromUserIdentifier = fromUserIdentifier;
-		this.toUserIdentifier = toUserIdentifier;
+	public Packet(Object[] datas, String fromPlayerIdentifier, String toPlayerIdentifier) {
+		this.fromPlayerIdentifier = fromPlayerIdentifier;
+		this.toPlayerIdentifier = toPlayerIdentifier;
 	}
 
 	/**
@@ -73,38 +73,38 @@ public abstract class Packet {
 
 	/**
 	 * @param client
-	 * @param fromUserIdentifier
+	 * @param fromPlayerIdentifier
 	 */
-	public abstract void clientReceivedAction(Client client, String fromUserIdentifier);
+	public abstract void clientReceivedAction(NetworkClient client, String fromPlayerIdentifier);
 
 	/**
-	 * @return the fromUserIdentifier
+	 * @return the fromPlayerIdentifier
 	 */
-	public String getFromUserIdentifier() {
-		return fromUserIdentifier;
+	public String getFromPlayerIdentifier() {
+		return fromPlayerIdentifier;
 	}
 
 	/**
-	 * @param fromUserIdentifier
-	 *            the fromUserIdentifier to set
+	 * @param fromPlayerIdentifier
+	 *            the fromPlayerIdentifier to set
 	 */
-	public void setFromUserIdentifier(String fromUserIdentifier) {
-		this.fromUserIdentifier = fromUserIdentifier;
+	public void setFromPlayerIdentifier(String fromPlayerIdentifier) {
+		this.fromPlayerIdentifier = fromPlayerIdentifier;
 	}
 
 	/**
-	 * @return the toUserIdentifier
+	 * @return the toPlayerIdentifier
 	 */
-	public String getToUserIdentifier() {
-		return toUserIdentifier;
+	public String getToPlayerIdentifier() {
+		return toPlayerIdentifier;
 	}
 
 	/**
-	 * @param toUserIdentifier
-	 *            the toUserIdentifier to set
+	 * @param toPlayerIdentifier
+	 *            the toPlayerIdentifier to set
 	 */
-	public void setToUserIdentifier(String toUserIdentifier) {
-		this.toUserIdentifier = toUserIdentifier;
+	public void setToPlayerIdentifier(String toPlayerIdentifier) {
+		this.toPlayerIdentifier = toPlayerIdentifier;
 	}
 
 }

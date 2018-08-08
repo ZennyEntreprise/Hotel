@@ -282,7 +282,7 @@ public abstract class Scene implements GameState {
 
 		if (gc.getInput().isKeyPressed(Input.KEY_MULTIPLY)) {
 			debug = !debug;
-			App.app.setShowFPS(debug);
+			App.appGameContainer.setShowFPS(debug);
 		}
 		
 		updateScene(gc, sbg, delta);

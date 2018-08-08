@@ -70,9 +70,9 @@ public abstract class Client extends Bridge {
 	/**
 	 * @param clientID
 	 */
-	public void connect(String userIdentifier) {
-		Logger.log(this, LogType.NORMAL, "Trying to connect with that clientID: " + userIdentifier);
-		sendPacket(new LoginPacket(Packet.buildDatasObject(userIdentifier), getIdentifier(), PacketDestination.TO_SERVER.getPacketDestination()));
+	public void connect(String playerIdentifier) {
+		Logger.log(this, LogType.NORMAL, "Trying to connect with that clientID: " + playerIdentifier);
+		sendPacket(new LoginPacket(Packet.buildDatasObject(playerIdentifier), getIdentifier(), PacketDestination.TO_SERVER.getPacketDestination()));
 	}
 
 	public void disconnect() {
@@ -84,12 +84,10 @@ public abstract class Client extends Bridge {
 
 	/**
 	 * @param packet
-	 * @param user
+	 * @param player
 	 */
 	@Override
-	public void packetAction(Packet packet, String fromUserIdentifier) {
-		packet.clientReceivedAction(this, fromUserIdentifier);
-	}
+	public abstract void packetAction(Packet packet, String fromPlayerIdentifier);
 
 	/**
 	 * @param packet
