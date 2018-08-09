@@ -3,6 +3,7 @@ package com.game.zenny.zh.net;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.DatagramPacket;
 
 import org.json.simple.JSONArray;
@@ -76,7 +77,28 @@ public class Receiver extends Thread {
 			logJson.put("packetJSON", json);
 			Logger.log(bridge, LogType.INFO, "RECEIVING PACKET   :   " + logJson.toJSONString());
 
+			Method[] packetEventsMethods = PacketEvents.class.getMethods();
+			for (Method packetEventsMethod : packetEventsMethods) {
+				if (packetEventsMethod.getName().equals(packet.getClass().getSimpleName()+"ReceiverBefore")) {
+					try {
+						packetEventsMethod.invoke(((Network) bridge).getPacketEvents());
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
 			bridge.packetAction(packet, fromPlayerIdentifier);
+			
+			for (Method packetEventsMethod : packetEventsMethods) {
+				if (packetEventsMethod.getName().equals(packet.getClass().getSimpleName()+"ReceiverAfter")) {
+					try {
+						packetEventsMethod.invoke(((Network) bridge).getPacketEvents());
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 	}
 

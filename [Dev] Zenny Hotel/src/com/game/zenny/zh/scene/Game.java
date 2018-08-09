@@ -14,9 +14,6 @@ import com.game.zenny.zh.appartment.Appartment;
 import com.game.zenny.zh.entity.Player;
 import com.game.zenny.zh.net.Bridge;
 import com.game.zenny.zh.net.Network;
-import com.game.zenny.zh.net.packet.Packet;
-import com.game.zenny.zh.net.packet.PacketDestination;
-import com.game.zenny.zh.net.packet.appartment.EnterAppartmentPacket;
 
 public class Game extends Scene {
 
@@ -37,13 +34,6 @@ public class Game extends Scene {
 		}
 		
 		network.connect(uuid);
-		
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		network.sendPacket(new EnterAppartmentPacket(Packet.buildDatasObject("default"), network.getIdentifier(), PacketDestination.TO_SERVER.getPacketDestination()));
 	}
 
 	@Override

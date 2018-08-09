@@ -23,7 +23,6 @@ public class AppartmentStructure {
 			
 			for (int y = 0; y < appartmentStructureXY.size(); y++) {
 				JSONArray appartmentStructureY = (JSONArray) appartmentStructureXY.get(y);
-				System.out.println(appartmentStructureY.toJSONString());
 				for (int x = 0; x < appartmentStructureY.size(); x++) {
 					JSONArray cellDatas = (JSONArray) new JSONParser().parse((String) appartmentStructureY.get(x));
 					structure[y][x] = new AppartmentGroundCell(x, y, (boolean) cellDatas.get(0));

@@ -1,4 +1,4 @@
-package com.game.zenny.zh.net.client;
+package com.game.zenny.zh.net;
 
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -6,7 +6,6 @@ import java.net.SocketException;
 
 import com.game.zenny.zh.logger.LogType;
 import com.game.zenny.zh.logger.Logger;
-import com.game.zenny.zh.net.Bridge;
 import com.game.zenny.zh.net.packet.Packet;
 import com.game.zenny.zh.net.packet.PacketDestination;
 import com.game.zenny.zh.net.packet.disconnect.DisconnectPacket;
@@ -76,8 +75,8 @@ public abstract class Client extends Bridge {
 	}
 
 	public void disconnect() {
-		Logger.log(this, LogType.NORMAL, "Disconnecting...");
 		sendPacket(new DisconnectPacket(Packet.buildDatasObject(), getIdentifier(), PacketDestination.TO_SERVER.getPacketDestination()));
+		Logger.log(this, LogType.NORMAL, "Disconnecting...");
 	}
 	
 	// -- PACKET

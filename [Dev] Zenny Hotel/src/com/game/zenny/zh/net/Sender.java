@@ -1,6 +1,8 @@
 package com.game.zenny.zh.net;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
@@ -37,6 +39,17 @@ public class Sender {
 		buildJson.put("toPlayerIdentifier", packet.getToPlayerIdentifier());
 		buildJson.put("datas", packet.build(new JSONArray()));
 
+		Method[] packetEventsMethods = PacketEvents.class.getMethods();
+		for (Method packetEventsMethod : packetEventsMethods) {
+			if (packetEventsMethod.getName().equals(packet.getClass().getSimpleName()+"SenderBefore")) {
+				try {
+					packetEventsMethod.invoke(((Network) bridge).getPacketEvents());
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		byte[] buffer = buildJson.toJSONString().getBytes();
 		try {
 			bridge.getSocket().send(new DatagramPacket(buffer, buffer.length, address, port));
@@ -49,8 +62,17 @@ public class Sender {
 		logJson.put("toPORT", port);
 		logJson.put("packetClass", packet.getClass().getName());
 		logJson.put("packetJSON", buildJson);
-
 		Logger.log(bridge, LogType.INFO, "SENDING PACKET   :   " + logJson.toJSONString());
+		
+		for (Method packetEventsMethod : packetEventsMethods) {
+			if (packetEventsMethod.getName().equals(packet.getClass().getSimpleName()+"SenderAfter")) {
+				try {
+					packetEventsMethod.invoke(((Network) bridge).getPacketEvents());
+				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 }

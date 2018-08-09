@@ -3,13 +3,13 @@ package com.game.zenny.zh.net;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-import com.game.zenny.zh.net.client.Client;
 import com.game.zenny.zh.net.packet.Packet;
 import com.game.zenny.zh.scene.Game;
 
 public class Network extends Client {
 
 	private Game game;
+	private PacketEvents packetEvents = new PacketEvents(this);
 	
 	/**
 	 * @param game
@@ -40,6 +40,20 @@ public class Network extends Client {
 	 */
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	/**
+	 * @return the packetEvents
+	 */
+	public PacketEvents getPacketEvents() {
+		return packetEvents;
+	}
+
+	/**
+	 * @param packetEvents the packetEvents to set
+	 */
+	public void setPacketEvents(PacketEvents packetEvents) {
+		this.packetEvents = packetEvents;
 	}
 
 }
