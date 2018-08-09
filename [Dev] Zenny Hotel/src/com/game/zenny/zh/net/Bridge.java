@@ -8,6 +8,8 @@ import com.game.zenny.zh.logger.Logger;
 import com.game.zenny.zh.net.client.ClientReceivier;
 import com.game.zenny.zh.net.packet.Packet;
 import com.game.zenny.zh.net.packet.UnknownPacket;
+import com.game.zenny.zh.net.packet.appartment.EnterAppartmentPacket;
+import com.game.zenny.zh.net.packet.appartment.SendAppartmentPacket;
 import com.game.zenny.zh.net.packet.disconnect.DisconnectPacket;
 import com.game.zenny.zh.net.packet.login.ErrorLoginPacket;
 import com.game.zenny.zh.net.packet.login.LoginPacket;
@@ -113,6 +115,8 @@ public abstract class Bridge {
 		Packet.registerPacket(2, ValidLoginPacket.class);
 		Packet.registerPacket(3, ErrorLoginPacket.class);
 		Packet.registerPacket(4, DisconnectPacket.class);
+		Packet.registerPacket(5, EnterAppartmentPacket.class);
+		Packet.registerPacket(6, SendAppartmentPacket.class);
 	}
 
 	/**

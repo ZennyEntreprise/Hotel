@@ -1,6 +1,8 @@
 package com.game.zenny.zh.appartment;
 
-import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -11,20 +13,34 @@ import com.game.zenny.zh.AppClient;
 
 public class AppartmentStructure {
 
+	//// STATIC
+	
+	public static AppartmentStructure parseAppartmentStructureFromJSON(String appartmentStructureJson) {
+		try {
+			JSONArray appartmentStructureXY = (JSONArray) new JSONParser().parse(appartmentStructureJson);
+			
+			AppartmentGroundCell[][] structure = new AppartmentGroundCell[appartmentStructureXY.size()][((JSONArray) appartmentStructureXY.get(appartmentStructureXY.size() - 1)).size()];
+			
+			for (int y = 0; y < appartmentStructureXY.size(); y++) {
+				JSONArray appartmentStructureY = (JSONArray) appartmentStructureXY.get(y);
+				System.out.println(appartmentStructureY.toJSONString());
+				for (int x = 0; x < appartmentStructureY.size(); x++) {
+					JSONArray cellDatas = (JSONArray) new JSONParser().parse((String) appartmentStructureY.get(x));
+					structure[y][x] = new AppartmentGroundCell(x, y, (boolean) cellDatas.get(0));
+				}
+			}
+			return new AppartmentStructure(structure);
+		} catch (ParseException | ClassCastException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	//// OBJECT
+	// -- APPARTMENT STRUCTURE
 	private AppartmentGroundCell[][] structure;
 
 	//// CONSTUCTORS
-
-	public AppartmentStructure() {
-		structure = new AppartmentGroundCell[10][10];
-		for (int y = 0; y < structure.length; y++) {
-			for (int x = 0; x < structure[y].length; x++) {
-				structure[y][x] = new AppartmentGroundCell(x, y);
-			}
-		}
-
-		determineThickness();
-	}
 
 	/**
 	 * @param structure
@@ -106,7 +122,6 @@ public class AppartmentStructure {
 	 * @param x
 	 * @param y
 	 */
-	@SuppressWarnings("unchecked")
 	public void determineThickness(int x, int y) {
 		if (!isWalkable(x, y + 1))
 			structure[y][x].setGroundThicknessTL(true);

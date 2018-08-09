@@ -20,10 +20,10 @@ public class Player {
 			String playerIdentifier = (String) playerJSON.get("playerIdentifier");
 			InetAddress playerAddress = InetAddress.getByName((String) playerJSON.get("playerAddress"));
 			int playerPort = ((Long) playerJSON.get("playerPort")).intValue();
-			String username = (String) playerJSON.get("username");
-			int credits = ((Long) playerJSON.get("credits")).intValue();
+			String playerUsername = (String) playerJSON.get("playerUsername");
+			int playerCredits = ((Long) playerJSON.get("playerCredits")).intValue();
 			
-			return new Player(playerIdentifier, playerAddress, playerPort, username, credits);
+			return new Player(playerIdentifier, playerAddress, playerPort, playerUsername, playerCredits);
 		} catch (ParseException | UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -35,23 +35,23 @@ public class Player {
 	private String playerIdentifier;
 	private InetAddress playerAddress;
 	private int playerPort;
-	private String username;
-	private int credits;
+	private String playerUsername;
+	private int playerCredits;
 
 	/**
 	 * @param playerIdentifier
 	 * @param playerAddress
 	 * @param playerPort
-	 * @param username
-	 * @param credits
+	 * @param playerUsername
+	 * @param playerCredits
 	 */
-	public Player(String playerIdentifier, InetAddress playerAddress, int playerPort, String username, int credits) {
+	public Player(String playerIdentifier, InetAddress playerAddress, int playerPort, String playerUsername, int playerCredits) {
 		super();
 		this.playerIdentifier = playerIdentifier;
 		this.playerAddress = playerAddress;
 		this.playerPort = playerPort;
-		this.username = username;
-		this.credits = credits;
+		this.playerUsername = playerUsername;
+		this.playerCredits = playerCredits;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -60,8 +60,8 @@ public class Player {
 		playerJSON.put("playerIdentifier", playerIdentifier);
 		playerJSON.put("playerAddress", playerAddress.getHostAddress().toString());
 		playerJSON.put("playerPort", playerPort);
-		playerJSON.put("username", username);
-		playerJSON.put("credits", credits);
+		playerJSON.put("playerUsername", playerUsername);
+		playerJSON.put("playerCredits", playerCredits);
 		
 		return playerJSON.toJSONString();
 	}
@@ -112,33 +112,33 @@ public class Player {
 	}
 
 	/**
-	 * @return the username
+	 * @return the playerUsername
 	 */
-	public String getUsername() {
-		return username;
+	public String getPlayerUsername() {
+		return playerUsername;
 	}
 
 	/**
-	 * @param username
-	 *            the username to set
+	 * @param playerUsername
+	 *            the playerUsername to set
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setPlayerUsername(String playerUsername) {
+		this.playerUsername = playerUsername;
 	}
 
 	/**
-	 * @return the credits
+	 * @return the playerCredits
 	 */
-	public int getCredits() {
-		return credits;
+	public int getPlayerCredits() {
+		return playerCredits;
 	}
 
 	/**
-	 * @param credits
-	 *            the credits to set
+	 * @param playerCredits
+	 *            the playerCredits to set
 	 */
-	public void setCredits(int credits) {
-		this.credits = credits;
+	public void setPlayerCredits(int playerCredits) {
+		this.playerCredits = playerCredits;
 	}
 
 }

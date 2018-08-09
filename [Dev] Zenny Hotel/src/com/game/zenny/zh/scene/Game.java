@@ -14,6 +14,9 @@ import com.game.zenny.zh.appartment.Appartment;
 import com.game.zenny.zh.entity.Player;
 import com.game.zenny.zh.net.Bridge;
 import com.game.zenny.zh.net.Network;
+import com.game.zenny.zh.net.packet.Packet;
+import com.game.zenny.zh.net.packet.PacketDestination;
+import com.game.zenny.zh.net.packet.appartment.EnterAppartmentPacket;
 
 public class Game extends Scene {
 
@@ -34,11 +37,18 @@ public class Game extends Scene {
 		}
 		
 		network.connect(uuid);
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		network.sendPacket(new EnterAppartmentPacket(Packet.buildDatasObject("default"), network.getIdentifier(), PacketDestination.TO_SERVER.getPacketDestination()));
 	}
 
 	@Override
 	public void initScene(GameContainer gc, StateBasedGame sbg) {
-		appartment = new Appartment();
+
 	}
 
 	@Override
@@ -54,8 +64,8 @@ public class Game extends Scene {
 		appartment.render(gc, sbg, g);
 		
 		g.drawString("UUID: "+player.getPlayerIdentifier(), 10, 180);
-		g.drawString("Username: "+player.getUsername(), 10, 200);
-		g.drawString("Credits: "+player.getCredits(), 10, 220);
+		g.drawString("Username: "+player.getPlayerUsername(), 10, 200);
+		g.drawString("Credits: "+player.getPlayerCredits(), 10, 220);
 	}
 
 	@Override

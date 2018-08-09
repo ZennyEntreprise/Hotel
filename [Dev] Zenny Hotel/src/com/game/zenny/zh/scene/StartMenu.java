@@ -91,12 +91,12 @@ public class StartMenu extends Scene {
 										   public void run() {
 									   		connectInfoLabel.setText("");
 									   		   
-											   String username = connectUsernameTextField.getText();
+											   String playerUsername = connectUsernameTextField.getText();
 											   String password = ZennyHash.hash256(connectPasswordTextField.getText());
 											
 											   waitingWebServerResponse = true;
 											   
-											   String query = ZennyWebQuery.query("connect.php?username="+username+"&password="+password);
+											   String query = ZennyWebQuery.query("connect.php?playerUsername="+playerUsername+"&password="+password);
 											   
 											   waitingWebServerResponse = false;
 											   
@@ -200,11 +200,11 @@ public class StartMenu extends Scene {
 												
 												waitingWebServerResponse = true;
 												   
-												String query = ZennyWebQuery.query("register.php?playerIdentifier="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
+												String query = ZennyWebQuery.query("register.php?playerIdentifier="+UUID.randomUUID()+"&playerUsername="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
 												while (query.equals("playerIdentifier already exists")) 
-													query = ZennyWebQuery.query("register.php?playerIdentifier="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
+													query = ZennyWebQuery.query("register.php?playerIdentifier="+UUID.randomUUID()+"&playerUsername="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
 												
-												if (query.equals("username already exists")) {
+												if (query.equals("playerUsername already exists")) {
 													registerInfoLabel.setText("Nom d'utilisateur déjà utilisé");
 												} else if (query.equals("mail already exists")) {
 													registerInfoLabel.setText("E-mail déjà utilisé");

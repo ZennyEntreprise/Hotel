@@ -1,5 +1,8 @@
 package com.game.zenny.zh.appartment;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,36 +14,97 @@ import com.game.zenny.zh.util.ZennyMouse;
 
 public class Appartment {
 
-	private AppartmentStructure structure;
+	//// STATIC
+	
+	public static Appartment parseAppartmentFromJSON(String appartmentJson) {
+		try {
+			JSONObject appartmentJSON = (JSONObject) new JSONParser().parse(appartmentJson);
+			
+			String appartmentIdentifier = (String) appartmentJSON.get("appartmentIdentifer");
+			String ownerPlayerIdentifier = (String) appartmentJSON.get("ownerPlayerIdentifier");
+			String appartmentName = (String) appartmentJSON.get("appartmentName");
+			String appartmentStructure = (String) appartmentJSON.get("appartmentStructure");
+			
+			return new Appartment(appartmentIdentifier, ownerPlayerIdentifier, appartmentName, AppartmentStructure.parseAppartmentStructureFromJSON(appartmentStructure));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
+	
+	////OBJECT
+	// -- APPARTMENT
+	private String appartmentIdentifier;
+	private String ownerPlayerIdentifier;
+	private String appartmentName;
+	private AppartmentStructure appartmentStructure;
 
 	//// CONSTRUCTORS
 
-	public Appartment() {
-		structure = new AppartmentStructure();
-	}
-
-	/**
-	 * @param structure
-	 */
-	public Appartment(AppartmentStructure structure) {
-		this.structure = structure;
+	public Appartment(String appartmentIdentifier, String ownerPlayerIdentifier, String appartmentName, AppartmentStructure appartmentStructure) {
+		this.appartmentIdentifier = appartmentIdentifier;
+		this.ownerPlayerIdentifier = ownerPlayerIdentifier;
+		this.appartmentName = appartmentName;
+		this.appartmentStructure = appartmentStructure;
 	}
 
 	//// GETTERS AND SETTERS
 
 	/**
+	 * @return the appartmentIdentifier
+	 */
+	public String getAppartmentIdentifier() {
+		return appartmentIdentifier;
+	}
+
+	/**
+	 * @param appartmentIdentifier the appartmentIdentifier to set
+	 */
+	public void setAppartmentIdentifier(String appartmentIdentifier) {
+		this.appartmentIdentifier = appartmentIdentifier;
+	}
+
+	/**
+	 * @return the ownerPlayerIdentifier
+	 */
+	public String getOwnerPlayerIdentifier() {
+		return ownerPlayerIdentifier;
+	}
+
+	/**
+	 * @param ownerPlayerIdentifier the ownerPlayerIdentifier to set
+	 */
+	public void setOwnerPlayerIdentifier(String ownerPlayerIdentifier) {
+		this.ownerPlayerIdentifier = ownerPlayerIdentifier;
+	}
+
+	/**
+	 * @return the appartmentName
+	 */
+	public String getAppartmentName() {
+		return appartmentName;
+	}
+
+	/**
+	 * @param appartmentName the appartmentName to set
+	 */
+	public void setAppartmentName(String appartmentName) {
+		this.appartmentName = appartmentName;
+	}
+
+	/**
 	 * @return the structure
 	 */
-	public AppartmentStructure getStructure() {
-		return structure;
+	public AppartmentStructure getAppartmentStructure() {
+		return appartmentStructure;
 	}
 
 	/**
 	 * @param structure
 	 *            the structure to set
 	 */
-	public void setStructure(AppartmentStructure structure) {
-		this.structure = structure;
+	public void setAppartmentStructure(AppartmentStructure appartmentStructure) {
+		this.appartmentStructure = appartmentStructure;
 	}
 
 	//// GAME METHODS
@@ -52,7 +116,7 @@ public class Appartment {
 	 * @throws SlickException
 	 */
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		structure.render(gc, sbg, g);
+		appartmentStructure.render(gc, sbg, g);
 	}
 	
 	/**
@@ -93,7 +157,7 @@ public class Appartment {
 				Camera.resetRelativePos();
 		}
 
-		structure.update(gc, sbg, delta);
+		appartmentStructure.update(gc, sbg, delta);
 	}
 
 	class ResetCamMovement extends Thread {

@@ -292,14 +292,14 @@ public abstract class Scene implements GameState {
 	 * Hide scene with fade from transparent to black
 	 */
 	public void hide() {
-		// TODO [HOTEL] HIDE fade
+		// TODO [HOTEL CLIENT] HIDE fade
 	}
 
 	/**
 	 * Show scene with fade from black to transparent
 	 */
 	public void show() {
-		// TODO [HOTEL] SHOW fade
+		// TODO [HOTEL CLIENT] SHOW fade
 	}
 
 	/**
