@@ -2,7 +2,7 @@ package com.game.zenny.zh.net.packet.disconnect;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.NetworkClient;
+import com.game.zenny.zh.net.Network;
 import com.game.zenny.zh.net.packet.Packet;
 
 public class DisconnectPacket extends Packet {
@@ -24,7 +24,7 @@ public class DisconnectPacket extends Packet {
 	}
 
 	@Override
-	public void clientReceivedAction(NetworkClient client, String fromPlayerIdentifier) {
+	public void clientReceivedAction(Network client, String fromPlayerIdentifier) {
 		return;
 	}
 

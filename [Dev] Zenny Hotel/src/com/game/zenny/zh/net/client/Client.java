@@ -4,9 +4,9 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+import com.game.zenny.zh.logger.LogType;
+import com.game.zenny.zh.logger.Logger;
 import com.game.zenny.zh.net.Bridge;
-import com.game.zenny.zh.net.logger.LogType;
-import com.game.zenny.zh.net.logger.Logger;
 import com.game.zenny.zh.net.packet.Packet;
 import com.game.zenny.zh.net.packet.PacketDestination;
 import com.game.zenny.zh.net.packet.disconnect.DisconnectPacket;

@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.NetworkClient;
+import com.game.zenny.zh.net.Network;
 
 public abstract class Packet {
 
@@ -75,7 +75,7 @@ public abstract class Packet {
 	 * @param client
 	 * @param fromPlayerIdentifier
 	 */
-	public abstract void clientReceivedAction(NetworkClient client, String fromPlayerIdentifier);
+	public abstract void clientReceivedAction(Network client, String fromPlayerIdentifier);
 
 	/**
 	 * @return the fromPlayerIdentifier

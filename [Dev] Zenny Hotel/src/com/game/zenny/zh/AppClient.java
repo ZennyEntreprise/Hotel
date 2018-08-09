@@ -10,6 +10,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
+import com.game.zenny.zh.logger.NullLogSystem;
 import com.game.zenny.zh.res.Fonts;
 import com.game.zenny.zh.res.Sprites;
 import com.game.zenny.zh.scene.Game;
@@ -160,7 +161,7 @@ public class AppClient extends StateBasedGame {
 	@Override
 	public boolean closeRequested() {
 		if (currentScene instanceof Game)
-			((Game) currentScene).getNetworkClient().disconnect();
+			((Game) currentScene).getNetwork().disconnect();
 		
 		System.exit(0);
 		return false;

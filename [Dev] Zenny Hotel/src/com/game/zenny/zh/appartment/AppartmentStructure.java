@@ -1,5 +1,6 @@
 package com.game.zenny.zh.appartment;
 
+import org.json.simple.JSONObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -105,6 +106,7 @@ public class AppartmentStructure {
 	 * @param x
 	 * @param y
 	 */
+	@SuppressWarnings("unchecked")
 	public void determineThickness(int x, int y) {
 		if (!isWalkable(x, y + 1))
 			structure[y][x].setGroundThicknessTL(true);

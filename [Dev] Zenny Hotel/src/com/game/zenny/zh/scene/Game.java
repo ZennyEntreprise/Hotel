@@ -10,14 +10,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.AppClient;
-import com.game.zenny.zh.NetworkClient;
 import com.game.zenny.zh.appartment.Appartment;
 import com.game.zenny.zh.entity.Player;
 import com.game.zenny.zh.net.Bridge;
+import com.game.zenny.zh.net.Network;
 
 public class Game extends Scene {
 
-	private NetworkClient networkClient;
+	private Network network;
 	private Player player;
 	private Appartment appartment;
 	
@@ -28,12 +28,12 @@ public class Game extends Scene {
 		super(app, AppClient.Scenes.GAME.getSceneID());
 		
 		try {
-			networkClient = new NetworkClient(this, InetAddress.getByName("localhost"), Bridge.defaultPort);
+			network = new Network(this, InetAddress.getByName("localhost"), Bridge.defaultPort);
 		} catch (SocketException | UnknownHostException e) {
 			System.exit(0);
 		}
 		
-		networkClient.connect(uuid);
+		network.connect(uuid);
 	}
 
 	@Override
@@ -69,15 +69,15 @@ public class Game extends Scene {
 	/**
 	 * @return the networkClient
 	 */
-	public NetworkClient getNetworkClient() {
-		return networkClient;
+	public Network getNetwork() {
+		return network;
 	}
 
 	/**
 	 * @param networkClient the networkClient to set
 	 */
-	public void setNetworkClient(NetworkClient networkClient) {
-		this.networkClient = networkClient;
+	public void setNetwork(Network network) {
+		this.network = network;
 	}
 
 	/**

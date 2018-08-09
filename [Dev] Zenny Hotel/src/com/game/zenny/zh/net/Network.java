@@ -1,4 +1,4 @@
-package com.game.zenny.zh;
+package com.game.zenny.zh.net;
 
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -7,7 +7,7 @@ import com.game.zenny.zh.net.client.Client;
 import com.game.zenny.zh.net.packet.Packet;
 import com.game.zenny.zh.scene.Game;
 
-public class NetworkClient extends Client {
+public class Network extends Client {
 
 	private Game game;
 	
@@ -17,7 +17,7 @@ public class NetworkClient extends Client {
 	 * @param serverPort
 	 * @throws SocketException
 	 */
-	public NetworkClient(Game game, InetAddress serverAddress, int serverPort) throws SocketException {
+	public Network(Game game, InetAddress serverAddress, int serverPort) throws SocketException {
 		super(serverAddress, serverPort);
 		
 		this.game = game;

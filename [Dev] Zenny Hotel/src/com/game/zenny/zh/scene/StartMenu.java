@@ -108,7 +108,7 @@ public class StartMenu extends Scene {
 											        } else {
 											        	try {
 															JSONObject connectionObject = (JSONObject) new JSONParser().parse(query);
-															AppClient.enterScene(new Game(getApp(), connectionObject.get("uuid").toString()), gc);
+															AppClient.enterScene(new Game(getApp(), connectionObject.get("playerIdentifier").toString()), gc);
 														} catch (ParseException e) {
 															connectInfoLabel.setText("Un problème est survenu");
 														}
@@ -200,9 +200,9 @@ public class StartMenu extends Scene {
 												
 												waitingWebServerResponse = true;
 												   
-												String query = ZennyWebQuery.query("register.php?uuid="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
-												while (query.equals("uuid already exists")) 
-													query = ZennyWebQuery.query("register.php?uuid="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
+												String query = ZennyWebQuery.query("register.php?playerIdentifier="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
+												while (query.equals("playerIdentifier already exists")) 
+													query = ZennyWebQuery.query("register.php?playerIdentifier="+UUID.randomUUID()+"&username="+registerUsernameTextField.getText()+"&password="+ZennyHash.hash256(registerPasswordTextField.getText())+"&mail="+registerMailTextField.getText());
 												
 												if (query.equals("username already exists")) {
 													registerInfoLabel.setText("Nom d'utilisateur déjà utilisé");

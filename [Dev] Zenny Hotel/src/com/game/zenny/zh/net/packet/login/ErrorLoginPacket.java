@@ -2,7 +2,7 @@ package com.game.zenny.zh.net.packet.login;
 
 import org.json.simple.JSONArray;
 
-import com.game.zenny.zh.NetworkClient;
+import com.game.zenny.zh.net.Network;
 import com.game.zenny.zh.net.exception.InvalidPacketConstructorException;
 import com.game.zenny.zh.net.packet.Packet;
 
@@ -77,7 +77,7 @@ public class ErrorLoginPacket extends Packet {
 	}
 
 	@Override
-	public void clientReceivedAction(NetworkClient client, String fromPlayerIdentifier) {
+	public void clientReceivedAction(Network client, String fromPlayerIdentifier) {
 		if (errorMessage.equalsIgnoreCase(ErrorMessage.USER_IDENTIFIER_ALREADY_EXISTS.getErrorMessage())) {
 			System.exit(0);
 		}
