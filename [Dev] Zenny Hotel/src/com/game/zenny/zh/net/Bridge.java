@@ -5,7 +5,6 @@ import java.util.Map.Entry;
 
 import com.game.zenny.zh.logger.LogType;
 import com.game.zenny.zh.logger.Logger;
-import com.game.zenny.zh.net.client.ClientReceivier;
 import com.game.zenny.zh.net.packet.Packet;
 import com.game.zenny.zh.net.packet.UnknownPacket;
 import com.game.zenny.zh.net.packet.appartment.EnterAppartmentPacket;
@@ -25,7 +24,7 @@ public abstract class Bridge {
 	private String identifier;
 	private DatagramSocket socket;
 	private Sender sender;
-	private ClientReceivier receiver;
+	private Receiver receiver;
 
 	/**
 	 * @param socket
@@ -44,7 +43,7 @@ public abstract class Bridge {
 			Logger.log(this, LogType.INFO, " - " + packet.getValue().getSimpleName());
 
 		sender = new Sender(this);
-		receiver = new ClientReceivier(this);
+		receiver = new Receiver(this);
 		receiver.start();
 	}
 
@@ -95,7 +94,7 @@ public abstract class Bridge {
 	/**
 	 * @return the receiver
 	 */
-	public ClientReceivier getReceiver() {
+	public Receiver getReceiver() {
 		return receiver;
 	}
 
@@ -103,7 +102,7 @@ public abstract class Bridge {
 	 * @param receiver
 	 *            the receiver to set
 	 */
-	public void setReceiver(ClientReceivier receiver) {
+	public void setReceiver(Receiver receiver) {
 		this.receiver = receiver;
 	}
 

@@ -1,4 +1,4 @@
-package com.game.zenny.zh.net.client;
+package com.game.zenny.zh.net;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -12,10 +12,9 @@ import org.json.simple.parser.ParseException;
 
 import com.game.zenny.zh.logger.LogType;
 import com.game.zenny.zh.logger.Logger;
-import com.game.zenny.zh.net.Bridge;
 import com.game.zenny.zh.net.packet.Packet;
 
-public class ClientReceivier extends Thread {
+public class Receiver extends Thread {
 
 	//// OBJECT
 	// -- RECEIVER
@@ -24,7 +23,7 @@ public class ClientReceivier extends Thread {
 	/**
 	 * @param bridge
 	 */
-	public ClientReceivier(Bridge bridge) {
+	public Receiver(Bridge bridge) {
 		this.bridge = bridge;
 	}
 
