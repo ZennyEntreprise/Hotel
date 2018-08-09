@@ -11,8 +11,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.Log;
 
 import com.game.zenny.zh.logger.NullLogSystem;
-import com.game.zenny.zh.res.Fonts;
-import com.game.zenny.zh.res.Sprites;
+import com.game.zenny.zh.resources.Fonts;
+import com.game.zenny.zh.resources.Sprites;
 import com.game.zenny.zh.scene.Game;
 import com.game.zenny.zh.scene.Scene;
 import com.game.zenny.zh.scene.StartMenu;

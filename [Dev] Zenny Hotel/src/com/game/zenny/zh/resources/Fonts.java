@@ -1,4 +1,4 @@
-package com.game.zenny.zh.res;
+package com.game.zenny.zh.resources;
 
 import java.awt.FontFormatException;
 import java.io.IOException;
