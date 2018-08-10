@@ -52,8 +52,8 @@ public class RemovePlayerToAppartmentPacket extends Packet {
 	}
 
 	@Override
-	public void clientReceivedAction(Network client, String fromPlayerIdentifier) {
-		client.getGame().getAppartment().removePlayer(Player.parsePlayerFromJSON(playerToRemoveJSON).getPlayerIdentifier());
+	public void clientReceivedAction(Network network, String fromPlayerIdentifier) {
+		network.getGame().getAppartment().removePlayer(Player.parsePlayerFromJSON(network, playerToRemoveJSON).getPlayerIdentifier());
 	}
 
 }

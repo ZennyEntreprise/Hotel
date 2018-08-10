@@ -75,7 +75,7 @@ public abstract class Packet {
 	 * @param client
 	 * @param fromPlayerIdentifier
 	 */
-	public abstract void clientReceivedAction(Network client, String fromPlayerIdentifier);
+	public abstract void clientReceivedAction(Network network, String fromPlayerIdentifier);
 
 	/**
 	 * @return the fromPlayerIdentifier

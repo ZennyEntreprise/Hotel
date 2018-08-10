@@ -52,8 +52,8 @@ public class AddPlayerToAppartmentPacket extends Packet {
 	}
 
 	@Override
-	public void clientReceivedAction(Network client, String fromPlayerIdentifier) {
-		client.getGame().getAppartment().addPlayer(Player.parsePlayerFromJSON(playerToAddJSON));
+	public void clientReceivedAction(Network network, String fromPlayerIdentifier) {
+		network.getGame().getAppartment().addPlayer(Player.parsePlayerFromJSON(network, playerToAddJSON));
 	}
 
 }

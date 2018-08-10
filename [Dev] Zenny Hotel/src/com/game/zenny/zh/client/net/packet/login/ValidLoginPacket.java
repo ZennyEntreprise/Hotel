@@ -54,11 +54,11 @@ public class ValidLoginPacket extends Packet {
 	}
 
 	@Override
-	public void clientReceivedAction(Network client, String fromPlayerIdentifier) {
-		Player player = Player.parsePlayerFromJSON(playerJson);
+	public void clientReceivedAction(Network network, String fromPlayerIdentifier) {
+		Player player = Player.parsePlayerFromJSON(network, playerJson);
 		
-		client.setIdentifier(player.getPlayerIdentifier());
-		client.getGame().setPlayer(player);
+		network.setIdentifier(player.getPlayerIdentifier());
+		network.getGame().setPlayer(player);
 	}
 
 }

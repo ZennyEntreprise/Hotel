@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.client.Camera;
 import com.game.zenny.zh.client.entity.Player;
+import com.game.zenny.zh.client.net.Network;
 import com.game.zenny.zh.client.util.ZennyMouse;
 
 public class Appartment {
@@ -24,7 +25,7 @@ public class Appartment {
 	 * @param appartmentJson
 	 * @return
 	 */
-	public static Appartment parseAppartmentFromJSON(String appartmentJson) {
+	public static Appartment parseAppartmentFromJSON(Network network, String appartmentJson) {
 		try {
 			JSONObject appartmentJSON = (JSONObject) new JSONParser().parse(appartmentJson);
 
@@ -36,7 +37,7 @@ public class Appartment {
 			ArrayList<Player> playersInAppartment = new ArrayList<Player>();
 			for (int i = 0; i < playersInAppartmentJSON.size(); i++) {
 				JSONObject playerInAppartmentJSON = (JSONObject) playersInAppartmentJSON.get(i);
-				playersInAppartment.add(Player.parsePlayerFromJSON(playerInAppartmentJSON.toJSONString()));
+				playersInAppartment.add(Player.parsePlayerFromJSON(network, playerInAppartmentJSON.toJSONString()));
 			}
 
 			return new Appartment(appartmentIdentifier, ownerPlayerIdentifier, appartmentName,

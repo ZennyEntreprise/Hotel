@@ -243,10 +243,9 @@ public class StartMenu extends Scene {
 	public void renderScene(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		/* HEADER */
 		
-		AppClient.getSprites().logoBig.draw(0, -AppClient.proportionalValueByHeight(240), 
+		AppClient.getSprites().logoBig.drawWithNewDimension(0, -AppClient.proportionalValueByHeight(240), 
 										 Math.round(AppClient.proportionalValueByWidth(AppClient.getSprites().logoBig.getWidth())), 
-										 Math.round(AppClient.proportionalValueByHeight(AppClient.getSprites().logoBig.getHeight())), 
-										 ZennyColor.WHITE);
+										 Math.round(AppClient.proportionalValueByHeight(AppClient.getSprites().logoBig.getHeight())));
 		
 		/* HEADER */
 	}

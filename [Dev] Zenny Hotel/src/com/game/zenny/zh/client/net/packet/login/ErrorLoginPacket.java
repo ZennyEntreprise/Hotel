@@ -77,7 +77,7 @@ public class ErrorLoginPacket extends Packet {
 	}
 
 	@Override
-	public void clientReceivedAction(Network client, String fromPlayerIdentifier) {
+	public void clientReceivedAction(Network network, String fromPlayerIdentifier) {
 		if (errorMessage.equalsIgnoreCase(ErrorMessage.USER_IDENTIFIER_ALREADY_EXISTS.getErrorMessage())) {
 			System.exit(0);
 		}
