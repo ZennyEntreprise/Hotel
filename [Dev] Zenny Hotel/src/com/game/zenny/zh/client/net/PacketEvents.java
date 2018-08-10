@@ -15,7 +15,7 @@ public class PacketEvents {
 		this.network = network;
 	}
 	
-	public void ValidLoginPacketAfter() {
+	public void ValidLoginPacketReceiverAfter() {
 		network.sendPacket(new GoIntoAppartmentPacket(Packet.buildDatasObject("default"), network.getIdentifier(), PacketDestination.TO_SERVER.getPacketDestination()));
 	}
 

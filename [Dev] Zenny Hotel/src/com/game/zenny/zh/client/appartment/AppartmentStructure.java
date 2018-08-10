@@ -1,8 +1,6 @@
 package com.game.zenny.zh.client.appartment;
 
 import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -15,21 +13,19 @@ public class AppartmentStructure {
 
 	//// STATIC
 	
-	public static AppartmentStructure parseAppartmentStructureFromJSON(String appartmentStructureJson) {
+	public static AppartmentStructure parseAppartmentStructureFromJSON(JSONArray appartmentStructureJson) {
 		try {
-			JSONArray appartmentStructureXY = (JSONArray) new JSONParser().parse(appartmentStructureJson);
+			AppartmentGroundCell[][] structure = new AppartmentGroundCell[appartmentStructureJson.size()][((JSONArray) appartmentStructureJson.get(appartmentStructureJson.size() - 1)).size()];
 			
-			AppartmentGroundCell[][] structure = new AppartmentGroundCell[appartmentStructureXY.size()][((JSONArray) appartmentStructureXY.get(appartmentStructureXY.size() - 1)).size()];
-			
-			for (int y = 0; y < appartmentStructureXY.size(); y++) {
-				JSONArray appartmentStructureY = (JSONArray) appartmentStructureXY.get(y);
+			for (int y = 0; y < appartmentStructureJson.size(); y++) {
+				JSONArray appartmentStructureY = (JSONArray) appartmentStructureJson.get(y);
 				for (int x = 0; x < appartmentStructureY.size(); x++) {
-					JSONArray cellDatas = (JSONArray) new JSONParser().parse((String) appartmentStructureY.get(x));
+					JSONArray cellDatas = (JSONArray) appartmentStructureY.get(x);
 					structure[y][x] = new AppartmentGroundCell(x, y, (boolean) cellDatas.get(0));
 				}
 			}
 			return new AppartmentStructure(structure);
-		} catch (ParseException | ClassCastException e) {
+		} catch (ClassCastException e) {
 			e.printStackTrace();
 		}
 		return null;

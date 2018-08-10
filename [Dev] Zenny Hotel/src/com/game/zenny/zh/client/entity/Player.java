@@ -54,17 +54,7 @@ public class Player {
 		this.playerCredits = playerCredits;
 	}
 
-	@SuppressWarnings("unchecked")
-	public String toJSON() {
-		JSONObject playerJSON = new JSONObject();
-		playerJSON.put("playerIdentifier", playerIdentifier);
-		playerJSON.put("playerAddress", playerAddress.getHostAddress().toString());
-		playerJSON.put("playerPort", playerPort);
-		playerJSON.put("playerUsername", playerUsername);
-		playerJSON.put("playerCredits", playerCredits);
-		
-		return playerJSON.toJSONString();
-	}
+	////GETTERS AND SETTERS
 	
 	/**
 	 * @return the playerIdentifier

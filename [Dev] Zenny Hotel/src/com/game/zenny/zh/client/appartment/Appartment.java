@@ -20,6 +20,10 @@ public class Appartment {
 
 	//// STATIC
 
+	/**
+	 * @param appartmentJson
+	 * @return
+	 */
 	public static Appartment parseAppartmentFromJSON(String appartmentJson) {
 		try {
 			JSONObject appartmentJSON = (JSONObject) new JSONParser().parse(appartmentJson);
@@ -27,7 +31,7 @@ public class Appartment {
 			String appartmentIdentifier = (String) appartmentJSON.get("appartmentIdentifer");
 			String ownerPlayerIdentifier = (String) appartmentJSON.get("ownerPlayerIdentifier");
 			String appartmentName = (String) appartmentJSON.get("appartmentName");
-			String appartmentStructure = (String) appartmentJSON.get("appartmentStructure");
+			JSONArray appartmentStructure = (JSONArray) appartmentJSON.get("appartmentStructure");
 			JSONArray playersInAppartmentJSON = (JSONArray) appartmentJSON.get("playersInAppartment");
 			ArrayList<Player> playersInAppartment = new ArrayList<Player>();
 			for (int i = 0; i < playersInAppartmentJSON.size(); i++) {
@@ -62,6 +66,18 @@ public class Appartment {
 		this.playersInAppartment = playersInAppartment;
 	}
 
+	public void addPlayer(Player player) {
+		playersInAppartment.add(player);
+	}
+	
+	public void removePlayer(String playerToRemoveIdentifier) {
+		for (Player player : playersInAppartment)
+			if (player.getPlayerIdentifier().equals(playerToRemoveIdentifier)) {
+				playersInAppartment.remove(player);
+				break;
+			}
+	}
+	
 	//// GETTERS AND SETTERS
 
 	/**
