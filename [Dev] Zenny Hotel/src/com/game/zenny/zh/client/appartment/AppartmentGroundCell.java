@@ -261,7 +261,7 @@ public class AppartmentGroundCell {
 			selected = true;
 
 			if (Mouse.isButtonDown(0)) {
-				color = ZennyColor.BEIGE.getColor().darker();
+				// TODO [HOTEL CLIENT] Move player
 			}
 		} else {
 			selected = false;

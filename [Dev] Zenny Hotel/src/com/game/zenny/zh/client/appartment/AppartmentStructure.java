@@ -2,7 +2,6 @@ package com.game.zenny.zh.client.appartment;
 
 import org.json.simple.JSONArray;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.state.StateBasedGame;
@@ -134,20 +133,6 @@ public class AppartmentStructure {
 	}
 
 	//// GAME METHODS
-
-	/**
-	 * @param gc
-	 * @param sbg
-	 * @param g
-	 * @throws SlickException
-	 */
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		for (int y = 0; y < structure.length; y++) {
-			for (int x = 0; x < structure[y].length; x++) {
-				structure[y][x].render(gc, sbg, g, new Point(getCellXCoordinate(x, y), getCellYCoordinate(x, y)));
-			}
-		}
-	}
 
 	/**
 	 * @param gc

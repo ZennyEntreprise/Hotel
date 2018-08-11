@@ -24,8 +24,8 @@ public class ZennyImage extends Image {
 	 * @param inputStream
 	 * @throws SlickException
 	 */
-	public ZennyImage(InputStream in) throws SlickException {
-		super(in, "", false);
+	public ZennyImage(InputStream in, String ref) throws SlickException {
+		super(in, ref, false);
 	}
 
 	/**

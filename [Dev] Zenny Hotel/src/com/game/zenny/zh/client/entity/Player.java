@@ -19,6 +19,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.game.zenny.zh.client.AppClient;
+import com.game.zenny.zh.client.Camera;
 import com.game.zenny.zh.client.appartment.AppartmentStructure;
 import com.game.zenny.zh.client.net.Network;
 import com.game.zenny.zh.client.util.ZennyImage;
@@ -40,7 +41,8 @@ public class Player {
 			int playerCredits = ((Long) playerJSON.get("playerCredits")).intValue();
 			String playerSkinURL = (String) playerJSON.get("playerSkinURL");
 
-			return new Player(network, playerIdentifier, playerAddress, playerPort, playerUsername, playerCredits, playerSkinURL);
+			return new Player(network, playerIdentifier, playerAddress, playerPort, playerUsername, playerCredits,
+					playerSkinURL);
 		} catch (ParseException | IOException e) {
 			e.printStackTrace();
 		}
@@ -51,23 +53,25 @@ public class Player {
 		URL url = new URL(player.getPlayerSkinURL());
 		BufferedImage image = ImageIO.read(url);
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
-		ImageIO.write(image, "gif", os);
+		ImageIO.write(image, "jpg", os);
 		InputStream is = new ByteArrayInputStream(os.toByteArray());
 
-		player.setPlayerSkin(new ZennyImage(is));
+		player.setPlayerSkin(new ZennyImage(is, player.getPlayerIdentifier()));
 	}
-	
+
 	//// OBJECT
 	// -- USER
 	private Network network;
 	private String playerIdentifier;
 	private InetAddress playerAddress;
 	private int playerPort;
+
 	private String playerUsername;
-	private int playerCredits;
 	private String playerSkinURL;
 	private ZennyImage playerSkin;
-	private int posX, posY;
+	private int playerCredits;
+	private float x, y;
+	private boolean render = false;
 
 	/**
 	 * @param playerIdentifier
@@ -76,8 +80,8 @@ public class Player {
 	 * @param playerUsername
 	 * @param playerCredits
 	 */
-	public Player(Network network, String playerIdentifier, InetAddress playerAddress, int playerPort, String playerUsername,
-			int playerCredits, String playerSkinURL) {
+	public Player(Network network, String playerIdentifier, InetAddress playerAddress, int playerPort,
+			String playerUsername, int playerCredits, String playerSkinURL) {
 		this.network = network;
 		this.playerIdentifier = playerIdentifier;
 		this.playerAddress = playerAddress;
@@ -94,15 +98,26 @@ public class Player {
 			} catch (IOException | SlickException e) {
 				e.printStackTrace();
 			}
-		
+
 		AppartmentStructure structure = network.getGame().getAppartment().getAppartmentStructure();
 		if (structure == null)
 			return;
+
+		float cX = structure.getCellXCoordinate(playerCredits, 0);
+		float cY = structure.getCellYCoordinate(playerCredits, 0);
+
+		this.x = cX;
+		this.y = cY;
 		
-		AppClient.getSprites().furnitureStand.draw(structure.getCellXCoordinate(posX, posY), structure.getCellYCoordinate(posX, posY) - 19);
-		playerSkin.drawWithNewDimension(structure.getCellXCoordinate(posX, posY), structure.getCellYCoordinate(posX, posY)-80, 66*0.6f, 132*0.6f);
+		if (network.getGame().getPlayer() == this) {
+			Camera.setX((int) cX);
+			Camera.setY((int) cY);
+		}
+		
+		AppClient.getSprites().furnitureStand.draw(cX, cY - 19);
+		playerSkin.drawWithNewDimension(cX, cY - 80, 66 * 0.6f, 132 * 0.6f);
 	}
-	
+
 	//// GETTERS AND SETTERS
 
 	/**
@@ -208,6 +223,51 @@ public class Player {
 	 */
 	public void setPlayerSkin(ZennyImage playerSkin) {
 		this.playerSkin = playerSkin;
+	}
+
+	/**
+	 * @return the x
+	 */
+	public float getX() {
+		return x;
+	}
+
+	/**
+	 * @param x
+	 *            the x to set
+	 */
+	public void setX(float x) {
+		this.x = x;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public float getY() {
+		return y;
+	}
+
+	/**
+	 * @param y
+	 *            the y to set
+	 */
+	public void setY(float y) {
+		this.y = y;
+	}
+
+	/**
+	 * @return the render
+	 */
+	public boolean isRender() {
+		return render;
+	}
+
+	/**
+	 * @param render
+	 *            the render to set
+	 */
+	public void setRender(boolean render) {
+		this.render = render;
 	}
 
 }
